@@ -1,0 +1,18 @@
+<configuration>
+    <property>
+        <name>dfs.replication</name>
+        <value>2</value>
+    </property>
+    <property>
+        <name>dfs.namenode.rpc-address</name>
+        <value>23133083thuyvan-master:9000</value>
+    </property>
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>/home/hadoop23133083thuyvan/hadoop/hadoop_data/hdfs/namenode</value>
+    </property>
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>/home/hadoop23133083thuyvan/hadoop/hadoop_data/hdfs/datanode</value>
+    </property>
+</configuration>

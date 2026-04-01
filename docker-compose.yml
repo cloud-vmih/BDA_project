@@ -1,0 +1,199 @@
+services:
+  master:
+    build: .
+    container_name: 23133083thuyvan-master
+    hostname: 23133083thuyvan-master
+    networks:
+      hadoop_net:
+        ipv4_address: 172.20.0.2
+    ports:
+      - "9870:9870"
+      - "8088:8088"
+      - "9083:9083"
+      - "9000:9000"
+    environment:
+      - HADOOP_NICENESS=0
+    volumes:
+      - ./master_config/core-site.xml:/home/hadoop23133083thuyvan/hadoop/etc/hadoop/core-site.xml
+      - ./master_config/hdfs-site.xml:/home/hadoop23133083thuyvan/hadoop/etc/hadoop/hdfs-site.xml
+      - ./master_config/mapred-site.xml:/home/hadoop23133083thuyvan/hadoop/etc/hadoop/mapred-site.xml
+      - ./master_config/yarn-site.xml:/home/hadoop23133083thuyvan/hadoop/etc/hadoop/yarn-site.xml
+      - ./master_config/workers:/home/hadoop23133083thuyvan/hadoop/etc/hadoop/workers
+      - ./master_config/hive-site.xml:/home/hadoop23133083thuyvan/hive/conf/hive-site.xml
+      - hadoop_master_data:/home/hadoop23133083thuyvan/hadoop/hadoop_data/hdfs/namenode
+
+  slave1:
+    build: .
+    container_name: 23133083thuyvan-slave1
+    hostname: 23133083thuyvan-slave1
+    networks:
+      hadoop_net:
+        ipv4_address: 172.20.0.3
+    environment:
+      - HADOOP_NICENESS=0
+    volumes:
+      - ./slave1_config/core-site.xml:/home/hadoop23133083thuyvan/hadoop/etc/hadoop/core-site.xml
+      - ./slave1_config/hdfs-site.xml:/home/hadoop23133083thuyvan/hadoop/etc/hadoop/hdfs-site.xml
+      - ./slave1_config/yarn-site.xml:/home/hadoop23133083thuyvan/hadoop/etc/hadoop/yarn-site.xml
+      - hadoop_slave1_data:/home/hadoop23133083thuyvan/hadoop/hadoop_data/hdfs/datanode
+    
+  postgres:
+    image: postgres:14
+    container_name: postgres
+    hostname: postgres
+    networks:
+      hadoop_net:
+        ipv4_address: 172.20.0.14
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  
+  airflow:
+    build: 
+      context: .
+      dockerfile: ./airflow/Dockerfile
+    container_name: airflow
+    hostname: airflow
+    networks:
+      hadoop_net:
+        ipv4_address: 172.20.0.10
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./airflow/dags:/home/airflow/airflow/dags          
+      - ./airflow/logs:/home/airflow/airflow/logs          
+      - ./airflow/plugins:/home/airflow/airflow/plugins
+      - ./airflow/airflow.cfg:/home/airflow/airflow/airflow.cfg
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__WEBSERVER__SECRET_KEY=supersecretkey123456
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://postgres:postgres@postgres:5432/airflow
+
+  trino:
+    build:
+      context: .
+      dockerfile: ./trino/Dockerfile
+    container_name: trino
+    hostname: trino
+    networks:
+      hadoop_net:
+        ipv4_address: 172.20.0.11
+    depends_on:
+      - master
+    ports:
+      - "8082:8080"
+    environment:
+      - HADOOP_CONF_DIR=/etc/trino
+    volumes:
+      - ./trino/catalog:/etc/trino/catalog
+      - ./master_config/core-site.xml:/etc/trino/core-site.xml
+      - ./master_config/hdfs-site.xml:/etc/trino/hdfs-site.xml
+  
+  superset:
+    image: apache/superset:latest
+    container_name: superset
+    hostname: superset
+    networks:
+      hadoop_net:
+        ipv4_address: 172.20.0.12
+    depends_on:
+      - trino
+    ports:
+      - "8083:8088"
+    environment:
+      - SUPERSET_SECRET_KEY=supersecretkeyforSuperset2026
+    volumes:
+      - superset_home:/app/superset_home  
+  
+  zookeeper:
+    image: bitnamilegacy/zookeeper:3.9.2
+    container_name: zookeeper
+    hostname: zookeeper
+    networks:
+      hadoop_net:
+        ipv4_address: 172.20.0.15
+    ports:
+      - "2181:2181"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    volumes:
+      - zookeeper_data:/bitnami/zookeeper 
+
+  kafka:
+    build:
+      context: .
+      dockerfile: ./kafka/Dockerfile
+    container_name: kafka
+    hostname: kafka
+    networks:
+      hadoop_net:
+        ipv4_address: 172.20.0.4
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    volumes:
+      - ./kafka/server.properties:/home/kafka/kafka/config/server.properties
+      - kafka_data:/home/kafka/kafka/data
+      - kafka_logs:/home/kafka/kafka/logs
+
+  spark-master:
+    build:
+      context: .
+      dockerfile: ./spark/Dockerfile
+    container_name: spark-master
+    hostname: spark-master
+    networks:
+      hadoop_net:
+        ipv4_address: 172.20.0.5
+    ports:
+      - "8081:8080"   # Spark Master UI
+      - "7077:7077"   # Spark Master Port
+    environment:
+      - SPARK_MODE=master
+    depends_on:
+      - master
+    volumes:
+      - ./spark/spark-defaults.conf:/home/spark/spark/conf/spark-defaults.conf
+      - ./airflow/dags/spark_jobs:/home/spark/spark/spark_jobs
+
+  spark-worker:
+    build:
+      context: .
+      dockerfile: ./spark/Dockerfile
+    container_name: spark-worker
+    hostname: spark-worker
+    networks:
+      hadoop_net:
+        ipv4_address: 172.20.0.6
+    depends_on:
+      - spark-master
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+    volumes:
+      - ./spark/spark-defaults.conf:/home/spark/spark/conf/spark-defaults.conf
+
+networks:
+  hadoop_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+volumes:
+  hadoop_master_data:
+  hadoop_slave1_data:
+  kafka_data:
+  kafka_logs:
+  postgres_data:
+  superset_home:
+  zookeeper_data:
+
