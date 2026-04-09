@@ -9,7 +9,7 @@ USER airflow
 WORKDIR /home/airflow
 
 ENV AIRFLOW_HOME=/home/airflow/airflow
-USER ROOT
+USER root
 RUN mkdir -p ${AIRFLOW_HOME} && chown airflow:airflow ${AIRFLOW_HOME}
 USER airflow
 COPY airflow/requirements.txt ${AIRFLOW_HOME}/requirements.txt

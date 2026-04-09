@@ -41,6 +41,7 @@ docker exec postgres psql -U postgres -c "CREATE DATABASE metastore;" 2>/dev/nul
 
 # Init Schema Hive
 docker exec 23133083thuyvan-master /home/hadoop23133083thuyvan/hive/bin/schematool -dbType postgres -initSchema 2>/dev/null || true
+docker exec 23133083thuyvan-master /home/hadoop23133083thuyvan/hive/bin/hive --service metastore 2>/dev/null || true
 
 # Tạo thư mục lakehouse trong HDFS
 docker exec 23133083thuyvan-master /home/hadoop23133083thuyvan/hadoop/bin/hadoop fs -mkdir -p /user/hive/lakehouse
