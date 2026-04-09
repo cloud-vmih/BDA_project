@@ -65,9 +65,10 @@ docker-compose up --build
 ### Chạy `start_all_services.sh`
 
 (CHỈ CHẠY LẦN ĐẦU) Khởi tạo Hadoop cluster với bước format lại HDFS và start Hive Metastore tự động, chạy script từ thư mục gốc dự án:
+Vào terminal của VS Code
 
 ```bash
-bash start_all_services.sh
+wsl bash ./start_all_services.sh
 ```
 
 Script sẽ:
@@ -75,13 +76,17 @@ Script sẽ:
 - xóa data HDFS cũ để đồng bộ cluster IDs
 - format NameNode
 - khởi động HDFS và YARN
-- tạo Hive warehouse 
+- tạo db metastore trên postgres
+- chạy service metastore
+- tạo Hive lakehouse
 
 ## Lưu ý quan trọng
 
 - `Dockerfile` root tải Hadoop 3.4.1, Hive 3.1.3 và Iceberg runtime `iceberg-spark-runtime-4.0_2.13:1.10.1`.
 - `spark/defaults.conf` đã cấu hình `spark.jars.packages` để Spark tự kéo gói Iceberg khi khởi động.
 - `airflow/Dockerfile` cài dependencies từ `airflow/requirements.txt`.
+- kafka phải có zookeeper, hive & superset & airflow phải có postgres
+- khi chạy service cần metastore phải đảm bảo service metastore đã được bật (chạy file start_all_services.sh )
 
 ## Các workflow hiện có
 
@@ -119,15 +124,6 @@ docker exec -it airflow bash -c '
     airflow dags trigger full_lakehouse_test_pipeline
 '
 ```
-
-## CÁC LƯU Ý QUAN TRỌNG
-
--- Khi chạy service cần metastore phải vào hive (container master) và start service trước (Vào container master)
-```bash
-hive --service metastore
-```
-
--- Start zookeeper trước kafka, postgres trước hive, spark
 
 ## Cấu hình đặc biệt
 

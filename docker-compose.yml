@@ -86,8 +86,6 @@ services:
     networks:
       hadoop_net:
         ipv4_address: 172.20.0.11
-    depends_on:
-      - master
     ports:
       - "8082:8080"
     environment:
@@ -97,8 +95,26 @@ services:
       - ./master_config/core-site.xml:/etc/trino/core-site.xml
       - ./master_config/hdfs-site.xml:/etc/trino/hdfs-site.xml
   
+  postgres_superset:
+    image: postgres:14
+    container_name: postgres_superset
+    hostname: postgres_superset
+    networks:
+      hadoop_net:
+        ipv4_address: 172.20.0.13
+    environment:
+      - POSTGRES_DB=superset
+      - POSTGRES_USER=superset
+      - POSTGRES_PASSWORD=superset123
+    volumes:
+      - postgres_superset_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
   superset:
-    image: apache/superset:latest
+    build:
+      context: ./superset
+      dockerfile: Dockerfile
     container_name: superset
     hostname: superset
     networks:
@@ -106,12 +122,15 @@ services:
         ipv4_address: 172.20.0.12
     depends_on:
       - trino
+      - postgres_superset
     ports:
       - "8083:8088"
     environment:
-      - SUPERSET_SECRET_KEY=supersecretkeyforSuperset2026
+      SUPERSET_SECRET_KEY: supersecretkeyforSuperset2026
+      SQLALCHEMY_DATABASE_URI: postgresql+psycopg2://superset:superset123@postgres_superset:5432/superset
+      SUPERSET_LOAD_EXAMPLES: "no"
     volumes:
-      - superset_home:/app/superset_home  
+      - superset_home:/app/superset_home
   
   zookeeper:
     image: bitnamilegacy/zookeeper:3.9.2
@@ -164,6 +183,7 @@ services:
     volumes:
       - ./spark/spark-defaults.conf:/home/spark/spark/conf/spark-defaults.conf
       - ./airflow/dags/spark_jobs:/home/spark/spark/spark_jobs
+      - ./spark/ML:/home/spark/spark/ML
 
   spark-worker:
     build:
@@ -196,4 +216,5 @@ volumes:
   postgres_data:
   superset_home:
   zookeeper_data:
+  postgres_superset_data:
 

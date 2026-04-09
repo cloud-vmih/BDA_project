@@ -42,12 +42,15 @@ transaction.state.log.min.isr=1
 * **Cách khắc phục:**
   1. Dùng Spark 4.0.2 trong `spark/Dockerfile`.
   2. Cấu hình Iceberg runtime đúng: `org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.1`.
-  3. Đảm bảo `spark/spark-defaults.conf` có dòng:
+  3. Đảm bảo `spark/spark-defaults.conf` có dòng: `org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.1`.
 
 ```properties
 spark.jars.packages=org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.1
 ```
+## 5. Lỗi khi tải package trino trong superset
+* **Mô tả lỗi:** Đã tải package nhưng vẫn không connect được tới trino
+* **Nguyên nhân:** Superset bản latest tự tạo môi trường ảo và chạy web UI trên đó, nên khi pip install package bên ngoài, web UI sẽ không nhận được.
+* **Cách khắc phục:**
+  1. Cài package vào /app/.venv/lib/python3.10/site-packages
 
-## TỔNG KẾT
-Kết quả của quá trình gỡ lỗi tuần tự như trên là hệ thống hiện tại đã tạo ra được một Pipeline thành công 100%: 
-**"Airflow tải dữ liệu → Đẩy vào HDFS → Spark xử lý ETL → Lưu vào Hive Metastore bằng chuẩn Iceberg Open Table Format → Trino SQL Query thành công."**
+
