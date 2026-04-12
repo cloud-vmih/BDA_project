@@ -115,7 +115,7 @@ with DAG(
             docker exec trino trino --execute "
                 SELECT 
                     count(*) as total_records
-                FROM iceberg.test_db.fact_air_quality;
+                FROM iceberg.air_quality_db.air_quality_silver;
             "
         """,
     )
