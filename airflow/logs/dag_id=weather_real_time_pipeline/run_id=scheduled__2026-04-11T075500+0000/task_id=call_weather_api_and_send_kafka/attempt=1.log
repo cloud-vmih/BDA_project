@@ -1,0 +1,470 @@
+[2026-04-11T08:00:01.706+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-04-11T08:00:01.726+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: weather_real_time_pipeline.call_weather_api_and_send_kafka scheduled__2026-04-11T07:55:00+00:00 [queued]>
+[2026-04-11T08:00:01.734+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: weather_real_time_pipeline.call_weather_api_and_send_kafka scheduled__2026-04-11T07:55:00+00:00 [queued]>
+[2026-04-11T08:00:01.734+0000] {taskinstance.py:2866} INFO - Starting attempt 1 of 3
+[2026-04-11T08:00:01.747+0000] {taskinstance.py:2889} INFO - Executing <Task(PythonOperator): call_weather_api_and_send_kafka> on 2026-04-11 07:55:00+00:00
+[2026-04-11T08:00:01.754+0000] {standard_task_runner.py:104} INFO - Running: ['airflow', 'tasks', 'run', 'weather_real_time_pipeline', 'call_weather_api_and_send_kafka', 'scheduled__2026-04-11T07:55:00+00:00', '--job-id', '122', '--raw', '--subdir', 'DAGS_FOLDER/weather_pipeline_dag.py', '--cfg-path', '/tmp/tmpm7rfquez']
+[2026-04-11T08:00:01.755+0000] {standard_task_runner.py:105} INFO - Job 122: Subtask call_weather_api_and_send_kafka
+[2026-04-11T08:00:01.761+0000] {logging_mixin.py:190} WARNING - /home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=38664) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-04-11T08:00:01.761+0000] {standard_task_runner.py:72} INFO - Started process 38682 to run task
+[2026-04-11T08:00:01.825+0000] {task_command.py:467} INFO - Running <TaskInstance: weather_real_time_pipeline.call_weather_api_and_send_kafka scheduled__2026-04-11T07:55:00+00:00 [running]> on host airflow
+[2026-04-11T08:00:01.949+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='van' AIRFLOW_CTX_DAG_ID='weather_real_time_pipeline' AIRFLOW_CTX_TASK_ID='call_weather_api_and_send_kafka' AIRFLOW_CTX_EXECUTION_DATE='2026-04-11T07:55:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-04-11T07:55:00+00:00'
+[2026-04-11T08:00:01.950+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2026-04-11T08:00:11.854+0000] {logging_mixin.py:190} INFO - ❌ Error: HTTPSConnectionPool(host='api.open-meteo.com', port=443): Read timed out. (read timeout=10)
+[2026-04-11T08:00:11.855+0000] {python.py:240} INFO - Done. Returned value was: False
+[2026-04-11T08:00:11.895+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2026-04-11T08:00:11.896+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=weather_real_time_pipeline, task_id=call_weather_api_and_send_kafka, run_id=scheduled__2026-04-11T07:55:00+00:00, execution_date=20260411T075500, start_date=20260411T080001, end_date=20260411T080011
+[2026-04-11T08:00:11.916+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-04-11T08:00:11.938+0000] {taskinstance.py:3895} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-04-11T08:00:11.940+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2026-04-11T08:01:28.515+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-04-11T08:01:28.545+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: weather_real_time_pipeline.call_weather_api_and_send_kafka scheduled__2026-04-11T07:55:00+00:00 [queued]>
+[2026-04-11T08:01:28.557+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: weather_real_time_pipeline.call_weather_api_and_send_kafka scheduled__2026-04-11T07:55:00+00:00 [queued]>
+[2026-04-11T08:01:28.557+0000] {taskinstance.py:2866} INFO - Starting attempt 1 of 3
+[2026-04-11T08:01:28.573+0000] {taskinstance.py:2889} INFO - Executing <Task(PythonOperator): call_weather_api_and_send_kafka> on 2026-04-11 07:55:00+00:00
+[2026-04-11T08:01:28.589+0000] {standard_task_runner.py:104} INFO - Running: ['airflow', 'tasks', 'run', 'weather_real_time_pipeline', 'call_weather_api_and_send_kafka', 'scheduled__2026-04-11T07:55:00+00:00', '--job-id', '123', '--raw', '--subdir', 'DAGS_FOLDER/weather_pipeline_dag.py', '--cfg-path', '/tmp/tmp_48sw1be']
+[2026-04-11T08:01:28.592+0000] {standard_task_runner.py:105} INFO - Job 123: Subtask call_weather_api_and_send_kafka
+[2026-04-11T08:01:28.593+0000] {logging_mixin.py:190} WARNING - /home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=42878) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-04-11T08:01:28.594+0000] {standard_task_runner.py:72} INFO - Started process 42894 to run task
+[2026-04-11T08:01:28.698+0000] {task_command.py:467} INFO - Running <TaskInstance: weather_real_time_pipeline.call_weather_api_and_send_kafka scheduled__2026-04-11T07:55:00+00:00 [running]> on host airflow
+[2026-04-11T08:01:28.812+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='van' AIRFLOW_CTX_DAG_ID='weather_real_time_pipeline' AIRFLOW_CTX_TASK_ID='call_weather_api_and_send_kafka' AIRFLOW_CTX_EXECUTION_DATE='2026-04-11T07:55:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-04-11T07:55:00+00:00'
+[2026-04-11T08:01:28.813+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2026-04-11T08:01:29.765+0000] {logging_mixin.py:190} INFO - 📡 Fetched weather data: {'timestamp': '2026-04-11T08:01:29.764565', 'location': 'Ho Chi Minh City', 'latitude': 10.8231, 'longitude': 106.6297, 'time': '2026-04-11T08:00', 'interval': 3600, 'temperature_2m': 35.6, 'relative_humidity_2m': 43, 'apparent_temperature': 39.7, 'precipitation': 0.0, 'cloud_cover': 56, 'wind_speed_10m': 5.6, 'wind_direction_10m': 207, 'wind_gusts_10m': 14.4, 'uv_index': 6.55, 'weather_code': 2, 'european_aqi': 65, 'us_aqi': 72, 'pm10': 23.9, 'pm2_5': 22.6, 'carbon_monoxide': 341.0, 'nitrogen_dioxide': 9.5, 'sulphur_dioxide': 7.5, 'ozone': 157.0}
+[2026-04-11T08:01:43.525+0000] {local_task_job_runner.py:346} WARNING - State of this instance has been externally set to queued. Terminating instance.
+[2026-04-11T08:01:43.525+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2026-04-11T08:01:43.527+0000] {process_utils.py:132} INFO - Sending 15 to group 42894. PIDs of all processes in the group: [42894]
+[2026-04-11T08:01:43.528+0000] {process_utils.py:87} INFO - Sending the signal 15 to group 42894
+[2026-04-11T08:01:43.528+0000] {taskinstance.py:3093} ERROR - Received SIGTERM. Terminating subprocesses.
+[2026-04-11T08:01:43.544+0000] {taskinstance.py:3311} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/dags/weather_kafka_producer.py", line 55, in call_openmeteo
+    producer.flush()
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/kafka/producer/kafka.py", line 652, in flush
+    self._accumulator.await_flush_completion(timeout=timeout)
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/kafka/producer/record_accumulator.py", line 526, in await_flush_completion
+    if not batch.produce_future.wait(timeout=timeout):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/kafka/producer/future.py", line 26, in wait
+    return self._latch.wait(timeout) or self._latch.is_set()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/threading.py", line 655, in wait
+    signaled = self._cond.wait(timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/threading.py", line 355, in wait
+    waiter.acquire()
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3095, in signal_handler
+    raise AirflowTaskTerminated("Task received SIGTERM signal")
+airflow.exceptions.AirflowTaskTerminated: Task received SIGTERM signal
+[2026-04-11T08:01:43.555+0000] {taskinstance.py:1225} INFO - Marking task as UP_FOR_RETRY. dag_id=weather_real_time_pipeline, task_id=call_weather_api_and_send_kafka, run_id=scheduled__2026-04-11T07:55:00+00:00, execution_date=20260411T075500, start_date=, end_date=20260411T080143
+[2026-04-11T08:01:43.567+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2026-04-11T08:01:43.568+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 123 for task call_weather_api_and_send_kafka ((psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "dag_run_dag_id_execution_date_key"
+DETAIL:  Key (dag_id, execution_date)=(weather_real_time_pipeline, 2026-04-11 07:55:00+00) already exists.
+
+[SQL: INSERT INTO dag_run (id, dag_id, queued_at, execution_date, start_date, end_date, state, run_id, creating_job_id, external_trigger, run_type, conf, data_interval_start, data_interval_end, last_scheduling_decision, dag_hash, log_template_id, updated_at, clear_number) VALUES (%(id)s, %(dag_id)s, %(queued_at)s, %(execution_date)s, %(start_date)s, %(end_date)s, %(state)s, %(run_id)s, %(creating_job_id)s, %(external_trigger)s, %(run_type)s, %(conf)s, %(data_interval_start)s, %(data_interval_end)s, %(last_scheduling_decision)s, %(dag_hash)s, %(log_template_id)s, %(updated_at)s, %(clear_number)s)]
+[parameters: {'id': 67, 'dag_id': 'weather_real_time_pipeline', 'queued_at': datetime.datetime(2026, 4, 11, 8, 1, 28, 148613, tzinfo=Timezone('UTC')), 'execution_date': datetime.datetime(2026, 4, 11, 7, 55, tzinfo=Timezone('UTC')), 'start_date': datetime.datetime(2026, 4, 11, 8, 1, 28, 161189, tzinfo=Timezone('UTC')), 'end_date': None, 'state': 'running', 'run_id': 'scheduled__2026-04-11T07:55:00+00:00', 'creating_job_id': 112, 'external_trigger': False, 'run_type': 'scheduled', 'conf': <psycopg2.extensions.Binary object at 0x74ae90963e40>, 'data_interval_start': datetime.datetime(2026, 4, 11, 7, 55, tzinfo=Timezone('UTC')), 'data_interval_end': datetime.datetime(2026, 4, 11, 8, 0, tzinfo=Timezone('UTC')), 'last_scheduling_decision': datetime.datetime(2026, 4, 11, 8, 1, 28, 233806, tzinfo=Timezone('UTC')), 'dag_hash': '8c1d8cdeed027b7a849499640fff1768', 'log_template_id': 1, 'updated_at': datetime.datetime(2026, 4, 11, 8, 1, 28, 258531, tzinfo=Timezone('UTC')), 'clear_number': 0}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj); 42894)
+Traceback (most recent call last):
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 273, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3159, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3183, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/dags/weather_kafka_producer.py", line 55, in call_openmeteo
+    producer.flush()
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/kafka/producer/kafka.py", line 652, in flush
+    self._accumulator.await_flush_completion(timeout=timeout)
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/kafka/producer/record_accumulator.py", line 526, in await_flush_completion
+    if not batch.produce_future.wait(timeout=timeout):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/kafka/producer/future.py", line 26, in wait
+    return self._latch.wait(timeout) or self._latch.is_set()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/threading.py", line 655, in wait
+    signaled = self._cond.wait(timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/threading.py", line 355, in wait
+    waiter.acquire()
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3095, in signal_handler
+    raise AirflowTaskTerminated("Task received SIGTERM signal")
+airflow.exceptions.AirflowTaskTerminated: Task received SIGTERM signal
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "dag_run_dag_id_execution_date_key"
+DETAIL:  Key (dag_id, execution_date)=(weather_real_time_pipeline, 2026-04-11 07:55:00+00) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3005, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 327, in _run_raw_task
+    ti.handle_failure(e, test_mode, context, session=session)
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/session.py", line 94, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3428, in handle_failure
+    _handle_failure(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/session.py", line 94, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/api_internal/internal_api_call.py", line 166, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 1243, in _handle_failure
+    TaskInstance.save_to_db(failure_context["ti"], session)
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/api_internal/internal_api_call.py", line 166, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/session.py", line 94, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3400, in save_to_db
+    session.flush()
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 3449, in flush
+    self._flush(objects)
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 3588, in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 3549, in _flush
+    flush_context.execute()
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py", line 456, in execute
+    rec.execute(self)
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py", line 630, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py", line 245, in save_obj
+    _emit_insert_statements(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py", line 1097, in _emit_insert_statements
+    c = connection._execute_20(
+        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1710, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "dag_run_dag_id_execution_date_key"
+DETAIL:  Key (dag_id, execution_date)=(weather_real_time_pipeline, 2026-04-11 07:55:00+00) already exists.
+
+[SQL: INSERT INTO dag_run (id, dag_id, queued_at, execution_date, start_date, end_date, state, run_id, creating_job_id, external_trigger, run_type, conf, data_interval_start, data_interval_end, last_scheduling_decision, dag_hash, log_template_id, updated_at, clear_number) VALUES (%(id)s, %(dag_id)s, %(queued_at)s, %(execution_date)s, %(start_date)s, %(end_date)s, %(state)s, %(run_id)s, %(creating_job_id)s, %(external_trigger)s, %(run_type)s, %(conf)s, %(data_interval_start)s, %(data_interval_end)s, %(last_scheduling_decision)s, %(dag_hash)s, %(log_template_id)s, %(updated_at)s, %(clear_number)s)]
+[parameters: {'id': 67, 'dag_id': 'weather_real_time_pipeline', 'queued_at': datetime.datetime(2026, 4, 11, 8, 1, 28, 148613, tzinfo=Timezone('UTC')), 'execution_date': datetime.datetime(2026, 4, 11, 7, 55, tzinfo=Timezone('UTC')), 'start_date': datetime.datetime(2026, 4, 11, 8, 1, 28, 161189, tzinfo=Timezone('UTC')), 'end_date': None, 'state': 'running', 'run_id': 'scheduled__2026-04-11T07:55:00+00:00', 'creating_job_id': 112, 'external_trigger': False, 'run_type': 'scheduled', 'conf': <psycopg2.extensions.Binary object at 0x74ae90963e40>, 'data_interval_start': datetime.datetime(2026, 4, 11, 7, 55, tzinfo=Timezone('UTC')), 'data_interval_end': datetime.datetime(2026, 4, 11, 8, 0, tzinfo=Timezone('UTC')), 'last_scheduling_decision': datetime.datetime(2026, 4, 11, 8, 1, 28, 233806, tzinfo=Timezone('UTC')), 'dag_hash': '8c1d8cdeed027b7a849499640fff1768', 'log_template_id': 1, 'updated_at': datetime.datetime(2026, 4, 11, 8, 1, 28, 258531, tzinfo=Timezone('UTC')), 'clear_number': 0}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+[2026-04-11T08:01:43.592+0000] {process_utils.py:80} INFO - Process psutil.Process(pid=42894, status='terminated', exitcode=1) (42894) terminated with exit code 1
+[2026-04-11T08:01:45.899+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-04-11T08:01:45.922+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: weather_real_time_pipeline.call_weather_api_and_send_kafka scheduled__2026-04-11T07:55:00+00:00 [queued]>
+[2026-04-11T08:01:45.931+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: weather_real_time_pipeline.call_weather_api_and_send_kafka scheduled__2026-04-11T07:55:00+00:00 [queued]>
+[2026-04-11T08:01:45.931+0000] {taskinstance.py:2866} INFO - Starting attempt 1 of 3
+[2026-04-11T08:01:45.945+0000] {taskinstance.py:2889} INFO - Executing <Task(PythonOperator): call_weather_api_and_send_kafka> on 2026-04-11 07:55:00+00:00
+[2026-04-11T08:01:45.951+0000] {standard_task_runner.py:104} INFO - Running: ['airflow', 'tasks', 'run', 'weather_real_time_pipeline', 'call_weather_api_and_send_kafka', 'scheduled__2026-04-11T07:55:00+00:00', '--job-id', '124', '--raw', '--subdir', 'DAGS_FOLDER/weather_pipeline_dag.py', '--cfg-path', '/tmp/tmpxe__twnx']
+[2026-04-11T08:01:45.952+0000] {standard_task_runner.py:105} INFO - Job 124: Subtask call_weather_api_and_send_kafka
+[2026-04-11T08:01:45.955+0000] {logging_mixin.py:190} WARNING - /home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=43739) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-04-11T08:01:45.955+0000] {standard_task_runner.py:72} INFO - Started process 43757 to run task
+[2026-04-11T08:01:46.032+0000] {task_command.py:467} INFO - Running <TaskInstance: weather_real_time_pipeline.call_weather_api_and_send_kafka scheduled__2026-04-11T07:55:00+00:00 [running]> on host airflow
+[2026-04-11T08:01:46.127+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='van' AIRFLOW_CTX_DAG_ID='weather_real_time_pipeline' AIRFLOW_CTX_TASK_ID='call_weather_api_and_send_kafka' AIRFLOW_CTX_EXECUTION_DATE='2026-04-11T07:55:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-04-11T07:55:00+00:00'
+[2026-04-11T08:01:46.128+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2026-04-11T08:01:48.090+0000] {logging_mixin.py:190} INFO - 📡 Fetched weather data: {'timestamp': '2026-04-11T08:01:48.089666', 'location': 'Ho Chi Minh City', 'latitude': 10.8231, 'longitude': 106.6297, 'time': '2026-04-11T08:00', 'interval': 3600, 'temperature_2m': 35.6, 'relative_humidity_2m': 43, 'apparent_temperature': 39.7, 'precipitation': 0.0, 'cloud_cover': 56, 'wind_speed_10m': 5.6, 'wind_direction_10m': 207, 'wind_gusts_10m': 14.4, 'uv_index': 6.55, 'weather_code': 2, 'european_aqi': 65, 'us_aqi': 72, 'pm10': 23.9, 'pm2_5': 22.6, 'carbon_monoxide': 341.0, 'nitrogen_dioxide': 9.5, 'sulphur_dioxide': 7.5, 'ozone': 157.0}
+[2026-04-11T08:06:45.861+0000] {conn.py:362} INFO - <BrokerConnection node_id=1 host=kafka:9092 <connecting> [IPv4 ('172.20.0.4', 9092)]>: connecting to kafka:9092 [('172.20.0.4', 9092) IPv4]
+[2026-04-11T08:06:45.862+0000] {conn.py:393} INFO - <BrokerConnection node_id=1 host=kafka:9092 <connecting> [IPv4 ('172.20.0.4', 9092)]>: Connection complete.
+[2026-04-11T08:06:45.863+0000] {conn.py:673} INFO - <BrokerConnection node_id=bootstrap-0 host=kafka:9092 <connected> [IPv4 ('172.20.0.4', 9092)]>: Closing connection. 
+[2026-04-11T08:09:43.226+0000] {local_task_job_runner.py:346} WARNING - State of this instance has been externally set to None. Terminating instance.
+[2026-04-11T08:09:43.227+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2026-04-11T08:09:43.230+0000] {process_utils.py:132} INFO - Sending 15 to group 43757. PIDs of all processes in the group: [43757]
+[2026-04-11T08:09:43.231+0000] {process_utils.py:87} INFO - Sending the signal 15 to group 43757
+[2026-04-11T08:09:43.231+0000] {taskinstance.py:3093} ERROR - Received SIGTERM. Terminating subprocesses.
+[2026-04-11T08:09:43.254+0000] {taskinstance.py:3311} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/dags/weather_kafka_producer.py", line 55, in call_openmeteo
+    producer.send(TOPIC, value=payload)
+    ^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/kafka/producer/kafka.py", line 652, in flush
+    self._accumulator.await_flush_completion(timeout=timeout)
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/kafka/producer/record_accumulator.py", line 526, in await_flush_completion
+    if not batch.produce_future.wait(timeout=timeout):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/kafka/producer/future.py", line 26, in wait
+    return self._latch.wait(timeout) or self._latch.is_set()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/threading.py", line 655, in wait
+    signaled = self._cond.wait(timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/threading.py", line 355, in wait
+    waiter.acquire()
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3095, in signal_handler
+    raise AirflowTaskTerminated("Task received SIGTERM signal")
+airflow.exceptions.AirflowTaskTerminated: Task received SIGTERM signal
+[2026-04-11T08:09:43.263+0000] {taskinstance.py:1225} INFO - Marking task as UP_FOR_RETRY. dag_id=weather_real_time_pipeline, task_id=call_weather_api_and_send_kafka, run_id=scheduled__2026-04-11T07:55:00+00:00, execution_date=20260411T075500, start_date=20260411T080145, end_date=20260411T080943
+[2026-04-11T08:09:43.276+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2026-04-11T08:09:43.277+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 124 for task call_weather_api_and_send_kafka ((psycopg2.errors.ForeignKeyViolation) insert or update on table "task_fail" violates foreign key constraint "task_fail_ti_fkey"
+DETAIL:  Key (dag_id, task_id, run_id, map_index)=(weather_real_time_pipeline, call_weather_api_and_send_kafka, scheduled__2026-04-11T07:55:00+00:00, -1) is not present in table "task_instance".
+
+[SQL: INSERT INTO task_fail (task_id, dag_id, run_id, map_index, start_date, end_date, duration) VALUES (%(task_id)s, %(dag_id)s, %(run_id)s, %(map_index)s, %(start_date)s, %(end_date)s, %(duration)s) RETURNING task_fail.id]
+[parameters: {'task_id': 'call_weather_api_and_send_kafka', 'dag_id': 'weather_real_time_pipeline', 'run_id': 'scheduled__2026-04-11T07:55:00+00:00', 'map_index': -1, 'start_date': datetime.datetime(2026, 4, 11, 8, 1, 45, 923524, tzinfo=Timezone('UTC')), 'end_date': datetime.datetime(2026, 4, 11, 8, 9, 43, 263201, tzinfo=Timezone('UTC')), 'duration': 477}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj); 43757)
+Traceback (most recent call last):
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 273, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3159, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3183, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/dags/weather_kafka_producer.py", line 55, in call_openmeteo
+    producer.send(TOPIC, value=payload)
+    ^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/kafka/producer/kafka.py", line 652, in flush
+    self._accumulator.await_flush_completion(timeout=timeout)
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/kafka/producer/record_accumulator.py", line 526, in await_flush_completion
+    if not batch.produce_future.wait(timeout=timeout):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/kafka/producer/future.py", line 26, in wait
+    return self._latch.wait(timeout) or self._latch.is_set()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/threading.py", line 655, in wait
+    signaled = self._cond.wait(timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/threading.py", line 355, in wait
+    waiter.acquire()
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3095, in signal_handler
+    raise AirflowTaskTerminated("Task received SIGTERM signal")
+airflow.exceptions.AirflowTaskTerminated: Task received SIGTERM signal
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.ForeignKeyViolation: insert or update on table "task_fail" violates foreign key constraint "task_fail_ti_fkey"
+DETAIL:  Key (dag_id, task_id, run_id, map_index)=(weather_real_time_pipeline, call_weather_api_and_send_kafka, scheduled__2026-04-11T07:55:00+00:00, -1) is not present in table "task_instance".
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3005, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 327, in _run_raw_task
+    ti.handle_failure(e, test_mode, context, session=session)
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/session.py", line 94, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3428, in handle_failure
+    _handle_failure(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/session.py", line 94, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/api_internal/internal_api_call.py", line 166, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 1243, in _handle_failure
+    TaskInstance.save_to_db(failure_context["ti"], session)
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/api_internal/internal_api_call.py", line 166, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/session.py", line 94, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3400, in save_to_db
+    session.flush()
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 3449, in flush
+    self._flush(objects)
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 3588, in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 3549, in _flush
+    flush_context.execute()
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py", line 456, in execute
+    rec.execute(self)
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py", line 630, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py", line 245, in save_obj
+    _emit_insert_statements(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py", line 1238, in _emit_insert_statements
+    result = connection._execute_20(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1710, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.ForeignKeyViolation) insert or update on table "task_fail" violates foreign key constraint "task_fail_ti_fkey"
+DETAIL:  Key (dag_id, task_id, run_id, map_index)=(weather_real_time_pipeline, call_weather_api_and_send_kafka, scheduled__2026-04-11T07:55:00+00:00, -1) is not present in table "task_instance".
+
+[SQL: INSERT INTO task_fail (task_id, dag_id, run_id, map_index, start_date, end_date, duration) VALUES (%(task_id)s, %(dag_id)s, %(run_id)s, %(map_index)s, %(start_date)s, %(end_date)s, %(duration)s) RETURNING task_fail.id]
+[parameters: {'task_id': 'call_weather_api_and_send_kafka', 'dag_id': 'weather_real_time_pipeline', 'run_id': 'scheduled__2026-04-11T07:55:00+00:00', 'map_index': -1, 'start_date': datetime.datetime(2026, 4, 11, 8, 1, 45, 923524, tzinfo=Timezone('UTC')), 'end_date': datetime.datetime(2026, 4, 11, 8, 9, 43, 263201, tzinfo=Timezone('UTC')), 'duration': 477}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+[2026-04-11T08:09:43.298+0000] {process_utils.py:80} INFO - Process psutil.Process(pid=43757, status='terminated', exitcode=1) (43757) terminated with exit code 1
