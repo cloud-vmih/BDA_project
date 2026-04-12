@@ -4,7 +4,6 @@ from airflow.operators.bash import BashOperator
 from datetime import datetime, timedelta
 import subprocess
 
-# Import hàm gọi API của bạn
 from weather_kafka_producer import call_openmeteo
 
 default_args = {

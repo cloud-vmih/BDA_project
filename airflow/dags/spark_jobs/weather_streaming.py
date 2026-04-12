@@ -21,6 +21,8 @@ schema = StructType([
     StructField("location", StringType(), True),
     StructField("latitude", DoubleType(), True),
     StructField("longitude", DoubleType(), True),
+    StructField("country", StringType(), True),
+    StructField("condition_text", StringType(), True),
     StructField("timezone", StringType(), True),
     StructField("temperature_2m", DoubleType(), True),
     StructField("relative_humidity_2m", DoubleType(), True),
@@ -43,13 +45,19 @@ schema = StructType([
 ])
 
 # Tạo table Iceberg
-spark.sql("CREATE SCHEMA IF NOT EXISTS iceberg.air_quality_db")
+spark.sql("""
+    CREATE SCHEMA IF NOT EXISTS iceberg.air_quality_db
+    LOCATION 'hdfs://23133083thuyvan-master:9000/user/hive/lakehouse/silver/'
+""")
+print("Iceberg schema 'iceberg.air_quality_db' ready!")
 spark.sql("""
     CREATE TABLE IF NOT EXISTS iceberg.air_quality_db.air_quality_silver (
         timestamp TIMESTAMP,
         location STRING,
         latitude DOUBLE,
         longitude DOUBLE,
+        country STRING,
+        condition_text STRING,
         timezone STRING,
         temperature_2m DOUBLE,
         relative_humidity_2m DOUBLE,
@@ -74,6 +82,7 @@ spark.sql("""
         processing_time TIMESTAMP,
         data_source STRING
     ) USING iceberg
+    PARTITIONED BY (days(timestamp), location)
     TBLPROPERTIES ('format-version' = '2')
 """)
 print("Iceberg table 'weather_real_time' ready!")
@@ -134,7 +143,10 @@ def write_to_bronze_and_silver(batch_df, batch_id):
         )
         silver_df = silver_df.withColumn("timestamp", 
             window(col("timestamp"), "15 minutes").start
-        )
+        ) \
+            .withColumn("country", lit("Vietnam")) \
+            .withColumn("condition_text", lit("unknown"))
+
         # Tạo view tạm cho Batch hiện tại
         silver_df.createOrReplaceTempView("current_batch")
 

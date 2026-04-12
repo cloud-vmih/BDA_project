@@ -62,10 +62,11 @@ hoặc nếu dùng Docker Compose cũ:
 docker-compose up --build
 ```
 
-### Chạy `start_all_services.sh`
+### Chạy `init_all_services.sh` và `start_all_services.sh`
 
-(CHỈ CHẠY LẦN ĐẦU) Khởi tạo Hadoop cluster với bước format lại HDFS và start Hive Metastore tự động, chạy script từ thư mục gốc dự án:
-Vào terminal của VS Code
+```bash
+wsl bash ./init_all_services.sh
+```
 
 ```bash
 wsl bash ./start_all_services.sh
