@@ -3,7 +3,7 @@ from pyspark.sql.functions import *
 import sys
 
 
-bronze_path = "hdfs://23133083thuyvan-master:9000/user/hive/warehouse/bronze/raw_kaggle/GlobalWeatherRepository.csv"
+bronze_path = "hdfs://23133083thuyvan-master:9000/user/hive/lakehouse/bronze/raw_kaggle/GlobalWeatherRepository.csv"
 
 spark = SparkSession.builder \
     .appName("ETL_Kaggle_to_Silver") \
