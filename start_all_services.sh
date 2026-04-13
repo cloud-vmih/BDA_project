@@ -3,8 +3,11 @@ echo "=== Script Khởi động Cluster An Toàn ==="
 
 # 1. Khởi động HDFS và YARN
 echo "1. Khởi động HDFS (NameNode trên Master, DataNode trên Slave)..."
+# 1. Khởi động HDFS và YARN
+echo "1. Khởi động HDFS (NameNode trên Master, DataNode trên Slave)..."
 docker exec 23133083thuyvan-master /home/hadoop23133083thuyvan/hadoop/sbin/start-dfs.sh
 
+echo "2. Khởi động YARN (ResourceManager và NodeManager)..."
 echo "2. Khởi động YARN (ResourceManager và NodeManager)..."
 docker exec 23133083thuyvan-master /home/hadoop23133083thuyvan/hadoop/sbin/start-yarn.sh
 

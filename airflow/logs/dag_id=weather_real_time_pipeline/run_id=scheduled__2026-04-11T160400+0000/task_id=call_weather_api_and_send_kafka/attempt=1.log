@@ -1,0 +1,26 @@
+[2026-04-11T16:06:00.611+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-04-11T16:06:00.641+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: weather_real_time_pipeline.call_weather_api_and_send_kafka scheduled__2026-04-11T16:04:00+00:00 [queued]>
+[2026-04-11T16:06:00.651+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: weather_real_time_pipeline.call_weather_api_and_send_kafka scheduled__2026-04-11T16:04:00+00:00 [queued]>
+[2026-04-11T16:06:00.652+0000] {taskinstance.py:2866} INFO - Starting attempt 1 of 2
+[2026-04-11T16:06:00.673+0000] {taskinstance.py:2889} INFO - Executing <Task(PythonOperator): call_weather_api_and_send_kafka> on 2026-04-11 16:04:00+00:00
+[2026-04-11T16:06:00.682+0000] {logging_mixin.py:190} WARNING - /home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=113009) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-04-11T16:06:00.682+0000] {standard_task_runner.py:104} INFO - Running: ['airflow', 'tasks', 'run', 'weather_real_time_pipeline', 'call_weather_api_and_send_kafka', 'scheduled__2026-04-11T16:04:00+00:00', '--job-id', '209', '--raw', '--subdir', 'DAGS_FOLDER/weather_pipeline_dag.py', '--cfg-path', '/tmp/tmpg6kgqjzf']
+[2026-04-11T16:06:00.683+0000] {standard_task_runner.py:72} INFO - Started process 113029 to run task
+[2026-04-11T16:06:00.684+0000] {standard_task_runner.py:105} INFO - Job 209: Subtask call_weather_api_and_send_kafka
+[2026-04-11T16:06:00.769+0000] {task_command.py:467} INFO - Running <TaskInstance: weather_real_time_pipeline.call_weather_api_and_send_kafka scheduled__2026-04-11T16:04:00+00:00 [running]> on host airflow
+[2026-04-11T16:06:00.899+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='weather_real_time_pipeline' AIRFLOW_CTX_TASK_ID='call_weather_api_and_send_kafka' AIRFLOW_CTX_EXECUTION_DATE='2026-04-11T16:04:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-04-11T16:04:00+00:00'
+[2026-04-11T16:06:00.900+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2026-04-11T16:06:00.973+0000] {conn.py:362} INFO - <BrokerConnection node_id=bootstrap-0 host=kafka:9092 <connecting> [IPv4 ('172.20.0.4', 9092)]>: connecting to kafka:9092 [('172.20.0.4', 9092) IPv4]
+[2026-04-11T16:06:00.974+0000] {conn.py:393} INFO - <BrokerConnection node_id=bootstrap-0 host=kafka:9092 <connecting> [IPv4 ('172.20.0.4', 9092)]>: Connection complete.
+[2026-04-11T16:06:06.381+0000] {logging_mixin.py:190} INFO - Fetched weather data: {'timestamp': '2026-04-11T16:06:06.381474', 'location': 'Ho Chi Minh City', 'latitude': 10.8231, 'longitude': 106.6297, 'time': '2026-04-11T16:00', 'interval': 3600, 'temperature_2m': 26.9, 'relative_humidity_2m': 81, 'apparent_temperature': 31.4, 'precipitation': 0.0, 'cloud_cover': 33, 'wind_speed_10m': 7.9, 'wind_direction_10m': 156, 'wind_gusts_10m': 17.3, 'uv_index': 0.0, 'weather_code': 1, 'european_aqi': 56, 'us_aqi': 75, 'pm10': 23.7, 'pm2_5': 21.5, 'carbon_monoxide': 368.0, 'nitrogen_dioxide': 33.0, 'sulphur_dioxide': 11.8, 'ozone': 38.0}
+[2026-04-11T16:06:06.385+0000] {conn.py:362} INFO - <BrokerConnection node_id=1 host=kafka:9092 <connecting> [IPv4 ('172.20.0.4', 9092)]>: connecting to kafka:9092 [('172.20.0.4', 9092) IPv4]
+[2026-04-11T16:06:06.385+0000] {conn.py:393} INFO - <BrokerConnection node_id=1 host=kafka:9092 <connecting> [IPv4 ('172.20.0.4', 9092)]>: Connection complete.
+[2026-04-11T16:06:06.386+0000] {conn.py:673} INFO - <BrokerConnection node_id=bootstrap-0 host=kafka:9092 <connected> [IPv4 ('172.20.0.4', 9092)]>: Closing connection. 
+[2026-04-11T16:06:06.392+0000] {logging_mixin.py:190} INFO - [2026-04-11 16:06:06.392228] Sent weather data to Kafka
+[2026-04-11T16:06:06.393+0000] {conn.py:673} INFO - <BrokerConnection node_id=1 host=kafka:9092 <connected> [IPv4 ('172.20.0.4', 9092)]>: Closing connection. 
+[2026-04-11T16:06:06.393+0000] {python.py:240} INFO - Done. Returned value was: True
+[2026-04-11T16:06:06.433+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2026-04-11T16:06:06.434+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=weather_real_time_pipeline, task_id=call_weather_api_and_send_kafka, run_id=scheduled__2026-04-11T16:04:00+00:00, execution_date=20260411T160400, start_date=20260411T160600, end_date=20260411T160606
+[2026-04-11T16:06:06.458+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-04-11T16:06:06.484+0000] {taskinstance.py:3895} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-04-11T16:06:06.486+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
