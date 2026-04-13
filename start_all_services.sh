@@ -19,9 +19,9 @@ docker exec 23133083thuyvan-master /home/hadoop23133083thuyvan/hadoop/bin/hadoop
 docker exec 23133083thuyvan-master /home/hadoop23133083thuyvan/hadoop/bin/hadoop fs -chmod -R 777 /user
 
 # Cấp quyền rwx cho mọi user hiện tại và tương lai trên thư mục lakehouse
-docker exec 23133083thuyvan-master hdfs dfs -setfacl -m default:user::rwx,default:group::rwx,default:other::rwx /user/hive
+docker exec 23133083thuyvan-master hdfs dfs -setfacl -m default:user::rwx,default:group::rwx,default:other::rwx /user/hive/lakehouse
 # Kiểm tra lại xem đã có các dòng "default" chưa
-docker exec 23133083thuyvan-master hdfs dfs -getfacl /user/hive
+docker exec 23133083thuyvan-master hdfs dfs -getfacl /user/hive/lakehouse
 
 # . Khởi động Hive Metastore
 echo "3. Khởi động Hive Metastore trên Master..."

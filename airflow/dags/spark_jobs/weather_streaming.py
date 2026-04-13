@@ -82,7 +82,7 @@ spark.sql("""
         processing_time TIMESTAMP,
         data_source STRING
     ) USING iceberg
-    PARTITIONED BY (days(timestamp), location)
+    PARTITIONED BY (days(timestamp))
     TBLPROPERTIES ('format-version' = '2')
 """)
 print("Iceberg table 'weather_real_time' ready!")

@@ -1,9 +1,12 @@
+from datetime import datetime
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
-import sys
 from pyspark.sql.functions import max as spark_max
 
-bronze_path = "hdfs://23133083thuyvan-master:9000/user/hive/lakehouse/bronze/raw_kaggle/GlobalWeatherRepository.csv"
+# Cấu hình đường dẫn
+start_date = datetime.now()
+BRONZE_PATH = f"hdfs://23133083thuyvan-master:9000/user/hive/lakehouse/bronze/raw_kaggle/{start_date.strftime('%Y-%m-%d')}/GlobalWeatherRepository.csv"
+TABLE_NAME = "iceberg.air_quality_db.air_quality_silver"
 
 spark = SparkSession.builder \
     .appName("ETL_Kaggle_to_Silver") \
@@ -14,98 +17,105 @@ spark = SparkSession.builder \
     .config("spark.sql.catalog.iceberg.warehouse", "hdfs://23133083thuyvan-master:9000/user/hive/lakehouse") \
     .getOrCreate()
 
-# Đọc từ Bronze
-print(f"Đọc dữ liệu Bronze từ: {bronze_path}")
-df = spark.read \
-    .option("header", "true") \
-    .option("inferSchema", "true") \
-    .csv(bronze_path)
+print("Driver Memory:", spark.conf.get("spark.driver.memory"))
+print("Executor Memory:", spark.conf.get("spark.executor.memory"))
+print("Shuffle Partitions:", spark.conf.get("spark.sql.shuffle.partitions"))
 
-
-# Nếu bảng tồn tại → lấy max timestamp
-table_name = "iceberg.air_quality_db.air_quality_silver"
-
-if spark.catalog.tableExists(table_name):
-    max_time = spark.read.table(table_name) \
+# 1. Lấy Max Timestamp TRƯỚC khi đọc dữ liệu nặng để tránh chiếm dụng RAM sớm
+max_time = None
+if spark.catalog.tableExists(TABLE_NAME):
+    max_time = spark.table(TABLE_NAME) \
         .filter(col("data_source") == "kaggle") \
-        .agg(spark_max("timestamp")) \
+        .select(spark_max("timestamp")) \
         .collect()[0][0]
-    print(f"Max timestamp trong silver: {max_time}")
-else:
-    max_time = None
+    print(f"Max timestamp nguồn Kaggle: {max_time}")
 
+# 2. Đọc dữ liệu (Chỉ chọn các cột cần thiết ngay từ đầu để tiết kiệm RAM)
+df = spark.read.option("header", "true").option("inferSchema", "true").csv(BRONZE_PATH)
+
+# Chuyển đổi timestamp sớm để filter
 df = df.withColumn("last_updated", col("last_updated").cast("timestamp"))
 
 if max_time:
     df = df.filter(col("last_updated") > lit(max_time))
 
-df = df.drop(
-    "sunrise", "sunset", "last_updated_epoch",
-    "moonrise", "moonset",
-    "moon_phase", "moon_illumination", "wind_direction",
-    "temperature_fahrenheit", "wind_mph", "pressure_mb", "pressure_in", "precip_in", "feels_like_fahrenheit", "visibility_km", "visibility_miles", "gust_mph"
+# 3. Mapping cột & Ép kiểu trong 1 lần Select duy nhất (Giảm overhead)
+# Cách này giúp Spark không phải tạo nhiều DataFrame trung gian
+df_clean = df.select(
+    col("last_updated").alias("timestamp"),
+    col("location_name").alias("location"),
+    col("latitude").cast("double"),
+    col("longitude").cast("double"),
+    col("country"),
+    col("condition_text"),
+    col("timezone"),
+    col("temperature_celsius").cast("double").alias("temperature_2m"),
+    col("humidity").cast("double").alias("relative_humidity_2m"),
+    col("feels_like_celsius").cast("double").alias("apparent_temperature"),
+    col("precip_mm").cast("double").alias("precipitation"),
+    col("cloud").cast("double").alias("cloud_cover"),
+    col("wind_kph").cast("double").alias("wind_speed_10m"),
+    col("wind_degree").cast("double").alias("wind_direction_10m"),
+    col("gust_kph").cast("double").alias("wind_gusts_10m"),
+    col("uv_index").cast("double"),
+    lit(1).alias("weather_code"),
+    col("air_quality_gb-defra-index").cast("int").alias("european_aqi"),
+    col("air_quality_us-epa-index").cast("int").alias("us_aqi"),
+    col("air_quality_us-epa-index").cast("int").alias("us_aqi_index"),
+    col("air_quality_PM10").cast("double").alias("pm10"),
+    col("`air_quality_PM2.5`").cast("double").alias("pm2_5"),
+    col("air_quality_Carbon_Monoxide").cast("double").alias("carbon_monoxide"),
+    col("air_quality_Nitrogen_dioxide").cast("double").alias("nitrogen_dioxide"),
+    col("air_quality_Sulphur_dioxide").cast("double").alias("sulphur_dioxide"),
+    col("air_quality_Ozone").cast("double").alias("ozone"),
+    current_timestamp().alias("processing_time"),
+    lit("kaggle").alias("data_source")
 )
 
-df = df \
-    .withColumnRenamed("air_quality_PM2.5", "pm2_5") \
-    .withColumnRenamed("air_quality_PM10", "pm10") \
-    .withColumnRenamed("air_quality_Carbon_Monoxide", "carbon_monoxide") \
-    .withColumnRenamed("air_quality_Nitrogen_dioxide", "nitrogen_dioxide") \
-    .withColumnRenamed("air_quality_Sulphur_dioxide", "sulphur_dioxide") \
-    .withColumnRenamed("air_quality_Ozone", "ozone") \
-    .withColumnRenamed("air_quality_us-epa-index", "us_aqi_index") \
-    .withColumnRenamed("air_quality_gb-defra-index", "european_aqi") \
-    .withColumnRenamed("last_updated", "timestamp") \
-    .withColumnRenamed("location_name", "location") \
-    .withColumnRenamed("temperature_celsius", "temperature_2m") \
-    .withColumnRenamed("humidity", "relative_humidity_2m") \
-    .withColumnRenamed("feels_like_celsius", "apparent_temperature") \
-    .withColumnRenamed("precip_mm", "precipitation") \
-    .withColumnRenamed("cloud", "cloud_cover") \
-    .withColumnRenamed("wind_kph", "wind_speed_10m") \
-    .withColumnRenamed("wind_degree", "wind_direction_10m") \
-    .withColumnRenamed("gust_kph", "wind_gusts_10m") 
-    
+# 4. Clean & Thêm nhãn (Kết hợp filter để loại bỏ rác sớm)
+aqi_map = {1: "Tốt", 2: "Trung bình", 3: "Kém (nhạy cảm)", 4: "Xấu", 5: "Rất xấu"}
+label_logic = when(col("us_aqi_index") == 1, aqi_map[1])
+for k, v in list(aqi_map.items())[1:]:
+    label_logic = label_logic.when(col("us_aqi_index") == k, v)
+label_logic = label_logic.otherwise("Nguy hại")
 
-cols = ["pm2_5","pm10","carbon_monoxide","nitrogen_dioxide",
-        "sulphur_dioxide","ozone","temperature_2m","relative_humidity_2m","apparent_temperature",
-        "precipitation","cloud_cover","wind_speed_10m","wind_direction_10m","wind_gusts_10m"]
+thresholds = {
+    "pm2_5": 1000.0,
+    "pm10": 1500.0,
+    "wind_speed_10m": 250.0, # Ép ngưỡng gió về mức thực tế (km/h)
+    "wind_gusts_10m": 350.0,
+    "temperature_2m": 60.0,   # Nhiệt độ không quá 60 độ C
+    "relative_humidity_2m": 100.0,
+    "carbon_monoxide": 100.0,
+    "nitrogen_dioxide": 500.0,
+    "sulphur_dioxide": 500.0,
+    "ozone": 500.0,
+    "cloud_cover": 100.0,
+}
 
-for c in cols:
-    if c in df.columns:
-        df = df.withColumn(c, col(c).cast("double"))
+# Áp dụng lọc trước khi ghi vào Silver
+df_clean = df_clean.dropna(subset=["pm2_5", "pm10", "us_aqi_index", "sulphur_dioxide", "ozone", "carbon_monoxide"])
 
-# Transform đơn giản
-df_clean = df \
-    .dropDuplicates() \
-    .dropna(subset=["pm2_5","pm10","us_aqi_index", "carbon_monoxide","nitrogen_dioxide","sulphur_dioxide","ozone"]) 
+# 1. Lọc giá trị âm và các giá trị cực đoan phi lý (Outliers)
 df_clean = df_clean.filter(
-    (col("pm2_5") >= 0) &
-    (col("pm10") >= 0) &
-    (col("us_aqi_index") >= 0) &
-    (col("carbon_monoxide") >= 0) &
-    (col("nitrogen_dioxide") >= 0) &
-    (col("sulphur_dioxide") >= 0) &
-    (col("ozone") >= 0)
+    (col("pm2_5").between(0, thresholds["pm2_5"])) &
+    (col("pm10").between(0, thresholds["pm10"])) &
+    (col("us_aqi_index").between(0, 6)) & # AQI Index chỉ có 6 mức
+    (col("wind_speed_10m").between(0, thresholds["wind_speed_10m"])) &
+    (col("temperature_2m").between(-50, thresholds["temperature_2m"])) &
+    (col("relative_humidity_2m").between(0, 100)) &
+    (col("carbon_monoxide").between(0, thresholds["carbon_monoxide"])) &
+    (col("nitrogen_dioxide").between(0, thresholds["nitrogen_dioxide"])) &
+    (col("sulphur_dioxide").between(0, thresholds["sulphur_dioxide"])) &
+    (col("ozone").between(0, thresholds["ozone"])) &
+    (col("cloud_cover").between(0, thresholds["cloud_cover"]))
 )
 
-# Thêm nhãn mô tả cho thang đo để sau này làm Dashboard cho dễ
-df_clean = df_clean.withColumn("aqi_label", 
-    when(col("us_aqi_index") == 1, "Tốt")
-    .when(col("us_aqi_index") == 2, "Trung bình")
-    .when(col("us_aqi_index") == 3, "Kém (nhạy cảm)")
-    .when(col("us_aqi_index") == 4, "Xấu")
-    .when(col("us_aqi_index") == 5, "Rất xấu")
-    .otherwise("Nguy hại")
-)
+# 2. Thêm nhãn và loại trùng như cũ
+df_clean = df_clean.withColumn("aqi_label", label_logic) \
+    .dropDuplicates(["timestamp", "location"])
 
-df_clean = df_clean \
-    .withColumn("processing_time", current_timestamp()) \
-    .withColumn("data_source", lit("kaggle")) \
-    .withColumn("timestamp", to_timestamp(col("timestamp"))) \
-    .withColumn("weather_code", lit(1)) \
-    .withColumn("us_aqi", col("us_aqi_index")) 
-
+# 5. Đảm bảo Schema chuẩn cuối cùng
 target_schema = [
     "timestamp", "location", "latitude", "longitude", "country", 
     "condition_text", "timezone", "temperature_2m", "relative_humidity_2m", 
@@ -115,28 +125,20 @@ target_schema = [
     "carbon_monoxide", "nitrogen_dioxide", "sulphur_dioxide", "ozone", 
     "processing_time", "data_source"
 ]
-
 df_clean = df_clean.select(*target_schema)
 
-spark.sql("""
-    CREATE SCHEMA IF NOT EXISTS iceberg.air_quality_db
-    LOCATION 'hdfs://23133083thuyvan-master:9000/user/hive/lakehouse/silver/'
-""")
-
-# Ghi vào Silver (Iceberg)
-table_name = "iceberg.air_quality_db.air_quality_silver"
-if not spark.catalog.tableExists(table_name):
-    print(f"Tạo Iceberg table mới: {table_name}")
-    df_clean.writeTo(table_name) \
+# 6. Ghi dữ liệu
+if not spark.catalog.tableExists(TABLE_NAME):
+    # Tạo Schema nếu chưa có
+    spark.sql(f"CREATE SCHEMA IF NOT EXISTS iceberg.air_quality_db LOCATION 'hdfs://23133083thuyvan-master:9000/user/hive/lakehouse/silver/'")
+    
+    df_clean.writeTo(TABLE_NAME) \
         .tableProperty("format-version", "2") \
-        .partitionedBy("days(timestamp)", "location") \
+        .partitionedBy(days("timestamp")) \
         .create()
-    print(f"Bảng {table_name} đã được tạo và dữ liệu đã được ghi.")
 else:
-    print(f"Bảng đã tồn tại, append dữ liệu vào {table_name}")
-    df_clean.writeTo(table_name) \
-        .tableProperty("format-version", "2") \
+    df_clean.sortWithinPartitions("timestamp") \
+        .writeTo(TABLE_NAME) \
         .append()
-    print(f"Dữ liệu đã được append vào {table_name}.")
-print("ETL from Bronze to Silver completed!")
+
 spark.stop()

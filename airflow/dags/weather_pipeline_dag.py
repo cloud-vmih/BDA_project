@@ -58,10 +58,12 @@ with DAG(
         task_id='start_spark_streaming_job',
         bash_command="""
             docker exec spark-master spark-submit \
+                --master spark://spark-master:7077 \
                 --packages org.apache.spark:spark-sql-kafka-0-10_2.13:4.0.0,org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.1 \
                 /home/spark/spark/spark_jobs/weather_streaming.py
         """.strip(),
     )
+    
 
     # Thiết lập phụ thuộc
     task_check_spark >> task_start_spark 

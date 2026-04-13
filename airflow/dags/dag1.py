@@ -65,10 +65,11 @@ with DAG(
                 if not hdfs_ready:
                     raise Exception("HDFS không sẵn sàng sau 5 lần thử")
                 
+                start_date = datetime.now()
                 # Upload lên HDFS
                 subprocess.run([
                     "docker", "exec", "23133083thuyvan-master",
-                    "hdfs", "dfs", "-mkdir", "-p", "/user/hive/lakehouse/bronze/raw_kaggle"
+                    "hdfs", "dfs", "-mkdir", "-p", f"/user/hive/lakehouse/bronze/raw_kaggle/{start_date.strftime('%Y-%m-%d')}"
                 ], check=True)
                 
                 # Copy file từ Airflow container sang Hadoop master container
@@ -78,7 +79,7 @@ with DAG(
                 ], check=True)
                 print(f"Đã copy file vào Hadoop master: {remote_tmp}")
                 
-                hdfs_path = "/user/hive/lakehouse/bronze/raw_kaggle/GlobalWeatherRepository.csv"
+                hdfs_path = f"/user/hive/lakehouse/bronze/raw_kaggle/{start_date.strftime('%Y-%m-%d')}/GlobalWeatherRepository.csv"
                 
                 subprocess.run([
                     "docker", "exec", "23133083thuyvan-master",
@@ -102,6 +103,7 @@ with DAG(
         task_id='spark_etl_bronze_to_silver',
         bash_command="""
             docker exec spark-master spark-submit \
+                --master spark://spark-master:7077 \
                 --packages org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.1 \
                 /home/spark/spark/spark_jobs/dag1_elt.py {{ ds }}
         """,
