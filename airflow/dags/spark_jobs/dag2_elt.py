@@ -117,7 +117,8 @@ dim_date_new = df_silver.select(
     dayofmonth("timestamp").alias("day"),
     month("timestamp").alias("month"),
     year("timestamp").alias("year"),
-    hour("timestamp").alias("hour")
+    hour("timestamp").alias("hour"),
+    minute("timestamp").alias("minute")
 ).dropDuplicates()
 
 dim_date_new = dim_date_new.withColumn("date_id", 
@@ -170,7 +171,7 @@ merge_dim(
 
 
 fact = df_silver \
-    .withColumn("date_id", abs(hash("timestamp"))) \
+    .withColumn("date_id", (year("full_date")*1000000 + month("full_date")*10000 + dayofmonth("full_date")*100 + hour("full_date")*60 + minute("full_date"))) \
     .withColumn("location_id", abs(hash("location", "country", "latitude", "longitude"))) \
     .withColumn("weather_id", abs(hash("condition_text", "temperature", "humidity", "uv_index", "cloud_cover", "precipitation"))) \
     .withColumn("wind_id", abs(hash("wind_speed", "wind_degree", "gust")))
@@ -181,6 +182,7 @@ fact_aqi = fact.select(
     col("location_id"),
     col("weather_id"),
     col("wind_id"),
+    col("timestamp"),
     col("pm2_5").alias("pm25"),
     col("pm10"),
     col("no2"),
@@ -196,6 +198,7 @@ fact_aqi = fact.select(
 if not spark.catalog.tableExists("iceberg.dwh.fact_aqi"):
         print(f"Creating table iceberg.dwh.fact_aqi for the first time...")
         fact_aqi.writeTo("iceberg.dwh.fact_aqi") \
+            .partitionedBy(days("timestamp")) \
             .tableProperty("format-version", "2") \
             .create()
 else:

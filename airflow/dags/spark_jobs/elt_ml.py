@@ -1,7 +1,7 @@
 from curses.ascii import TAB
 
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, current_timestamp, hour, dayofweek, max
+from pyspark.sql.functions import col, current_timestamp, day, days, hour, dayofweek, max
 
 spark = SparkSession.builder \
     .appName("Silver_to_Gold") \
@@ -77,7 +77,7 @@ if not spark.catalog.tableExists(table_name):
     print(f"Tạo Iceberg table mới: {table_name}")
     df_gold.writeTo(table_name) \
         .tableProperty("format-version", "2") \
-        .partitionedBy("day_of_week") \
+        .partitionedBy(days("timestamp")) \
         .create()
     print(f"Bảng {table_name} đã được tạo và dữ liệu đã được ghi.")
 else:
