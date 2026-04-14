@@ -1,0 +1,218 @@
+[2026-04-13T13:00:02.500+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-04-13T13:00:02.591+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: predict_aqi.wait_for_silver_data scheduled__2026-04-13T12:00:00+00:00 [queued]>
+[2026-04-13T13:00:02.606+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: predict_aqi.wait_for_silver_data scheduled__2026-04-13T12:00:00+00:00 [queued]>
+[2026-04-13T13:00:02.607+0000] {taskinstance.py:2866} INFO - Starting attempt 1 of 3
+[2026-04-13T13:00:02.630+0000] {taskinstance.py:2889} INFO - Executing <Task(BashSensor): wait_for_silver_data> on 2026-04-13 12:00:00+00:00
+[2026-04-13T13:00:02.640+0000] {standard_task_runner.py:104} INFO - Running: ['airflow', 'tasks', 'run', 'predict_aqi', 'wait_for_silver_data', 'scheduled__2026-04-13T12:00:00+00:00', '--job-id', '130', '--raw', '--subdir', 'DAGS_FOLDER/dag_ml.py', '--cfg-path', '/tmp/tmp0tp1_nof']
+[2026-04-13T13:00:02.641+0000] {standard_task_runner.py:105} INFO - Job 130: Subtask wait_for_silver_data
+[2026-04-13T13:00:02.646+0000] {logging_mixin.py:190} WARNING - /home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=8626) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-04-13T13:00:02.647+0000] {standard_task_runner.py:72} INFO - Started process 8751 to run task
+[2026-04-13T13:00:02.789+0000] {task_command.py:467} INFO - Running <TaskInstance: predict_aqi.wait_for_silver_data scheduled__2026-04-13T12:00:00+00:00 [running]> on host airflow
+[2026-04-13T13:00:02.931+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='predict_aqi' AIRFLOW_CTX_TASK_ID='wait_for_silver_data' AIRFLOW_CTX_EXECUTION_DATE='2026-04-13T12:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-04-13T12:00:00+00:00'
+[2026-04-13T13:00:02.936+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2026-04-13T13:00:02.999+0000] {bash.py:72} INFO - Tmp dir root location: /tmp
+[2026-04-13T13:00:03.003+0000] {bash.py:80} INFO - Temporary script location: /tmp/airflowtmpbyu15kh0//tmp/airflowtmpbyu15kh0/wait_for_silver_data1xjsq46i
+[2026-04-13T13:00:03.004+0000] {bash.py:81} INFO - Running command: 
+        count=$(docker exec trino trino --execute "
+            SELECT COUNT(*) FROM iceberg.air_quality_db.air_quality_silver;
+        " | tail -n 1 | tr -d '"[:space:]')
+
+        echo "Record count: $count"
+
+        if [ "$count" -gt 0 ]; then
+            exit 0
+        else
+            exit 1
+        fi
+        
+[2026-04-13T13:00:03.019+0000] {bash.py:93} INFO - Output:
+[2026-04-13T13:00:27.454+0000] {bash.py:95} INFO - Query 20260413_130007_00000_eriqv failed: Failed connecting to Hive metastore: [23133083thuyvan-master:9083]
+[2026-04-13T13:00:27.455+0000] {bash.py:95} INFO - 
+[2026-04-13T13:00:27.492+0000] {bash.py:95} INFO - Record count:
+[2026-04-13T13:00:27.493+0000] {bash.py:95} INFO - /tmp/airflowtmpbyu15kh0/wait_for_silver_data1xjsq46i: line 8: [: : integer expression expected
+[2026-04-13T13:00:27.500+0000] {bash.py:97} INFO - Command exited with return code 1
+[2026-04-13T13:00:27.500+0000] {bash.py:113} INFO - Non-zero return code and no retry code set, will retry later
+[2026-04-13T13:00:57.502+0000] {bash.py:72} INFO - Tmp dir root location: /tmp
+[2026-04-13T13:00:57.505+0000] {bash.py:80} INFO - Temporary script location: /tmp/airflowtmpfatxg17v//tmp/airflowtmpfatxg17v/wait_for_silver_dataerx4794o
+[2026-04-13T13:00:57.505+0000] {bash.py:81} INFO - Running command: 
+        count=$(docker exec trino trino --execute "
+            SELECT COUNT(*) FROM iceberg.air_quality_db.air_quality_silver;
+        " | tail -n 1 | tr -d '"[:space:]')
+
+        echo "Record count: $count"
+
+        if [ "$count" -gt 0 ]; then
+            exit 0
+        else
+            exit 1
+        fi
+        
+[2026-04-13T13:00:57.513+0000] {bash.py:93} INFO - Output:
+[2026-04-13T13:01:17.819+0000] {bash.py:95} INFO - Query 20260413_130059_00002_eriqv failed: Failed connecting to Hive metastore: [23133083thuyvan-master:9083]
+[2026-04-13T13:01:17.820+0000] {bash.py:95} INFO - 
+[2026-04-13T13:01:17.843+0000] {bash.py:95} INFO - Record count:
+[2026-04-13T13:01:17.844+0000] {bash.py:95} INFO - /tmp/airflowtmpfatxg17v/wait_for_silver_dataerx4794o: line 8: [: : integer expression expected
+[2026-04-13T13:01:17.844+0000] {bash.py:97} INFO - Command exited with return code 1
+[2026-04-13T13:01:17.845+0000] {bash.py:113} INFO - Non-zero return code and no retry code set, will retry later
+[2026-04-13T13:01:47.843+0000] {bash.py:72} INFO - Tmp dir root location: /tmp
+[2026-04-13T13:01:47.845+0000] {bash.py:80} INFO - Temporary script location: /tmp/airflowtmp_pg6026_//tmp/airflowtmp_pg6026_/wait_for_silver_dataknk0e_6x
+[2026-04-13T13:01:47.845+0000] {bash.py:81} INFO - Running command: 
+        count=$(docker exec trino trino --execute "
+            SELECT COUNT(*) FROM iceberg.air_quality_db.air_quality_silver;
+        " | tail -n 1 | tr -d '"[:space:]')
+
+        echo "Record count: $count"
+
+        if [ "$count" -gt 0 ]; then
+            exit 0
+        else
+            exit 1
+        fi
+        
+[2026-04-13T13:01:47.855+0000] {bash.py:93} INFO - Output:
+[2026-04-13T13:02:07.658+0000] {bash.py:95} INFO - Query 20260413_130149_00005_eriqv failed: Failed connecting to Hive metastore: [23133083thuyvan-master:9083]
+[2026-04-13T13:02:07.658+0000] {bash.py:95} INFO - 
+[2026-04-13T13:02:07.686+0000] {bash.py:95} INFO - Record count:
+[2026-04-13T13:02:07.687+0000] {bash.py:95} INFO - /tmp/airflowtmp_pg6026_/wait_for_silver_dataknk0e_6x: line 8: [: : integer expression expected
+[2026-04-13T13:02:07.688+0000] {bash.py:97} INFO - Command exited with return code 1
+[2026-04-13T13:02:07.688+0000] {bash.py:113} INFO - Non-zero return code and no retry code set, will retry later
+[2026-04-13T13:02:37.687+0000] {bash.py:72} INFO - Tmp dir root location: /tmp
+[2026-04-13T13:02:37.689+0000] {bash.py:80} INFO - Temporary script location: /tmp/airflowtmphir71dfz//tmp/airflowtmphir71dfz/wait_for_silver_data0gsg2z01
+[2026-04-13T13:02:37.689+0000] {bash.py:81} INFO - Running command: 
+        count=$(docker exec trino trino --execute "
+            SELECT COUNT(*) FROM iceberg.air_quality_db.air_quality_silver;
+        " | tail -n 1 | tr -d '"[:space:]')
+
+        echo "Record count: $count"
+
+        if [ "$count" -gt 0 ]; then
+            exit 0
+        else
+            exit 1
+        fi
+        
+[2026-04-13T13:02:37.700+0000] {bash.py:93} INFO - Output:
+[2026-04-13T13:02:57.736+0000] {bash.py:95} INFO - Query 20260413_130239_00006_eriqv failed: Failed connecting to Hive metastore: [23133083thuyvan-master:9083]
+[2026-04-13T13:02:57.737+0000] {bash.py:95} INFO - 
+[2026-04-13T13:02:57.757+0000] {bash.py:95} INFO - Record count:
+[2026-04-13T13:02:57.758+0000] {bash.py:95} INFO - /tmp/airflowtmphir71dfz/wait_for_silver_data0gsg2z01: line 8: [: : integer expression expected
+[2026-04-13T13:02:57.758+0000] {bash.py:97} INFO - Command exited with return code 1
+[2026-04-13T13:02:57.759+0000] {bash.py:113} INFO - Non-zero return code and no retry code set, will retry later
+[2026-04-13T13:03:27.758+0000] {bash.py:72} INFO - Tmp dir root location: /tmp
+[2026-04-13T13:03:27.760+0000] {bash.py:80} INFO - Temporary script location: /tmp/airflowtmp_j7t2w1z//tmp/airflowtmp_j7t2w1z/wait_for_silver_datanidb0shh
+[2026-04-13T13:03:27.761+0000] {bash.py:81} INFO - Running command: 
+        count=$(docker exec trino trino --execute "
+            SELECT COUNT(*) FROM iceberg.air_quality_db.air_quality_silver;
+        " | tail -n 1 | tr -d '"[:space:]')
+
+        echo "Record count: $count"
+
+        if [ "$count" -gt 0 ]; then
+            exit 0
+        else
+            exit 1
+        fi
+        
+[2026-04-13T13:03:27.769+0000] {bash.py:93} INFO - Output:
+[2026-04-13T13:03:47.635+0000] {bash.py:95} INFO - Query 20260413_130329_00008_eriqv failed: Failed connecting to Hive metastore: [23133083thuyvan-master:9083]
+[2026-04-13T13:03:47.636+0000] {bash.py:95} INFO - 
+[2026-04-13T13:03:47.659+0000] {bash.py:95} INFO - Record count:
+[2026-04-13T13:03:47.660+0000] {bash.py:95} INFO - /tmp/airflowtmp_j7t2w1z/wait_for_silver_datanidb0shh: line 8: [: : integer expression expected
+[2026-04-13T13:03:47.661+0000] {bash.py:97} INFO - Command exited with return code 1
+[2026-04-13T13:03:47.662+0000] {bash.py:113} INFO - Non-zero return code and no retry code set, will retry later
+[2026-04-13T13:04:17.659+0000] {bash.py:72} INFO - Tmp dir root location: /tmp
+[2026-04-13T13:04:17.666+0000] {bash.py:80} INFO - Temporary script location: /tmp/airflowtmppegoqlal//tmp/airflowtmppegoqlal/wait_for_silver_datar50z6ju8
+[2026-04-13T13:04:17.668+0000] {bash.py:81} INFO - Running command: 
+        count=$(docker exec trino trino --execute "
+            SELECT COUNT(*) FROM iceberg.air_quality_db.air_quality_silver;
+        " | tail -n 1 | tr -d '"[:space:]')
+
+        echo "Record count: $count"
+
+        if [ "$count" -gt 0 ]; then
+            exit 0
+        else
+            exit 1
+        fi
+        
+[2026-04-13T13:04:17.684+0000] {bash.py:93} INFO - Output:
+[2026-04-13T13:04:39.186+0000] {bash.py:95} INFO - Record count: 100
+[2026-04-13T13:04:39.188+0000] {bash.py:97} INFO - Command exited with return code 0
+[2026-04-13T13:04:39.195+0000] {base.py:336} INFO - Success criteria met. Exiting.
+[2026-04-13T13:04:39.657+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2026-04-13T13:04:39.672+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=predict_aqi, task_id=wait_for_silver_data, run_id=scheduled__2026-04-13T12:00:00+00:00, execution_date=20260413T120000, start_date=20260413T130002, end_date=20260413T130439
+[2026-04-13T13:04:39.877+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-04-13T13:04:40.181+0000] {taskinstance.py:3895} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-04-13T13:04:40.188+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2026-04-13T13:23:47.264+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-04-13T13:23:47.427+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: predict_aqi.wait_for_silver_data scheduled__2026-04-13T12:00:00+00:00 [queued]>
+[2026-04-13T13:23:47.452+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: predict_aqi.wait_for_silver_data scheduled__2026-04-13T12:00:00+00:00 [queued]>
+[2026-04-13T13:23:47.453+0000] {taskinstance.py:2866} INFO - Starting attempt 1 of 3
+[2026-04-13T13:23:47.484+0000] {taskinstance.py:2889} INFO - Executing <Task(BashSensor): wait_for_silver_data> on 2026-04-13 12:00:00+00:00
+[2026-04-13T13:23:47.501+0000] {standard_task_runner.py:104} INFO - Running: ['airflow', 'tasks', 'run', 'predict_aqi', 'wait_for_silver_data', 'scheduled__2026-04-13T12:00:00+00:00', '--job-id', '140', '--raw', '--subdir', 'DAGS_FOLDER/dag_ml.py', '--cfg-path', '/tmp/tmpch603alm']
+[2026-04-13T13:23:47.503+0000] {standard_task_runner.py:105} INFO - Job 140: Subtask wait_for_silver_data
+[2026-04-13T13:23:47.507+0000] {logging_mixin.py:190} WARNING - /home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=35077) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-04-13T13:23:47.508+0000] {standard_task_runner.py:72} INFO - Started process 35108 to run task
+[2026-04-13T13:23:47.637+0000] {task_command.py:467} INFO - Running <TaskInstance: predict_aqi.wait_for_silver_data scheduled__2026-04-13T12:00:00+00:00 [running]> on host airflow
+[2026-04-13T13:23:47.776+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='predict_aqi' AIRFLOW_CTX_TASK_ID='wait_for_silver_data' AIRFLOW_CTX_EXECUTION_DATE='2026-04-13T12:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-04-13T12:00:00+00:00'
+[2026-04-13T13:23:47.780+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2026-04-13T13:23:47.888+0000] {bash.py:72} INFO - Tmp dir root location: /tmp
+[2026-04-13T13:23:47.898+0000] {bash.py:80} INFO - Temporary script location: /tmp/airflowtmp5iesszdm//tmp/airflowtmp5iesszdm/wait_for_silver_data308mr1jn
+[2026-04-13T13:23:47.898+0000] {bash.py:81} INFO - Running command: 
+        count=$(docker exec trino trino --execute "
+            SELECT COUNT(*) FROM iceberg.air_quality_db.air_quality_silver;
+        " | tail -n 1 | tr -d '"[:space:]')
+
+        echo "Record count: $count"
+
+        if [ "$count" -gt 0 ]; then
+            exit 0
+        else
+            exit 1
+        fi
+        
+[2026-04-13T13:23:47.952+0000] {bash.py:93} INFO - Output:
+[2026-04-13T13:23:53.094+0000] {bash.py:95} INFO - Record count: 100
+[2026-04-13T13:23:53.095+0000] {bash.py:97} INFO - Command exited with return code 0
+[2026-04-13T13:23:53.097+0000] {base.py:336} INFO - Success criteria met. Exiting.
+[2026-04-13T13:23:53.120+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2026-04-13T13:23:53.121+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=predict_aqi, task_id=wait_for_silver_data, run_id=scheduled__2026-04-13T12:00:00+00:00, execution_date=20260413T120000, start_date=20260413T132347, end_date=20260413T132353
+[2026-04-13T13:23:53.158+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-04-13T13:23:53.213+0000] {taskinstance.py:3895} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-04-13T13:23:53.218+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2026-04-13T13:49:30.077+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-04-13T13:49:30.171+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: predict_aqi.wait_for_silver_data scheduled__2026-04-13T12:00:00+00:00 [queued]>
+[2026-04-13T13:49:30.197+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: predict_aqi.wait_for_silver_data scheduled__2026-04-13T12:00:00+00:00 [queued]>
+[2026-04-13T13:49:30.198+0000] {taskinstance.py:2866} INFO - Starting attempt 1 of 3
+[2026-04-13T13:49:30.251+0000] {taskinstance.py:2889} INFO - Executing <Task(BashSensor): wait_for_silver_data> on 2026-04-13 12:00:00+00:00
+[2026-04-13T13:49:30.556+0000] {logging_mixin.py:190} WARNING - /home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=78953) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-04-13T13:49:30.459+0000] {standard_task_runner.py:104} INFO - Running: ['airflow', 'tasks', 'run', 'predict_aqi', 'wait_for_silver_data', 'scheduled__2026-04-13T12:00:00+00:00', '--job-id', '149', '--raw', '--subdir', 'DAGS_FOLDER/dag_ml.py', '--cfg-path', '/tmp/tmpliwh11ge']
+[2026-04-13T13:49:30.562+0000] {standard_task_runner.py:72} INFO - Started process 79032 to run task
+[2026-04-13T13:49:30.564+0000] {standard_task_runner.py:105} INFO - Job 149: Subtask wait_for_silver_data
+[2026-04-13T13:49:30.746+0000] {task_command.py:467} INFO - Running <TaskInstance: predict_aqi.wait_for_silver_data scheduled__2026-04-13T12:00:00+00:00 [running]> on host airflow
+[2026-04-13T13:49:31.094+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='predict_aqi' AIRFLOW_CTX_TASK_ID='wait_for_silver_data' AIRFLOW_CTX_EXECUTION_DATE='2026-04-13T12:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-04-13T12:00:00+00:00'
+[2026-04-13T13:49:31.111+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2026-04-13T13:49:31.295+0000] {bash.py:72} INFO - Tmp dir root location: /tmp
+[2026-04-13T13:49:31.312+0000] {bash.py:80} INFO - Temporary script location: /tmp/airflowtmpbzr38fk2//tmp/airflowtmpbzr38fk2/wait_for_silver_data9k1ak8vj
+[2026-04-13T13:49:31.316+0000] {bash.py:81} INFO - Running command: 
+        count=$(docker exec trino trino --execute "
+            SELECT COUNT(*) FROM iceberg.air_quality_db.air_quality_silver;
+        " | tail -n 1 | tr -d '"[:space:]')
+
+        echo "Record count: $count"
+
+        if [ "$count" -gt 0 ]; then
+            exit 0
+        else
+            exit 1
+        fi
+        
+[2026-04-13T13:49:31.363+0000] {bash.py:93} INFO - Output:
+[2026-04-13T13:49:42.543+0000] {bash.py:95} INFO - Record count: 100
+[2026-04-13T13:49:42.555+0000] {bash.py:97} INFO - Command exited with return code 0
+[2026-04-13T13:49:42.569+0000] {base.py:336} INFO - Success criteria met. Exiting.
+[2026-04-13T13:49:42.744+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2026-04-13T13:49:42.761+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=predict_aqi, task_id=wait_for_silver_data, run_id=scheduled__2026-04-13T12:00:00+00:00, execution_date=20260413T120000, start_date=20260413T134930, end_date=20260413T134942
+[2026-04-13T13:49:42.918+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-04-13T13:49:43.088+0000] {taskinstance.py:3895} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-04-13T13:49:43.094+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

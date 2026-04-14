@@ -1,0 +1,586 @@
+[2026-04-14T06:52:11.284+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-04-14T06:52:11.313+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: predict_aqi.train_model scheduled__2026-04-14T03:00:00+00:00 [queued]>
+[2026-04-14T06:52:11.326+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: predict_aqi.train_model scheduled__2026-04-14T03:00:00+00:00 [queued]>
+[2026-04-14T06:52:11.327+0000] {taskinstance.py:2866} INFO - Starting attempt 3 of 3
+[2026-04-14T06:52:11.344+0000] {taskinstance.py:2889} INFO - Executing <Task(BashOperator): train_model> on 2026-04-14 03:00:00+00:00
+[2026-04-14T06:52:11.364+0000] {standard_task_runner.py:104} INFO - Running: ['airflow', 'tasks', 'run', 'predict_aqi', 'train_model', 'scheduled__2026-04-14T03:00:00+00:00', '--job-id', '274', '--raw', '--subdir', 'DAGS_FOLDER/dag_ml.py', '--cfg-path', '/tmp/tmpw4fne2oa']
+[2026-04-14T06:52:11.367+0000] {standard_task_runner.py:105} INFO - Job 274: Subtask train_model
+[2026-04-14T06:52:11.372+0000] {logging_mixin.py:190} WARNING - /home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=173) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-04-14T06:52:11.374+0000] {standard_task_runner.py:72} INFO - Started process 190 to run task
+[2026-04-14T06:52:11.556+0000] {task_command.py:467} INFO - Running <TaskInstance: predict_aqi.train_model scheduled__2026-04-14T03:00:00+00:00 [running]> on host airflow
+[2026-04-14T06:52:11.768+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='predict_aqi' AIRFLOW_CTX_TASK_ID='train_model' AIRFLOW_CTX_EXECUTION_DATE='2026-04-14T03:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='3' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-04-14T03:00:00+00:00'
+[2026-04-14T06:52:11.773+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2026-04-14T06:52:11.798+0000] {subprocess.py:78} INFO - Tmp dir root location: /tmp
+[2026-04-14T06:52:11.801+0000] {subprocess.py:88} INFO - Running command: ['/usr/bin/bash', '-c', '\n            docker exec spark-master spark-submit                 --conf spark.pyspark.python=python3                 --packages org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.1                 /home/spark/spark/spark_jobs/train_model.py 2026-04-14\n        ']
+[2026-04-14T06:52:11.827+0000] {subprocess.py:99} INFO - Output:
+[2026-04-14T06:52:13.138+0000] {subprocess.py:106} INFO - WARNING: Using incubator modules: jdk.incubator.vector
+[2026-04-14T06:52:16.282+0000] {subprocess.py:106} INFO - :: loading settings :: url = jar:file:/home/spark/spark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings.xml
+[2026-04-14T06:52:16.554+0000] {subprocess.py:106} INFO - Ivy Default Cache set to: /home/spark/.ivy2.5.2/cache
+[2026-04-14T06:52:16.556+0000] {subprocess.py:106} INFO - The jars for the packages stored in: /home/spark/.ivy2.5.2/jars
+[2026-04-14T06:52:16.584+0000] {subprocess.py:106} INFO - org.apache.iceberg#iceberg-spark-runtime-4.0_2.13 added as a dependency
+[2026-04-14T06:52:16.585+0000] {subprocess.py:106} INFO - :: resolving dependencies :: org.apache.spark#spark-submit-parent-209f0426-1d47-4f17-91fe-8bbe32c4cdef;1.0
+[2026-04-14T06:52:16.587+0000] {subprocess.py:106} INFO - 	confs: [default]
+[2026-04-14T06:52:16.856+0000] {subprocess.py:106} INFO - 	found org.apache.iceberg#iceberg-spark-runtime-4.0_2.13;1.10.1 in spark-list
+[2026-04-14T06:52:16.903+0000] {subprocess.py:106} INFO - :: resolution report :: resolve 307ms :: artifacts dl 12ms
+[2026-04-14T06:52:16.908+0000] {subprocess.py:106} INFO - 	:: modules in use:
+[2026-04-14T06:52:16.909+0000] {subprocess.py:106} INFO - 	org.apache.iceberg#iceberg-spark-runtime-4.0_2.13;1.10.1 from spark-list in [default]
+[2026-04-14T06:52:16.912+0000] {subprocess.py:106} INFO - 	---------------------------------------------------------------------
+[2026-04-14T06:52:16.913+0000] {subprocess.py:106} INFO - 	|                  |            modules            ||   artifacts   |
+[2026-04-14T06:52:16.914+0000] {subprocess.py:106} INFO - 	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+[2026-04-14T06:52:16.915+0000] {subprocess.py:106} INFO - 	---------------------------------------------------------------------
+[2026-04-14T06:52:16.917+0000] {subprocess.py:106} INFO - 	|      default     |   1   |   0   |   0   |   0   ||   1   |   0   |
+[2026-04-14T06:52:16.921+0000] {subprocess.py:106} INFO - 	---------------------------------------------------------------------
+[2026-04-14T06:52:16.925+0000] {subprocess.py:106} INFO - :: retrieving :: org.apache.spark#spark-submit-parent-209f0426-1d47-4f17-91fe-8bbe32c4cdef
+[2026-04-14T06:52:16.926+0000] {subprocess.py:106} INFO - 	confs: [default]
+[2026-04-14T06:52:16.941+0000] {subprocess.py:106} INFO - 	0 artifacts copied, 1 already retrieved (0kB/15ms)
+[2026-04-14T06:52:17.549+0000] {subprocess.py:106} INFO - 26/04/14 06:52:17 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[2026-04-14T06:52:21.347+0000] {subprocess.py:106} INFO - Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+[2026-04-14T06:52:21.356+0000] {subprocess.py:106} INFO - 26/04/14 06:52:21 INFO SparkContext: Running Spark version 4.0.2
+[2026-04-14T06:52:21.362+0000] {subprocess.py:106} INFO - 26/04/14 06:52:21 INFO SparkContext: OS info Linux, 6.6.87.2-microsoft-standard-WSL2, amd64
+[2026-04-14T06:52:21.367+0000] {subprocess.py:106} INFO - 26/04/14 06:52:21 INFO SparkContext: Java version 21.0.10
+[2026-04-14T06:52:21.416+0000] {subprocess.py:106} INFO - 26/04/14 06:52:21 INFO ResourceUtils: ==============================================================
+[2026-04-14T06:52:21.417+0000] {subprocess.py:106} INFO - 26/04/14 06:52:21 INFO ResourceUtils: No custom resources configured for spark.driver.
+[2026-04-14T06:52:21.418+0000] {subprocess.py:106} INFO - 26/04/14 06:52:21 INFO ResourceUtils: ==============================================================
+[2026-04-14T06:52:21.419+0000] {subprocess.py:106} INFO - 26/04/14 06:52:21 INFO SparkContext: Submitted application: TrainModel
+[2026-04-14T06:52:21.481+0000] {subprocess.py:106} INFO - 26/04/14 06:52:21 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 2, script: , vendor: , memory -> name: memory, amount: 2048, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+[2026-04-14T06:52:21.494+0000] {subprocess.py:106} INFO - 26/04/14 06:52:21 INFO ResourceProfile: Limiting resource is cpus at 2 tasks per executor
+[2026-04-14T06:52:21.501+0000] {subprocess.py:106} INFO - 26/04/14 06:52:21 INFO ResourceProfileManager: Added ResourceProfile id: 0
+[2026-04-14T06:52:21.626+0000] {subprocess.py:106} INFO - 26/04/14 06:52:21 INFO SecurityManager: Changing view acls to: spark
+[2026-04-14T06:52:21.629+0000] {subprocess.py:106} INFO - 26/04/14 06:52:21 INFO SecurityManager: Changing modify acls to: spark
+[2026-04-14T06:52:21.630+0000] {subprocess.py:106} INFO - 26/04/14 06:52:21 INFO SecurityManager: Changing view acls groups to: spark
+[2026-04-14T06:52:21.632+0000] {subprocess.py:106} INFO - 26/04/14 06:52:21 INFO SecurityManager: Changing modify acls groups to: spark
+[2026-04-14T06:52:21.642+0000] {subprocess.py:106} INFO - 26/04/14 06:52:21 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: spark groups with view permissions: EMPTY; users with modify permissions: spark; groups with modify permissions: EMPTY; RPC SSL disabled
+[2026-04-14T06:52:22.212+0000] {subprocess.py:106} INFO - 26/04/14 06:52:22 INFO Utils: Successfully started service 'sparkDriver' on port 43769.
+[2026-04-14T06:52:22.289+0000] {subprocess.py:106} INFO - 26/04/14 06:52:22 INFO SparkEnv: Registering MapOutputTracker
+[2026-04-14T06:52:22.313+0000] {subprocess.py:106} INFO - 26/04/14 06:52:22 INFO SparkEnv: Registering BlockManagerMaster
+[2026-04-14T06:52:22.337+0000] {subprocess.py:106} INFO - 26/04/14 06:52:22 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+[2026-04-14T06:52:22.338+0000] {subprocess.py:106} INFO - 26/04/14 06:52:22 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+[2026-04-14T06:52:22.344+0000] {subprocess.py:106} INFO - 26/04/14 06:52:22 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+[2026-04-14T06:52:22.402+0000] {subprocess.py:106} INFO - 26/04/14 06:52:22 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-8dd19fd1-2686-45a2-9fcf-68f241643263
+[2026-04-14T06:52:22.448+0000] {subprocess.py:106} INFO - 26/04/14 06:52:22 INFO SparkEnv: Registering OutputCommitCoordinator
+[2026-04-14T06:52:22.705+0000] {subprocess.py:106} INFO - 26/04/14 06:52:22 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+[2026-04-14T06:52:22.802+0000] {subprocess.py:106} INFO - 26/04/14 06:52:22 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+[2026-04-14T06:52:22.853+0000] {subprocess.py:106} INFO - 26/04/14 06:52:22 INFO SparkContext: Added JAR file:///home/spark/.ivy2.5.2/jars/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar at spark://spark-master:43769/jars/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar with timestamp 1776149541329
+[2026-04-14T06:52:22.857+0000] {subprocess.py:106} INFO - 26/04/14 06:52:22 INFO SparkContext: Added file file:///home/spark/.ivy2.5.2/jars/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar at file:///home/spark/.ivy2.5.2/jars/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar with timestamp 1776149541329
+[2026-04-14T06:52:22.861+0000] {subprocess.py:106} INFO - 26/04/14 06:52:22 INFO Utils: Copying /home/spark/.ivy2.5.2/jars/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar to /tmp/spark-53fb962b-cffc-49c6-909e-8214453500ca/userFiles-914551bf-86fb-4be5-98f9-33cdcfb4594f/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar
+[2026-04-14T06:52:23.058+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO SecurityManager: Changing view acls to: spark
+[2026-04-14T06:52:23.058+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO SecurityManager: Changing modify acls to: spark
+[2026-04-14T06:52:23.060+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO SecurityManager: Changing view acls groups to: spark
+[2026-04-14T06:52:23.061+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO SecurityManager: Changing modify acls groups to: spark
+[2026-04-14T06:52:23.061+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: spark groups with view permissions: EMPTY; users with modify permissions: spark; groups with modify permissions: EMPTY; RPC SSL disabled
+[2026-04-14T06:52:23.336+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO Executor: Starting executor ID driver on host spark-master
+[2026-04-14T06:52:23.337+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO Executor: OS info Linux, 6.6.87.2-microsoft-standard-WSL2, amd64
+[2026-04-14T06:52:23.338+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO Executor: Java version 21.0.10
+[2026-04-14T06:52:23.355+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+[2026-04-14T06:52:23.358+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@4296473b for default.
+[2026-04-14T06:52:23.393+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO Executor: Fetching file:///home/spark/.ivy2.5.2/jars/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar with timestamp 1776149541329
+[2026-04-14T06:52:23.432+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO Utils: /home/spark/.ivy2.5.2/jars/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar has been previously copied to /tmp/spark-53fb962b-cffc-49c6-909e-8214453500ca/userFiles-914551bf-86fb-4be5-98f9-33cdcfb4594f/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar
+[2026-04-14T06:52:23.443+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO Executor: Fetching spark://spark-master:43769/jars/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar with timestamp 1776149541329
+[2026-04-14T06:52:23.488+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO TransportClientFactory: Successfully created connection to spark-master/172.20.0.5:43769 after 29 ms (0 ms spent in bootstraps)
+[2026-04-14T06:52:23.501+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO Utils: Fetching spark://spark-master:43769/jars/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar to /tmp/spark-53fb962b-cffc-49c6-909e-8214453500ca/userFiles-914551bf-86fb-4be5-98f9-33cdcfb4594f/fetchFileTemp7745729087089937543.tmp
+[2026-04-14T06:52:23.931+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO Utils: /tmp/spark-53fb962b-cffc-49c6-909e-8214453500ca/userFiles-914551bf-86fb-4be5-98f9-33cdcfb4594f/fetchFileTemp7745729087089937543.tmp has been previously copied to /tmp/spark-53fb962b-cffc-49c6-909e-8214453500ca/userFiles-914551bf-86fb-4be5-98f9-33cdcfb4594f/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar
+[2026-04-14T06:52:23.945+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO Executor: Adding file:/tmp/spark-53fb962b-cffc-49c6-909e-8214453500ca/userFiles-914551bf-86fb-4be5-98f9-33cdcfb4594f/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar to class loader default
+[2026-04-14T06:52:23.968+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 33001.
+[2026-04-14T06:52:23.969+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO NettyBlockTransferService: Server created on spark-master:33001
+[2026-04-14T06:52:23.972+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+[2026-04-14T06:52:24.000+0000] {subprocess.py:106} INFO - 26/04/14 06:52:23 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, spark-master, 33001, None)
+[2026-04-14T06:52:24.008+0000] {subprocess.py:106} INFO - 26/04/14 06:52:24 INFO BlockManagerMasterEndpoint: Registering block manager spark-master:33001 with 1048.8 MiB RAM, BlockManagerId(driver, spark-master, 33001, None)
+[2026-04-14T06:52:24.015+0000] {subprocess.py:106} INFO - 26/04/14 06:52:24 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, spark-master, 33001, None)
+[2026-04-14T06:52:24.018+0000] {subprocess.py:106} INFO - 26/04/14 06:52:24 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, spark-master, 33001, None)
+[2026-04-14T06:52:27.949+0000] {subprocess.py:106} INFO - Đọc dữ liệu Gold từ iceberg.air_quality_ml.air_quality_gold
+[2026-04-14T06:52:27.972+0000] {subprocess.py:106} INFO - 26/04/14 06:52:27 INFO SharedState: spark.sql.warehouse.dir is not set, but hive.metastore.warehouse.dir is set. Setting spark.sql.warehouse.dir to the value of hive.metastore.warehouse.dir.
+[2026-04-14T06:52:28.450+0000] {subprocess.py:106} INFO - 26/04/14 06:52:28 INFO SharedState: Warehouse path is 'hdfs://23133083thuyvan-master:9000/user/hive/lakehouse'.
+[2026-04-14T06:52:30.099+0000] {subprocess.py:106} INFO - 26/04/14 06:52:30 INFO CatalogUtil: Loading custom FileIO implementation: org.apache.iceberg.hadoop.HadoopFileIO
+[2026-04-14T06:52:30.218+0000] {subprocess.py:106} INFO - 26/04/14 06:52:30 INFO HiveConf: Found configuration file file:/home/spark/spark/conf/hive-site.xml
+[2026-04-14T06:52:30.518+0000] {subprocess.py:106} INFO - 26/04/14 06:52:30 INFO metastore: Trying to connect to metastore with URI thrift://23133083thuyvan-master:9083
+[2026-04-14T06:52:30.566+0000] {subprocess.py:106} INFO - 26/04/14 06:52:30 WARN metastore: Failed to connect to the MetaStore Server...
+[2026-04-14T06:52:30.567+0000] {subprocess.py:106} INFO - 26/04/14 06:52:30 INFO metastore: Waiting 1 seconds before next connection attempt.
+[2026-04-14T06:52:31.567+0000] {subprocess.py:106} INFO - 26/04/14 06:52:31 INFO metastore: Trying to connect to metastore with URI thrift://23133083thuyvan-master:9083
+[2026-04-14T06:52:31.569+0000] {subprocess.py:106} INFO - 26/04/14 06:52:31 WARN metastore: Failed to connect to the MetaStore Server...
+[2026-04-14T06:52:31.570+0000] {subprocess.py:106} INFO - 26/04/14 06:52:31 INFO metastore: Waiting 1 seconds before next connection attempt.
+[2026-04-14T06:52:32.569+0000] {subprocess.py:106} INFO - 26/04/14 06:52:32 INFO metastore: Trying to connect to metastore with URI thrift://23133083thuyvan-master:9083
+[2026-04-14T06:52:32.570+0000] {subprocess.py:106} INFO - 26/04/14 06:52:32 WARN metastore: Failed to connect to the MetaStore Server...
+[2026-04-14T06:52:32.571+0000] {subprocess.py:106} INFO - 26/04/14 06:52:32 INFO metastore: Waiting 1 seconds before next connection attempt.
+[2026-04-14T06:52:33.954+0000] {subprocess.py:106} INFO - Traceback (most recent call last):
+[2026-04-14T06:52:33.955+0000] {subprocess.py:106} INFO -   File "/home/spark/spark/spark_jobs/train_model.py", line 22, in <module>
+[2026-04-14T06:52:33.960+0000] {subprocess.py:106} INFO -     .load("iceberg.air_quality_ml.air_quality_gold")
+[2026-04-14T06:52:33.961+0000] {subprocess.py:106} INFO -   File "/home/spark/spark/python/lib/pyspark.zip/pyspark/sql/readwriter.py", line 311, in load
+[2026-04-14T06:52:33.962+0000] {subprocess.py:106} INFO -   File "/home/spark/spark/python/lib/py4j-0.10.9.9-src.zip/py4j/java_gateway.py", line 1362, in __call__
+[2026-04-14T06:52:33.963+0000] {subprocess.py:106} INFO -   File "/home/spark/spark/python/lib/pyspark.zip/pyspark/errors/exceptions/captured.py", line 282, in deco
+[2026-04-14T06:52:33.963+0000] {subprocess.py:106} INFO -   File "/home/spark/spark/python/lib/py4j-0.10.9.9-src.zip/py4j/protocol.py", line 327, in get_return_value
+[2026-04-14T06:52:34.013+0000] {subprocess.py:106} INFO - py4j.protocol.Py4JJavaError: An error occurred while calling o54.load.
+[2026-04-14T06:52:34.014+0000] {subprocess.py:106} INFO - : org.apache.iceberg.hive.RuntimeMetaException: Failed to connect to Hive Metastore
+[2026-04-14T06:52:34.014+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.hive.HiveClientPool.newClient(HiveClientPool.java:85)
+[2026-04-14T06:52:34.015+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.hive.HiveClientPool.newClient(HiveClientPool.java:34)
+[2026-04-14T06:52:34.015+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.ClientPoolImpl.get(ClientPoolImpl.java:143)
+[2026-04-14T06:52:34.015+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.ClientPoolImpl.run(ClientPoolImpl.java:70)
+[2026-04-14T06:52:34.016+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.ClientPoolImpl.run(ClientPoolImpl.java:65)
+[2026-04-14T06:52:34.016+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.hive.CachedClientPool.run(CachedClientPool.java:122)
+[2026-04-14T06:52:34.017+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.hive.HiveTableOperations.doRefresh(HiveTableOperations.java:107)
+[2026-04-14T06:52:34.018+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.BaseMetastoreTableOperations.refresh(BaseMetastoreTableOperations.java:88)
+[2026-04-14T06:52:34.019+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.BaseMetastoreTableOperations.current(BaseMetastoreTableOperations.java:71)
+[2026-04-14T06:52:34.019+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.BaseMetastoreCatalog.loadTable(BaseMetastoreCatalog.java:49)
+[2026-04-14T06:52:34.020+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.BoundedLocalCache.lambda$doComputeIfAbsent$14(BoundedLocalCache.java:2406)
+[2026-04-14T06:52:34.021+0000] {subprocess.py:106} INFO - 	at java.base/java.util.concurrent.ConcurrentHashMap.compute(ConcurrentHashMap.java:1916)
+[2026-04-14T06:52:34.021+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.BoundedLocalCache.doComputeIfAbsent(BoundedLocalCache.java:2404)
+[2026-04-14T06:52:34.022+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.BoundedLocalCache.computeIfAbsent(BoundedLocalCache.java:2387)
+[2026-04-14T06:52:34.022+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.LocalCache.computeIfAbsent(LocalCache.java:108)
+[2026-04-14T06:52:34.023+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.LocalManualCache.get(LocalManualCache.java:62)
+[2026-04-14T06:52:34.023+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.CachingCatalog.loadTable(CachingCatalog.java:147)
+[2026-04-14T06:52:34.024+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.spark.SparkCatalog.load(SparkCatalog.java:846)
+[2026-04-14T06:52:34.024+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.spark.SparkCatalog.loadTable(SparkCatalog.java:171)
+[2026-04-14T06:52:34.025+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.connector.catalog.CatalogV2Util$.getTable(CatalogV2Util.scala:438)
+[2026-04-14T06:52:34.025+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.datasources.v2.DataSourceV2Utils$.loadV2Source(DataSourceV2Utils.scala:144)
+[2026-04-14T06:52:34.025+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.$anonfun$applyOrElse$1(ResolveDataSource.scala:60)
+[2026-04-14T06:52:34.026+0000] {subprocess.py:106} INFO - 	at scala.Option.flatMap(Option.scala:283)
+[2026-04-14T06:52:34.026+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.applyOrElse(ResolveDataSource.scala:58)
+[2026-04-14T06:52:34.027+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.applyOrElse(ResolveDataSource.scala:45)
+[2026-04-14T06:52:34.027+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.$anonfun$resolveOperatorsUpWithPruning$3(AnalysisHelper.scala:139)
+[2026-04-14T06:52:34.028+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(origin.scala:86)
+[2026-04-14T06:52:34.028+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.$anonfun$resolveOperatorsUpWithPruning$1(AnalysisHelper.scala:139)
+[2026-04-14T06:52:34.028+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper$.allowInvokingTransformsInAnalyzer(AnalysisHelper.scala:416)
+[2026-04-14T06:52:34.029+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUpWithPruning(AnalysisHelper.scala:135)
+[2026-04-14T06:52:34.029+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUpWithPruning$(AnalysisHelper.scala:131)
+[2026-04-14T06:52:34.030+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperatorsUpWithPruning(LogicalPlan.scala:37)
+[2026-04-14T06:52:34.030+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUp(AnalysisHelper.scala:112)
+[2026-04-14T06:52:34.031+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUp$(AnalysisHelper.scala:111)
+[2026-04-14T06:52:34.031+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperatorsUp(LogicalPlan.scala:37)
+[2026-04-14T06:52:34.031+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource.apply(ResolveDataSource.scala:45)
+[2026-04-14T06:52:34.032+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource.apply(ResolveDataSource.scala:43)
+[2026-04-14T06:52:34.032+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$2(RuleExecutor.scala:242)
+[2026-04-14T06:52:34.033+0000] {subprocess.py:106} INFO - 	at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+[2026-04-14T06:52:34.033+0000] {subprocess.py:106} INFO - 	at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+[2026-04-14T06:52:34.034+0000] {subprocess.py:106} INFO - 	at scala.collection.immutable.List.foldLeft(List.scala:79)
+[2026-04-14T06:52:34.034+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$1(RuleExecutor.scala:239)
+[2026-04-14T06:52:34.035+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$1$adapted(RuleExecutor.scala:231)
+[2026-04-14T06:52:34.035+0000] {subprocess.py:106} INFO - 	at scala.collection.immutable.List.foreach(List.scala:334)
+[2026-04-14T06:52:34.036+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.rules.RuleExecutor.execute(RuleExecutor.scala:231)
+[2026-04-14T06:52:34.036+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.Analyzer.org$apache$spark$sql$catalyst$analysis$Analyzer$$executeSameContext(Analyzer.scala:340)
+[2026-04-14T06:52:34.037+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.Analyzer.$anonfun$execute$1(Analyzer.scala:336)
+[2026-04-14T06:52:34.037+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.AnalysisContext$.withNewAnalysisContext(Analyzer.scala:234)
+[2026-04-14T06:52:34.038+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.Analyzer.execute(Analyzer.scala:336)
+[2026-04-14T06:52:34.038+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.Analyzer.execute(Analyzer.scala:299)
+[2026-04-14T06:52:34.039+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$executeAndTrack$1(RuleExecutor.scala:201)
+[2026-04-14T06:52:34.039+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.QueryPlanningTracker$.withTracker(QueryPlanningTracker.scala:89)
+[2026-04-14T06:52:34.040+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.rules.RuleExecutor.executeAndTrack(RuleExecutor.scala:201)
+[2026-04-14T06:52:34.040+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.resolveInFixedPoint(HybridAnalyzer.scala:190)
+[2026-04-14T06:52:34.041+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.$anonfun$apply$1(HybridAnalyzer.scala:76)
+[2026-04-14T06:52:34.041+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.withTrackedAnalyzerBridgeState(HybridAnalyzer.scala:111)
+[2026-04-14T06:52:34.042+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.apply(HybridAnalyzer.scala:71)
+[2026-04-14T06:52:34.042+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.Analyzer.$anonfun$executeAndCheck$1(Analyzer.scala:330)
+[2026-04-14T06:52:34.043+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper$.markInAnalyzer(AnalysisHelper.scala:423)
+[2026-04-14T06:52:34.043+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.Analyzer.executeAndCheck(Analyzer.scala:330)
+[2026-04-14T06:52:34.044+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyAnalyzed$2(QueryExecution.scala:110)
+[2026-04-14T06:52:34.044+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.QueryPlanningTracker.measurePhase(QueryPlanningTracker.scala:148)
+[2026-04-14T06:52:34.045+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$2(QueryExecution.scala:278)
+[2026-04-14T06:52:34.045+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:654)
+[2026-04-14T06:52:34.046+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:278)
+[2026-04-14T06:52:34.046+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+[2026-04-14T06:52:34.047+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:277)
+[2026-04-14T06:52:34.047+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyAnalyzed$1(QueryExecution.scala:110)
+[2026-04-14T06:52:34.048+0000] {subprocess.py:106} INFO - 	at scala.util.Try$.apply(Try.scala:217)
+[2026-04-14T06:52:34.048+0000] {subprocess.py:106} INFO - 	at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1378)
+[2026-04-14T06:52:34.049+0000] {subprocess.py:106} INFO - 	at org.apache.spark.util.Utils$.getTryWithCallerStacktrace(Utils.scala:1439)
+[2026-04-14T06:52:34.049+0000] {subprocess.py:106} INFO - 	at org.apache.spark.util.LazyTry.get(LazyTry.scala:58)
+[2026-04-14T06:52:34.050+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution.analyzed(QueryExecution.scala:121)
+[2026-04-14T06:52:34.050+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution.assertAnalyzed(QueryExecution.scala:80)
+[2026-04-14T06:52:34.050+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.classic.Dataset$.$anonfun$ofRows$1(Dataset.scala:115)
+[2026-04-14T06:52:34.051+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+[2026-04-14T06:52:34.051+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.classic.Dataset$.ofRows(Dataset.scala:113)
+[2026-04-14T06:52:34.052+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.classic.DataFrameReader.load(DataFrameReader.scala:109)
+[2026-04-14T06:52:34.052+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.classic.DataFrameReader.load(DataFrameReader.scala:100)
+[2026-04-14T06:52:34.053+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.classic.DataFrameReader.load(DataFrameReader.scala:58)
+[2026-04-14T06:52:34.053+0000] {subprocess.py:106} INFO - 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+[2026-04-14T06:52:34.054+0000] {subprocess.py:106} INFO - 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:75)
+[2026-04-14T06:52:34.054+0000] {subprocess.py:106} INFO - 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:52)
+[2026-04-14T06:52:34.055+0000] {subprocess.py:106} INFO - 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+[2026-04-14T06:52:34.055+0000] {subprocess.py:106} INFO - 	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+[2026-04-14T06:52:34.055+0000] {subprocess.py:106} INFO - 	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+[2026-04-14T06:52:34.056+0000] {subprocess.py:106} INFO - 	at py4j.Gateway.invoke(Gateway.java:282)
+[2026-04-14T06:52:34.056+0000] {subprocess.py:106} INFO - 	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+[2026-04-14T06:52:34.057+0000] {subprocess.py:106} INFO - 	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+[2026-04-14T06:52:34.057+0000] {subprocess.py:106} INFO - 	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:184)
+[2026-04-14T06:52:34.058+0000] {subprocess.py:106} INFO - 	at py4j.ClientServerConnection.run(ClientServerConnection.java:108)
+[2026-04-14T06:52:34.058+0000] {subprocess.py:106} INFO - 	at java.base/java.lang.Thread.run(Thread.java:1583)
+[2026-04-14T06:52:34.059+0000] {subprocess.py:106} INFO - 	Suppressed: org.apache.spark.util.Utils$OriginalTryStackTraceException: Full stacktrace of original doTryWithCallerStacktrace caller
+[2026-04-14T06:52:34.059+0000] {subprocess.py:106} INFO - 		at org.apache.iceberg.hive.HiveClientPool.newClient(HiveClientPool.java:85)
+[2026-04-14T06:52:34.060+0000] {subprocess.py:106} INFO - 		at org.apache.iceberg.hive.HiveClientPool.newClient(HiveClientPool.java:34)
+[2026-04-14T06:52:34.060+0000] {subprocess.py:106} INFO - 		at org.apache.iceberg.ClientPoolImpl.get(ClientPoolImpl.java:143)
+[2026-04-14T06:52:34.061+0000] {subprocess.py:106} INFO - 		at org.apache.iceberg.ClientPoolImpl.run(ClientPoolImpl.java:70)
+[2026-04-14T06:52:34.061+0000] {subprocess.py:106} INFO - 		at org.apache.iceberg.ClientPoolImpl.run(ClientPoolImpl.java:65)
+[2026-04-14T06:52:34.062+0000] {subprocess.py:106} INFO - 		at org.apache.iceberg.hive.CachedClientPool.run(CachedClientPool.java:122)
+[2026-04-14T06:52:34.062+0000] {subprocess.py:106} INFO - 		at org.apache.iceberg.hive.HiveTableOperations.doRefresh(HiveTableOperations.java:107)
+[2026-04-14T06:52:34.063+0000] {subprocess.py:106} INFO - 		at org.apache.iceberg.BaseMetastoreTableOperations.refresh(BaseMetastoreTableOperations.java:88)
+[2026-04-14T06:52:34.063+0000] {subprocess.py:106} INFO - 		at org.apache.iceberg.BaseMetastoreTableOperations.current(BaseMetastoreTableOperations.java:71)
+[2026-04-14T06:52:34.064+0000] {subprocess.py:106} INFO - 		at org.apache.iceberg.BaseMetastoreCatalog.loadTable(BaseMetastoreCatalog.java:49)
+[2026-04-14T06:52:34.064+0000] {subprocess.py:106} INFO - 		at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.BoundedLocalCache.lambda$doComputeIfAbsent$14(BoundedLocalCache.java:2406)
+[2026-04-14T06:52:34.065+0000] {subprocess.py:106} INFO - 		at java.base/java.util.concurrent.ConcurrentHashMap.compute(ConcurrentHashMap.java:1916)
+[2026-04-14T06:52:34.065+0000] {subprocess.py:106} INFO - 		at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.BoundedLocalCache.doComputeIfAbsent(BoundedLocalCache.java:2404)
+[2026-04-14T06:52:34.066+0000] {subprocess.py:106} INFO - 		at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.BoundedLocalCache.computeIfAbsent(BoundedLocalCache.java:2387)
+[2026-04-14T06:52:34.066+0000] {subprocess.py:106} INFO - 		at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.LocalCache.computeIfAbsent(LocalCache.java:108)
+[2026-04-14T06:52:34.067+0000] {subprocess.py:106} INFO - 		at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.LocalManualCache.get(LocalManualCache.java:62)
+[2026-04-14T06:52:34.067+0000] {subprocess.py:106} INFO - 		at org.apache.iceberg.CachingCatalog.loadTable(CachingCatalog.java:147)
+[2026-04-14T06:52:34.068+0000] {subprocess.py:106} INFO - 		at org.apache.iceberg.spark.SparkCatalog.load(SparkCatalog.java:846)
+[2026-04-14T06:52:34.068+0000] {subprocess.py:106} INFO - 		at org.apache.iceberg.spark.SparkCatalog.loadTable(SparkCatalog.java:171)
+[2026-04-14T06:52:34.069+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.connector.catalog.CatalogV2Util$.getTable(CatalogV2Util.scala:438)
+[2026-04-14T06:52:34.069+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.execution.datasources.v2.DataSourceV2Utils$.loadV2Source(DataSourceV2Utils.scala:144)
+[2026-04-14T06:52:34.070+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.$anonfun$applyOrElse$1(ResolveDataSource.scala:60)
+[2026-04-14T06:52:34.070+0000] {subprocess.py:106} INFO - 		at scala.Option.flatMap(Option.scala:283)
+[2026-04-14T06:52:34.071+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.applyOrElse(ResolveDataSource.scala:58)
+[2026-04-14T06:52:34.072+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.applyOrElse(ResolveDataSource.scala:45)
+[2026-04-14T06:52:34.075+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.$anonfun$resolveOperatorsUpWithPruning$3(AnalysisHelper.scala:139)
+[2026-04-14T06:52:34.076+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(origin.scala:86)
+[2026-04-14T06:52:34.070+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.$anonfun$resolveOperatorsUpWithPruning$1(AnalysisHelper.scala:139)
+[2026-04-14T06:52:34.070+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper$.allowInvokingTransformsInAnalyzer(AnalysisHelper.scala:416)
+[2026-04-14T06:52:34.071+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUpWithPruning(AnalysisHelper.scala:135)
+[2026-04-14T06:52:34.071+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUpWithPruning$(AnalysisHelper.scala:131)
+[2026-04-14T06:52:34.071+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperatorsUpWithPruning(LogicalPlan.scala:37)
+[2026-04-14T06:52:34.072+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUp(AnalysisHelper.scala:112)
+[2026-04-14T06:52:34.072+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUp$(AnalysisHelper.scala:111)
+[2026-04-14T06:52:34.073+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperatorsUp(LogicalPlan.scala:37)
+[2026-04-14T06:52:34.074+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.analysis.ResolveDataSource.apply(ResolveDataSource.scala:45)
+[2026-04-14T06:52:34.075+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.analysis.ResolveDataSource.apply(ResolveDataSource.scala:43)
+[2026-04-14T06:52:34.075+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$2(RuleExecutor.scala:242)
+[2026-04-14T06:52:34.076+0000] {subprocess.py:106} INFO - 		at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+[2026-04-14T06:52:34.077+0000] {subprocess.py:106} INFO - 		at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+[2026-04-14T06:52:34.077+0000] {subprocess.py:106} INFO - 		at scala.collection.immutable.List.foldLeft(List.scala:79)
+[2026-04-14T06:52:34.078+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$1(RuleExecutor.scala:239)
+[2026-04-14T06:52:34.078+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$1$adapted(RuleExecutor.scala:231)
+[2026-04-14T06:52:34.079+0000] {subprocess.py:106} INFO - 		at scala.collection.immutable.List.foreach(List.scala:334)
+[2026-04-14T06:52:34.079+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.rules.RuleExecutor.execute(RuleExecutor.scala:231)
+[2026-04-14T06:52:34.080+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.analysis.Analyzer.org$apache$spark$sql$catalyst$analysis$Analyzer$$executeSameContext(Analyzer.scala:340)
+[2026-04-14T06:52:34.080+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.analysis.Analyzer.$anonfun$execute$1(Analyzer.scala:336)
+[2026-04-14T06:52:34.080+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.analysis.AnalysisContext$.withNewAnalysisContext(Analyzer.scala:234)
+[2026-04-14T06:52:34.081+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.analysis.Analyzer.execute(Analyzer.scala:336)
+[2026-04-14T06:52:34.081+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.analysis.Analyzer.execute(Analyzer.scala:299)
+[2026-04-14T06:52:34.082+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$executeAndTrack$1(RuleExecutor.scala:201)
+[2026-04-14T06:52:34.082+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.QueryPlanningTracker$.withTracker(QueryPlanningTracker.scala:89)
+[2026-04-14T06:52:34.083+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.rules.RuleExecutor.executeAndTrack(RuleExecutor.scala:201)
+[2026-04-14T06:52:34.083+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.resolveInFixedPoint(HybridAnalyzer.scala:190)
+[2026-04-14T06:52:34.084+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.$anonfun$apply$1(HybridAnalyzer.scala:76)
+[2026-04-14T06:52:34.084+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.withTrackedAnalyzerBridgeState(HybridAnalyzer.scala:111)
+[2026-04-14T06:52:34.084+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.apply(HybridAnalyzer.scala:71)
+[2026-04-14T06:52:34.085+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.analysis.Analyzer.$anonfun$executeAndCheck$1(Analyzer.scala:330)
+[2026-04-14T06:52:34.085+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper$.markInAnalyzer(AnalysisHelper.scala:423)
+[2026-04-14T06:52:34.086+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.analysis.Analyzer.executeAndCheck(Analyzer.scala:330)
+[2026-04-14T06:52:34.086+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyAnalyzed$2(QueryExecution.scala:110)
+[2026-04-14T06:52:34.086+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.catalyst.QueryPlanningTracker.measurePhase(QueryPlanningTracker.scala:148)
+[2026-04-14T06:52:34.087+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$2(QueryExecution.scala:278)
+[2026-04-14T06:52:34.087+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:654)
+[2026-04-14T06:52:34.088+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:278)
+[2026-04-14T06:52:34.088+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+[2026-04-14T06:52:34.089+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:277)
+[2026-04-14T06:52:34.089+0000] {subprocess.py:106} INFO - 		at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyAnalyzed$1(QueryExecution.scala:110)
+[2026-04-14T06:52:34.090+0000] {subprocess.py:106} INFO - 		at scala.util.Try$.apply(Try.scala:217)
+[2026-04-14T06:52:34.090+0000] {subprocess.py:106} INFO - 		at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1378)
+[2026-04-14T06:52:34.091+0000] {subprocess.py:106} INFO - 		at org.apache.spark.util.LazyTry.tryT$lzycompute(LazyTry.scala:46)
+[2026-04-14T06:52:34.092+0000] {subprocess.py:106} INFO - 		at org.apache.spark.util.LazyTry.tryT(LazyTry.scala:46)
+[2026-04-14T06:52:34.092+0000] {subprocess.py:106} INFO - 		... 21 more
+[2026-04-14T06:52:34.093+0000] {subprocess.py:106} INFO - Caused by: java.lang.RuntimeException: Unable to instantiate org.apache.hadoop.hive.metastore.HiveMetaStoreClient
+[2026-04-14T06:52:34.094+0000] {subprocess.py:106} INFO - 	at org.apache.hadoop.hive.metastore.MetaStoreUtils.newInstance(MetaStoreUtils.java:1742)
+[2026-04-14T06:52:34.094+0000] {subprocess.py:106} INFO - 	at org.apache.hadoop.hive.metastore.RetryingMetaStoreClient.<init>(RetryingMetaStoreClient.java:83)
+[2026-04-14T06:52:34.095+0000] {subprocess.py:106} INFO - 	at org.apache.hadoop.hive.metastore.RetryingMetaStoreClient.getProxy(RetryingMetaStoreClient.java:133)
+[2026-04-14T06:52:34.095+0000] {subprocess.py:106} INFO - 	at org.apache.hadoop.hive.metastore.RetryingMetaStoreClient.getProxy(RetryingMetaStoreClient.java:104)
+[2026-04-14T06:52:34.096+0000] {subprocess.py:106} INFO - 	at org.apache.hadoop.hive.metastore.RetryingMetaStoreClient.getProxy(RetryingMetaStoreClient.java:97)
+[2026-04-14T06:52:34.096+0000] {subprocess.py:106} INFO - 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+[2026-04-14T06:52:34.097+0000] {subprocess.py:106} INFO - 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:75)
+[2026-04-14T06:52:34.097+0000] {subprocess.py:106} INFO - 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:52)
+[2026-04-14T06:52:34.098+0000] {subprocess.py:106} INFO - 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+[2026-04-14T06:52:34.099+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.common.DynMethods$UnboundMethod.invokeChecked(DynMethods.java:60)
+[2026-04-14T06:52:34.099+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.common.DynMethods$UnboundMethod.invoke(DynMethods.java:72)
+[2026-04-14T06:52:34.100+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.common.DynMethods$StaticMethod.invoke(DynMethods.java:185)
+[2026-04-14T06:52:34.100+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.hive.HiveClientPool.newClient(HiveClientPool.java:63)
+[2026-04-14T06:52:34.101+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.hive.HiveClientPool.newClient(HiveClientPool.java:34)
+[2026-04-14T06:52:34.101+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.ClientPoolImpl.get(ClientPoolImpl.java:143)
+[2026-04-14T06:52:34.101+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.ClientPoolImpl.run(ClientPoolImpl.java:70)
+[2026-04-14T06:52:34.102+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.ClientPoolImpl.run(ClientPoolImpl.java:65)
+[2026-04-14T06:52:34.102+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.hive.CachedClientPool.run(CachedClientPool.java:122)
+[2026-04-14T06:52:34.103+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.hive.HiveTableOperations.doRefresh(HiveTableOperations.java:107)
+[2026-04-14T06:52:34.103+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.BaseMetastoreTableOperations.refresh(BaseMetastoreTableOperations.java:88)
+[2026-04-14T06:52:34.104+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.BaseMetastoreTableOperations.current(BaseMetastoreTableOperations.java:71)
+[2026-04-14T06:52:34.104+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.BaseMetastoreCatalog.loadTable(BaseMetastoreCatalog.java:49)
+[2026-04-14T06:52:34.104+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.BoundedLocalCache.lambda$doComputeIfAbsent$14(BoundedLocalCache.java:2406)
+[2026-04-14T06:52:34.105+0000] {subprocess.py:106} INFO - 	at java.base/java.util.concurrent.ConcurrentHashMap.compute(ConcurrentHashMap.java:1916)
+[2026-04-14T06:52:34.105+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.BoundedLocalCache.doComputeIfAbsent(BoundedLocalCache.java:2404)
+[2026-04-14T06:52:34.106+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.BoundedLocalCache.computeIfAbsent(BoundedLocalCache.java:2387)
+[2026-04-14T06:52:34.106+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.LocalCache.computeIfAbsent(LocalCache.java:108)
+[2026-04-14T06:52:34.107+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.LocalManualCache.get(LocalManualCache.java:62)
+[2026-04-14T06:52:34.108+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.CachingCatalog.loadTable(CachingCatalog.java:147)
+[2026-04-14T06:52:34.108+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.spark.SparkCatalog.load(SparkCatalog.java:846)
+[2026-04-14T06:52:34.108+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.spark.SparkCatalog.loadTable(SparkCatalog.java:171)
+[2026-04-14T06:52:34.109+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.connector.catalog.CatalogV2Util$.getTable(CatalogV2Util.scala:438)
+[2026-04-14T06:52:34.110+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.datasources.v2.DataSourceV2Utils$.loadV2Source(DataSourceV2Utils.scala:144)
+[2026-04-14T06:52:34.110+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.$anonfun$applyOrElse$1(ResolveDataSource.scala:60)
+[2026-04-14T06:52:34.111+0000] {subprocess.py:106} INFO - 	at scala.Option.flatMap(Option.scala:283)
+[2026-04-14T06:52:34.111+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.applyOrElse(ResolveDataSource.scala:58)
+[2026-04-14T06:52:34.112+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.applyOrElse(ResolveDataSource.scala:45)
+[2026-04-14T06:52:34.112+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.$anonfun$resolveOperatorsUpWithPruning$3(AnalysisHelper.scala:139)
+[2026-04-14T06:52:34.113+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(origin.scala:86)
+[2026-04-14T06:52:34.114+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.$anonfun$resolveOperatorsUpWithPruning$1(AnalysisHelper.scala:139)
+[2026-04-14T06:52:34.114+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper$.allowInvokingTransformsInAnalyzer(AnalysisHelper.scala:416)
+[2026-04-14T06:52:34.115+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUpWithPruning(AnalysisHelper.scala:135)
+[2026-04-14T06:52:34.116+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUpWithPruning$(AnalysisHelper.scala:131)
+[2026-04-14T06:52:34.116+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperatorsUpWithPruning(LogicalPlan.scala:37)
+[2026-04-14T06:52:34.117+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUp(AnalysisHelper.scala:112)
+[2026-04-14T06:52:34.117+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUp$(AnalysisHelper.scala:111)
+[2026-04-14T06:52:34.118+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperatorsUp(LogicalPlan.scala:37)
+[2026-04-14T06:52:34.118+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource.apply(ResolveDataSource.scala:45)
+[2026-04-14T06:52:34.119+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource.apply(ResolveDataSource.scala:43)
+[2026-04-14T06:52:34.119+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$2(RuleExecutor.scala:242)
+[2026-04-14T06:52:34.120+0000] {subprocess.py:106} INFO - 	at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+[2026-04-14T06:52:34.120+0000] {subprocess.py:106} INFO - 	at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+[2026-04-14T06:52:34.121+0000] {subprocess.py:106} INFO - 	at scala.collection.immutable.List.foldLeft(List.scala:79)
+[2026-04-14T06:52:34.121+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$1(RuleExecutor.scala:239)
+[2026-04-14T06:52:34.122+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$1$adapted(RuleExecutor.scala:231)
+[2026-04-14T06:52:34.122+0000] {subprocess.py:106} INFO - 	at scala.collection.immutable.List.foreach(List.scala:334)
+[2026-04-14T06:52:34.123+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.rules.RuleExecutor.execute(RuleExecutor.scala:231)
+[2026-04-14T06:52:34.124+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.Analyzer.org$apache$spark$sql$catalyst$analysis$Analyzer$$executeSameContext(Analyzer.scala:340)
+[2026-04-14T06:52:34.124+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.Analyzer.$anonfun$execute$1(Analyzer.scala:336)
+[2026-04-14T06:52:34.125+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.AnalysisContext$.withNewAnalysisContext(Analyzer.scala:234)
+[2026-04-14T06:52:34.125+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.Analyzer.execute(Analyzer.scala:336)
+[2026-04-14T06:52:34.126+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.Analyzer.execute(Analyzer.scala:299)
+[2026-04-14T06:52:34.126+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$executeAndTrack$1(RuleExecutor.scala:201)
+[2026-04-14T06:52:34.127+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.QueryPlanningTracker$.withTracker(QueryPlanningTracker.scala:89)
+[2026-04-14T06:52:34.127+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.rules.RuleExecutor.executeAndTrack(RuleExecutor.scala:201)
+[2026-04-14T06:52:34.128+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.resolveInFixedPoint(HybridAnalyzer.scala:190)
+[2026-04-14T06:52:34.129+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.$anonfun$apply$1(HybridAnalyzer.scala:76)
+[2026-04-14T06:52:34.130+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.withTrackedAnalyzerBridgeState(HybridAnalyzer.scala:111)
+[2026-04-14T06:52:34.131+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.apply(HybridAnalyzer.scala:71)
+[2026-04-14T06:52:34.132+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.Analyzer.$anonfun$executeAndCheck$1(Analyzer.scala:330)
+[2026-04-14T06:52:34.133+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper$.markInAnalyzer(AnalysisHelper.scala:423)
+[2026-04-14T06:52:34.134+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.Analyzer.executeAndCheck(Analyzer.scala:330)
+[2026-04-14T06:52:34.134+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyAnalyzed$2(QueryExecution.scala:110)
+[2026-04-14T06:52:34.134+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.QueryPlanningTracker.measurePhase(QueryPlanningTracker.scala:148)
+[2026-04-14T06:52:34.135+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$2(QueryExecution.scala:278)
+[2026-04-14T06:52:34.135+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:654)
+[2026-04-14T06:52:34.136+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:278)
+[2026-04-14T06:52:34.136+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+[2026-04-14T06:52:34.137+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:277)
+[2026-04-14T06:52:34.137+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyAnalyzed$1(QueryExecution.scala:110)
+[2026-04-14T06:52:34.138+0000] {subprocess.py:106} INFO - 	at scala.util.Try$.apply(Try.scala:217)
+[2026-04-14T06:52:34.138+0000] {subprocess.py:106} INFO - 	at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1378)
+[2026-04-14T06:52:34.139+0000] {subprocess.py:106} INFO - 	at org.apache.spark.util.LazyTry.tryT$lzycompute(LazyTry.scala:46)
+[2026-04-14T06:52:34.139+0000] {subprocess.py:106} INFO - 	at org.apache.spark.util.LazyTry.tryT(LazyTry.scala:46)
+[2026-04-14T06:52:34.140+0000] {subprocess.py:106} INFO - 	... 21 more
+[2026-04-14T06:52:34.140+0000] {subprocess.py:106} INFO - Caused by: java.lang.reflect.InvocationTargetException
+[2026-04-14T06:52:34.141+0000] {subprocess.py:106} INFO - 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+[2026-04-14T06:52:34.142+0000] {subprocess.py:106} INFO - 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:75)
+[2026-04-14T06:52:34.142+0000] {subprocess.py:106} INFO - 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:53)
+[2026-04-14T06:52:34.143+0000] {subprocess.py:106} INFO - 	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+[2026-04-14T06:52:34.144+0000] {subprocess.py:106} INFO - 	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+[2026-04-14T06:52:34.144+0000] {subprocess.py:106} INFO - 	at org.apache.hadoop.hive.metastore.MetaStoreUtils.newInstance(MetaStoreUtils.java:1740)
+[2026-04-14T06:52:34.145+0000] {subprocess.py:106} INFO - 	... 104 more
+[2026-04-14T06:52:34.145+0000] {subprocess.py:106} INFO - Caused by: MetaException(message:Could not connect to meta store using any of the URIs provided. Most recent failure: org.apache.thrift.transport.TTransportException: java.net.ConnectException: Connection refused
+[2026-04-14T06:52:34.146+0000] {subprocess.py:106} INFO - 	at org.apache.thrift.transport.TSocket.open(TSocket.java:255)
+[2026-04-14T06:52:34.146+0000] {subprocess.py:106} INFO - 	at org.apache.hadoop.hive.metastore.HiveMetaStoreClient.open(HiveMetaStoreClient.java:492)
+[2026-04-14T06:52:34.147+0000] {subprocess.py:106} INFO - 	at org.apache.hadoop.hive.metastore.HiveMetaStoreClient.<init>(HiveMetaStoreClient.java:246)
+[2026-04-14T06:52:34.147+0000] {subprocess.py:106} INFO - 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+[2026-04-14T06:52:34.149+0000] {subprocess.py:106} INFO - 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:75)
+[2026-04-14T06:52:34.149+0000] {subprocess.py:106} INFO - 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:53)
+[2026-04-14T06:52:34.150+0000] {subprocess.py:106} INFO - 	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+[2026-04-14T06:52:34.150+0000] {subprocess.py:106} INFO - 	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+[2026-04-14T06:52:34.151+0000] {subprocess.py:106} INFO - 	at org.apache.hadoop.hive.metastore.MetaStoreUtils.newInstance(MetaStoreUtils.java:1740)
+[2026-04-14T06:52:34.151+0000] {subprocess.py:106} INFO - 	at org.apache.hadoop.hive.metastore.RetryingMetaStoreClient.<init>(RetryingMetaStoreClient.java:83)
+[2026-04-14T06:52:34.152+0000] {subprocess.py:106} INFO - 	at org.apache.hadoop.hive.metastore.RetryingMetaStoreClient.getProxy(RetryingMetaStoreClient.java:133)
+[2026-04-14T06:52:34.152+0000] {subprocess.py:106} INFO - 	at org.apache.hadoop.hive.metastore.RetryingMetaStoreClient.getProxy(RetryingMetaStoreClient.java:104)
+[2026-04-14T06:52:34.153+0000] {subprocess.py:106} INFO - 	at org.apache.hadoop.hive.metastore.RetryingMetaStoreClient.getProxy(RetryingMetaStoreClient.java:97)
+[2026-04-14T06:52:34.154+0000] {subprocess.py:106} INFO - 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+[2026-04-14T06:52:34.154+0000] {subprocess.py:106} INFO - 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:75)
+[2026-04-14T06:52:34.155+0000] {subprocess.py:106} INFO - 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:52)
+[2026-04-14T06:52:34.155+0000] {subprocess.py:106} INFO - 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+[2026-04-14T06:52:34.156+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.common.DynMethods$UnboundMethod.invokeChecked(DynMethods.java:60)
+[2026-04-14T06:52:34.156+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.common.DynMethods$UnboundMethod.invoke(DynMethods.java:72)
+[2026-04-14T06:52:34.156+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.common.DynMethods$StaticMethod.invoke(DynMethods.java:185)
+[2026-04-14T06:52:34.157+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.hive.HiveClientPool.newClient(HiveClientPool.java:63)
+[2026-04-14T06:52:34.157+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.hive.HiveClientPool.newClient(HiveClientPool.java:34)
+[2026-04-14T06:52:34.158+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.ClientPoolImpl.get(ClientPoolImpl.java:143)
+[2026-04-14T06:52:34.158+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.ClientPoolImpl.run(ClientPoolImpl.java:70)
+[2026-04-14T06:52:34.159+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.ClientPoolImpl.run(ClientPoolImpl.java:65)
+[2026-04-14T06:52:34.159+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.hive.CachedClientPool.run(CachedClientPool.java:122)
+[2026-04-14T06:52:34.160+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.hive.HiveTableOperations.doRefresh(HiveTableOperations.java:107)
+[2026-04-14T06:52:34.160+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.BaseMetastoreTableOperations.refresh(BaseMetastoreTableOperations.java:88)
+[2026-04-14T06:52:34.161+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.BaseMetastoreTableOperations.current(BaseMetastoreTableOperations.java:71)
+[2026-04-14T06:52:34.162+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.BaseMetastoreCatalog.loadTable(BaseMetastoreCatalog.java:49)
+[2026-04-14T06:52:34.162+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.BoundedLocalCache.lambda$doComputeIfAbsent$14(BoundedLocalCache.java:2406)
+[2026-04-14T06:52:34.163+0000] {subprocess.py:106} INFO - 	at java.base/java.util.concurrent.ConcurrentHashMap.compute(ConcurrentHashMap.java:1916)
+[2026-04-14T06:52:34.163+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.BoundedLocalCache.doComputeIfAbsent(BoundedLocalCache.java:2404)
+[2026-04-14T06:52:34.163+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.BoundedLocalCache.computeIfAbsent(BoundedLocalCache.java:2387)
+[2026-04-14T06:52:34.164+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.LocalCache.computeIfAbsent(LocalCache.java:108)
+[2026-04-14T06:52:34.165+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.shaded.com.github.benmanes.caffeine.cache.LocalManualCache.get(LocalManualCache.java:62)
+[2026-04-14T06:52:34.165+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.CachingCatalog.loadTable(CachingCatalog.java:147)
+[2026-04-14T06:52:34.165+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.spark.SparkCatalog.load(SparkCatalog.java:846)
+[2026-04-14T06:52:34.166+0000] {subprocess.py:106} INFO - 	at org.apache.iceberg.spark.SparkCatalog.loadTable(SparkCatalog.java:171)
+[2026-04-14T06:52:34.166+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.connector.catalog.CatalogV2Util$.getTable(CatalogV2Util.scala:438)
+[2026-04-14T06:52:34.167+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.datasources.v2.DataSourceV2Utils$.loadV2Source(DataSourceV2Utils.scala:144)
+[2026-04-14T06:52:34.167+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.$anonfun$applyOrElse$1(ResolveDataSource.scala:60)
+[2026-04-14T06:52:34.168+0000] {subprocess.py:106} INFO - 	at scala.Option.flatMap(Option.scala:283)
+[2026-04-14T06:52:34.168+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.applyOrElse(ResolveDataSource.scala:58)
+[2026-04-14T06:52:34.169+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.applyOrElse(ResolveDataSource.scala:45)
+[2026-04-14T06:52:34.169+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.$anonfun$resolveOperatorsUpWithPruning$3(AnalysisHelper.scala:139)
+[2026-04-14T06:52:34.170+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(origin.scala:86)
+[2026-04-14T06:52:34.170+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.$anonfun$resolveOperatorsUpWithPruning$1(AnalysisHelper.scala:139)
+[2026-04-14T06:52:34.171+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper$.allowInvokingTransformsInAnalyzer(AnalysisHelper.scala:416)
+[2026-04-14T06:52:34.171+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUpWithPruning(AnalysisHelper.scala:135)
+[2026-04-14T06:52:34.172+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUpWithPruning$(AnalysisHelper.scala:131)
+[2026-04-14T06:52:34.172+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperatorsUpWithPruning(LogicalPlan.scala:37)
+[2026-04-14T06:52:34.173+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUp(AnalysisHelper.scala:112)
+[2026-04-14T06:52:34.173+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUp$(AnalysisHelper.scala:111)
+[2026-04-14T06:52:34.174+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperatorsUp(LogicalPlan.scala:37)
+[2026-04-14T06:52:34.174+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource.apply(ResolveDataSource.scala:45)
+[2026-04-14T06:52:34.174+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource.apply(ResolveDataSource.scala:43)
+[2026-04-14T06:52:34.175+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$2(RuleExecutor.scala:242)
+[2026-04-14T06:52:34.175+0000] {subprocess.py:106} INFO - 	at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+[2026-04-14T06:52:34.176+0000] {subprocess.py:106} INFO - 	at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+[2026-04-14T06:52:34.176+0000] {subprocess.py:106} INFO - 	at scala.collection.immutable.List.foldLeft(List.scala:79)
+[2026-04-14T06:52:34.177+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$1(RuleExecutor.scala:239)
+[2026-04-14T06:52:34.177+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$1$adapted(RuleExecutor.scala:231)
+[2026-04-14T06:52:34.178+0000] {subprocess.py:106} INFO - 	at scala.collection.immutable.List.foreach(List.scala:334)
+[2026-04-14T06:52:34.178+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.rules.RuleExecutor.execute(RuleExecutor.scala:231)
+[2026-04-14T06:52:34.179+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.Analyzer.org$apache$spark$sql$catalyst$analysis$Analyzer$$executeSameContext(Analyzer.scala:340)
+[2026-04-14T06:52:34.180+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.Analyzer.$anonfun$execute$1(Analyzer.scala:336)
+[2026-04-14T06:52:34.180+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.AnalysisContext$.withNewAnalysisContext(Analyzer.scala:234)
+[2026-04-14T06:52:34.181+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.Analyzer.execute(Analyzer.scala:336)
+[2026-04-14T06:52:34.181+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.Analyzer.execute(Analyzer.scala:299)
+[2026-04-14T06:52:34.182+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$executeAndTrack$1(RuleExecutor.scala:201)
+[2026-04-14T06:52:34.182+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.QueryPlanningTracker$.withTracker(QueryPlanningTracker.scala:89)
+[2026-04-14T06:52:34.183+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.rules.RuleExecutor.executeAndTrack(RuleExecutor.scala:201)
+[2026-04-14T06:52:34.183+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.resolveInFixedPoint(HybridAnalyzer.scala:190)
+[2026-04-14T06:52:34.184+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.$anonfun$apply$1(HybridAnalyzer.scala:76)
+[2026-04-14T06:52:34.184+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.withTrackedAnalyzerBridgeState(HybridAnalyzer.scala:111)
+[2026-04-14T06:52:34.185+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.apply(HybridAnalyzer.scala:71)
+[2026-04-14T06:52:34.186+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.Analyzer.$anonfun$executeAndCheck$1(Analyzer.scala:330)
+[2026-04-14T06:52:34.186+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper$.markInAnalyzer(AnalysisHelper.scala:423)
+[2026-04-14T06:52:34.187+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.analysis.Analyzer.executeAndCheck(Analyzer.scala:330)
+[2026-04-14T06:52:34.187+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyAnalyzed$2(QueryExecution.scala:110)
+[2026-04-14T06:52:34.188+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.catalyst.QueryPlanningTracker.measurePhase(QueryPlanningTracker.scala:148)
+[2026-04-14T06:52:34.188+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$2(QueryExecution.scala:278)
+[2026-04-14T06:52:34.189+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:654)
+[2026-04-14T06:52:34.189+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:278)
+[2026-04-14T06:52:34.190+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+[2026-04-14T06:52:34.190+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:277)
+[2026-04-14T06:52:34.191+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyAnalyzed$1(QueryExecution.scala:110)
+[2026-04-14T06:52:34.191+0000] {subprocess.py:106} INFO - 	at scala.util.Try$.apply(Try.scala:217)
+[2026-04-14T06:52:34.192+0000] {subprocess.py:106} INFO - 	at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1378)
+[2026-04-14T06:52:34.193+0000] {subprocess.py:106} INFO - 	at org.apache.spark.util.LazyTry.tryT$lzycompute(LazyTry.scala:46)
+[2026-04-14T06:52:34.193+0000] {subprocess.py:106} INFO - 	at org.apache.spark.util.LazyTry.tryT(LazyTry.scala:46)
+[2026-04-14T06:52:34.194+0000] {subprocess.py:106} INFO - 	at org.apache.spark.util.LazyTry.get(LazyTry.scala:58)
+[2026-04-14T06:52:34.194+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution.analyzed(QueryExecution.scala:121)
+[2026-04-14T06:52:34.195+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.execution.QueryExecution.assertAnalyzed(QueryExecution.scala:80)
+[2026-04-14T06:52:34.195+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.classic.Dataset$.$anonfun$ofRows$1(Dataset.scala:115)
+[2026-04-14T06:52:34.196+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+[2026-04-14T06:52:34.196+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.classic.Dataset$.ofRows(Dataset.scala:113)
+[2026-04-14T06:52:34.197+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.classic.DataFrameReader.load(DataFrameReader.scala:109)
+[2026-04-14T06:52:34.198+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.classic.DataFrameReader.load(DataFrameReader.scala:100)
+[2026-04-14T06:52:34.198+0000] {subprocess.py:106} INFO - 	at org.apache.spark.sql.classic.DataFrameReader.load(DataFrameReader.scala:58)
+[2026-04-14T06:52:34.199+0000] {subprocess.py:106} INFO - 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+[2026-04-14T06:52:34.200+0000] {subprocess.py:106} INFO - 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:75)
+[2026-04-14T06:52:34.201+0000] {subprocess.py:106} INFO - 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:52)
+[2026-04-14T06:52:34.201+0000] {subprocess.py:106} INFO - 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+[2026-04-14T06:52:34.202+0000] {subprocess.py:106} INFO - 	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+[2026-04-14T06:52:34.202+0000] {subprocess.py:106} INFO - 	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+[2026-04-14T06:52:34.202+0000] {subprocess.py:106} INFO - 	at py4j.Gateway.invoke(Gateway.java:282)
+[2026-04-14T06:52:34.203+0000] {subprocess.py:106} INFO - 	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+[2026-04-14T06:52:34.203+0000] {subprocess.py:106} INFO - 	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+[2026-04-14T06:52:34.204+0000] {subprocess.py:106} INFO - 	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:184)
+[2026-04-14T06:52:34.205+0000] {subprocess.py:106} INFO - 	at py4j.ClientServerConnection.run(ClientServerConnection.java:108)
+[2026-04-14T06:52:34.205+0000] {subprocess.py:106} INFO - 	at java.base/java.lang.Thread.run(Thread.java:1583)
+[2026-04-14T06:52:34.206+0000] {subprocess.py:106} INFO - Caused by: java.net.ConnectException: Connection refused
+[2026-04-14T06:52:34.206+0000] {subprocess.py:106} INFO - 	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+[2026-04-14T06:52:34.206+0000] {subprocess.py:106} INFO - 	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:694)
+[2026-04-14T06:52:34.207+0000] {subprocess.py:106} INFO - 	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
+[2026-04-14T06:52:34.207+0000] {subprocess.py:106} INFO - 	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
+[2026-04-14T06:52:34.208+0000] {subprocess.py:106} INFO - 	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+[2026-04-14T06:52:34.208+0000] {subprocess.py:106} INFO - 	at java.base/java.net.Socket.connect(Socket.java:751)
+[2026-04-14T06:52:34.209+0000] {subprocess.py:106} INFO - 	at org.apache.thrift.transport.TSocket.open(TSocket.java:250)
+[2026-04-14T06:52:34.210+0000] {subprocess.py:106} INFO - 	... 112 more
+[2026-04-14T06:52:34.211+0000] {subprocess.py:106} INFO - )
+[2026-04-14T06:52:34.212+0000] {subprocess.py:106} INFO - 	at org.apache.hadoop.hive.metastore.HiveMetaStoreClient.open(HiveMetaStoreClient.java:541)
+[2026-04-14T06:52:34.212+0000] {subprocess.py:106} INFO - 	at org.apache.hadoop.hive.metastore.HiveMetaStoreClient.<init>(HiveMetaStoreClient.java:246)
+[2026-04-14T06:52:34.213+0000] {subprocess.py:106} INFO - 	... 110 more
+[2026-04-14T06:52:34.213+0000] {subprocess.py:106} INFO - 
+[2026-04-14T06:52:34.273+0000] {subprocess.py:106} INFO - 26/04/14 06:52:34 INFO SparkContext: Invoking stop() from shutdown hook
+[2026-04-14T06:52:34.276+0000] {subprocess.py:106} INFO - 26/04/14 06:52:34 INFO SparkContext: SparkContext is stopping with exitCode 0 from run at Executors.java:572.
+[2026-04-14T06:52:34.290+0000] {subprocess.py:106} INFO - 26/04/14 06:52:34 INFO SparkUI: Stopped Spark web UI at http://spark-master:4040
+[2026-04-14T06:52:34.303+0000] {subprocess.py:106} INFO - 26/04/14 06:52:34 INFO MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!
+[2026-04-14T06:52:34.332+0000] {subprocess.py:106} INFO - 26/04/14 06:52:34 INFO MemoryStore: MemoryStore started with capacity 1048.8 MiB
+[2026-04-14T06:52:34.335+0000] {subprocess.py:106} INFO - 26/04/14 06:52:34 INFO MemoryStore: MemoryStore cleared
+[2026-04-14T06:52:34.336+0000] {subprocess.py:106} INFO - 26/04/14 06:52:34 INFO BlockManager: BlockManager stopped
+[2026-04-14T06:52:34.343+0000] {subprocess.py:106} INFO - 26/04/14 06:52:34 INFO BlockManagerMaster: BlockManagerMaster stopped
+[2026-04-14T06:52:34.347+0000] {subprocess.py:106} INFO - 26/04/14 06:52:34 INFO OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: OutputCommitCoordinator stopped!
+[2026-04-14T06:52:34.371+0000] {subprocess.py:106} INFO - 26/04/14 06:52:34 INFO SparkContext: Successfully stopped SparkContext
+[2026-04-14T06:52:34.372+0000] {subprocess.py:106} INFO - 26/04/14 06:52:34 INFO ShutdownHookManager: Shutdown hook called
+[2026-04-14T06:52:34.373+0000] {subprocess.py:106} INFO - 26/04/14 06:52:34 INFO ShutdownHookManager: Deleting directory /tmp/spark-0d44e8fb-0d23-4adc-81eb-2b2f3f30f828
+[2026-04-14T06:52:34.380+0000] {subprocess.py:106} INFO - 26/04/14 06:52:34 INFO ShutdownHookManager: Deleting directory /tmp/spark-53fb962b-cffc-49c6-909e-8214453500ca/pyspark-4d538ac7-5433-41eb-8f2f-e448c2251469
+[2026-04-14T06:52:34.386+0000] {subprocess.py:106} INFO - 26/04/14 06:52:34 INFO ShutdownHookManager: Deleting directory /tmp/spark-53fb962b-cffc-49c6-909e-8214453500ca
+[2026-04-14T06:52:34.479+0000] {subprocess.py:110} INFO - Command exited with return code 1
+[2026-04-14T06:52:34.571+0000] {taskinstance.py:3311} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/operators/bash.py", line 276, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2026-04-14T06:52:34.593+0000] {taskinstance.py:1225} INFO - Marking task as FAILED. dag_id=predict_aqi, task_id=train_model, run_id=scheduled__2026-04-14T03:00:00+00:00, execution_date=20260414T030000, start_date=20260414T065211, end_date=20260414T065234
+[2026-04-14T06:52:34.642+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2026-04-14T06:52:34.644+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 274 for task train_model (Bash command failed. The command returned a non-zero exit code 1.; 190)
+Traceback (most recent call last):
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3005, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 273, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3159, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3183, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/operators/bash.py", line 276, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2026-04-14T06:52:34.662+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2026-04-14T06:52:34.709+0000] {taskinstance.py:3895} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-04-14T06:52:34.717+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

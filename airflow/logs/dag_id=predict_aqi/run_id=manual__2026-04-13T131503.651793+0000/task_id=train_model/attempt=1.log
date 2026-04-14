@@ -1,0 +1,117 @@
+[2026-04-13T13:15:58.064+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-04-13T13:15:58.095+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: predict_aqi.train_model manual__2026-04-13T13:15:03.651793+00:00 [queued]>
+[2026-04-13T13:15:58.108+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: predict_aqi.train_model manual__2026-04-13T13:15:03.651793+00:00 [queued]>
+[2026-04-13T13:15:58.109+0000] {taskinstance.py:2866} INFO - Starting attempt 1 of 3
+[2026-04-13T13:15:58.125+0000] {taskinstance.py:2889} INFO - Executing <Task(BashOperator): train_model> on 2026-04-13 13:15:03.651793+00:00
+[2026-04-13T13:15:58.133+0000] {standard_task_runner.py:104} INFO - Running: ['airflow', 'tasks', 'run', 'predict_aqi', 'train_model', 'manual__2026-04-13T13:15:03.651793+00:00', '--job-id', '137', '--raw', '--subdir', 'DAGS_FOLDER/dag_ml.py', '--cfg-path', '/tmp/tmpdxwbxg1c']
+[2026-04-13T13:15:58.135+0000] {standard_task_runner.py:105} INFO - Job 137: Subtask train_model
+[2026-04-13T13:15:58.136+0000] {logging_mixin.py:190} WARNING - /home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=93994) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-04-13T13:15:58.137+0000] {standard_task_runner.py:72} INFO - Started process 94052 to run task
+[2026-04-13T13:15:58.206+0000] {task_command.py:467} INFO - Running <TaskInstance: predict_aqi.train_model manual__2026-04-13T13:15:03.651793+00:00 [running]> on host airflow
+[2026-04-13T13:15:58.328+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='predict_aqi' AIRFLOW_CTX_TASK_ID='train_model' AIRFLOW_CTX_EXECUTION_DATE='2026-04-13T13:15:03.651793+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-04-13T13:15:03.651793+00:00'
+[2026-04-13T13:15:58.330+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2026-04-13T13:15:58.356+0000] {subprocess.py:78} INFO - Tmp dir root location: /tmp
+[2026-04-13T13:15:58.358+0000] {subprocess.py:88} INFO - Running command: ['/usr/bin/bash', '-c', '\n            docker exec spark-master spark-submit                 --packages org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.1                 /home/spark/spark/spark_jobs/train_model.py 2026-04-13\n        ']
+[2026-04-13T13:15:58.368+0000] {subprocess.py:99} INFO - Output:
+[2026-04-13T13:15:58.906+0000] {subprocess.py:106} INFO - WARNING: Using incubator modules: jdk.incubator.vector
+[2026-04-13T13:16:00.684+0000] {subprocess.py:106} INFO - :: loading settings :: url = jar:file:/home/spark/spark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings.xml
+[2026-04-13T13:16:00.820+0000] {subprocess.py:106} INFO - Ivy Default Cache set to: /home/spark/.ivy2.5.2/cache
+[2026-04-13T13:16:00.821+0000] {subprocess.py:106} INFO - The jars for the packages stored in: /home/spark/.ivy2.5.2/jars
+[2026-04-13T13:16:00.835+0000] {subprocess.py:106} INFO - org.apache.iceberg#iceberg-spark-runtime-4.0_2.13 added as a dependency
+[2026-04-13T13:16:00.836+0000] {subprocess.py:106} INFO - :: resolving dependencies :: org.apache.spark#spark-submit-parent-43b6d6f8-8a9f-44ee-b920-7b5c29447520;1.0
+[2026-04-13T13:16:00.837+0000] {subprocess.py:106} INFO - 	confs: [default]
+[2026-04-13T13:16:01.002+0000] {subprocess.py:106} INFO - 	found org.apache.iceberg#iceberg-spark-runtime-4.0_2.13;1.10.1 in central
+[2026-04-13T13:16:01.026+0000] {subprocess.py:106} INFO - :: resolution report :: resolve 184ms :: artifacts dl 6ms
+[2026-04-13T13:16:01.027+0000] {subprocess.py:106} INFO - 	:: modules in use:
+[2026-04-13T13:16:01.028+0000] {subprocess.py:106} INFO - 	org.apache.iceberg#iceberg-spark-runtime-4.0_2.13;1.10.1 from central in [default]
+[2026-04-13T13:16:01.029+0000] {subprocess.py:106} INFO - 	---------------------------------------------------------------------
+[2026-04-13T13:16:01.029+0000] {subprocess.py:106} INFO - 	|                  |            modules            ||   artifacts   |
+[2026-04-13T13:16:01.030+0000] {subprocess.py:106} INFO - 	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+[2026-04-13T13:16:01.031+0000] {subprocess.py:106} INFO - 	---------------------------------------------------------------------
+[2026-04-13T13:16:01.031+0000] {subprocess.py:106} INFO - 	|      default     |   1   |   0   |   0   |   0   ||   1   |   0   |
+[2026-04-13T13:16:01.032+0000] {subprocess.py:106} INFO - 	---------------------------------------------------------------------
+[2026-04-13T13:16:01.033+0000] {subprocess.py:106} INFO - :: retrieving :: org.apache.spark#spark-submit-parent-43b6d6f8-8a9f-44ee-b920-7b5c29447520
+[2026-04-13T13:16:01.034+0000] {subprocess.py:106} INFO - 	confs: [default]
+[2026-04-13T13:16:01.046+0000] {subprocess.py:106} INFO - 	0 artifacts copied, 1 already retrieved (0kB/12ms)
+[2026-04-13T13:16:01.369+0000] {subprocess.py:106} INFO - 26/04/13 13:16:01 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[2026-04-13T13:16:02.707+0000] {subprocess.py:106} INFO - Traceback (most recent call last):
+[2026-04-13T13:16:02.708+0000] {subprocess.py:106} INFO -   File "/home/spark/spark/spark_jobs/train_model.py", line 2, in <module>
+[2026-04-13T13:16:02.711+0000] {subprocess.py:106} INFO -     from pyspark.ml.feature import VectorAssembler
+[2026-04-13T13:16:02.712+0000] {subprocess.py:106} INFO -   File "/home/spark/spark/python/lib/pyspark.zip/pyspark/ml/__init__.py", line 22, in <module>
+[2026-04-13T13:16:02.714+0000] {subprocess.py:106} INFO -   File "/home/spark/spark/python/lib/pyspark.zip/pyspark/ml/base.py", line 38, in <module>
+[2026-04-13T13:16:02.715+0000] {subprocess.py:106} INFO -   File "/home/spark/spark/python/lib/pyspark.zip/pyspark/ml/param/__init__.py", line 32, in <module>
+[2026-04-13T13:16:02.715+0000] {subprocess.py:106} INFO - ModuleNotFoundError: No module named 'numpy'
+[2026-04-13T13:16:02.785+0000] {subprocess.py:106} INFO - 26/04/13 13:16:02 INFO ShutdownHookManager: Shutdown hook called
+[2026-04-13T13:16:02.791+0000] {subprocess.py:106} INFO - 26/04/13 13:16:02 INFO ShutdownHookManager: Deleting directory /tmp/spark-b2fb4688-4582-4b4c-88fc-c1805695d7a9
+[2026-04-13T13:16:02.854+0000] {subprocess.py:110} INFO - Command exited with return code 1
+[2026-04-13T13:16:02.877+0000] {taskinstance.py:3311} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/operators/bash.py", line 276, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2026-04-13T13:16:02.920+0000] {taskinstance.py:1225} INFO - Marking task as UP_FOR_RETRY. dag_id=predict_aqi, task_id=train_model, run_id=manual__2026-04-13T13:15:03.651793+00:00, execution_date=20260413T131503, start_date=20260413T131558, end_date=20260413T131602
+[2026-04-13T13:16:02.966+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2026-04-13T13:16:02.967+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 137 for task train_model (Bash command failed. The command returned a non-zero exit code 1.; 94052)
+Traceback (most recent call last):
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3005, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 273, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3159, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3183, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/operators/bash.py", line 276, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2026-04-13T13:16:02.987+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2026-04-13T13:16:03.021+0000] {taskinstance.py:3895} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-04-13T13:16:03.026+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

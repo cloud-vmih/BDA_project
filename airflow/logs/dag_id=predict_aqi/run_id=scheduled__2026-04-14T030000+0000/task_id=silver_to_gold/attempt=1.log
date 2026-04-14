@@ -1,0 +1,662 @@
+[2026-04-14T04:00:15.016+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-04-14T04:00:15.055+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: predict_aqi.silver_to_gold scheduled__2026-04-14T03:00:00+00:00 [queued]>
+[2026-04-14T04:00:15.071+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: predict_aqi.silver_to_gold scheduled__2026-04-14T03:00:00+00:00 [queued]>
+[2026-04-14T04:00:15.071+0000] {taskinstance.py:2866} INFO - Starting attempt 1 of 3
+[2026-04-14T04:00:15.095+0000] {taskinstance.py:2889} INFO - Executing <Task(BashOperator): silver_to_gold> on 2026-04-14 03:00:00+00:00
+[2026-04-14T04:00:15.105+0000] {standard_task_runner.py:104} INFO - Running: ['airflow', 'tasks', 'run', 'predict_aqi', 'silver_to_gold', 'scheduled__2026-04-14T03:00:00+00:00', '--job-id', '266', '--raw', '--subdir', 'DAGS_FOLDER/dag_ml.py', '--cfg-path', '/tmp/tmpsiqyu0cv']
+[2026-04-14T04:00:15.107+0000] {standard_task_runner.py:105} INFO - Job 266: Subtask silver_to_gold
+[2026-04-14T04:00:15.113+0000] {logging_mixin.py:190} WARNING - /home/airflow/airflow/venv/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=905) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-04-14T04:00:15.114+0000] {standard_task_runner.py:72} INFO - Started process 941 to run task
+[2026-04-14T04:00:15.194+0000] {task_command.py:467} INFO - Running <TaskInstance: predict_aqi.silver_to_gold scheduled__2026-04-14T03:00:00+00:00 [running]> on host airflow
+[2026-04-14T04:00:15.311+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='predict_aqi' AIRFLOW_CTX_TASK_ID='silver_to_gold' AIRFLOW_CTX_EXECUTION_DATE='2026-04-14T03:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-04-14T03:00:00+00:00'
+[2026-04-14T04:00:15.313+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2026-04-14T04:00:15.334+0000] {subprocess.py:78} INFO - Tmp dir root location: /tmp
+[2026-04-14T04:00:15.337+0000] {subprocess.py:88} INFO - Running command: ['/usr/bin/bash', '-c', '\n            docker exec spark-master spark-submit                 --packages org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.1                 /home/spark/spark/spark_jobs/silver_to_gold.py 2026-04-14\n        ']
+[2026-04-14T04:00:15.348+0000] {subprocess.py:99} INFO - Output:
+[2026-04-14T04:00:15.835+0000] {subprocess.py:106} INFO - WARNING: Using incubator modules: jdk.incubator.vector
+[2026-04-14T04:00:17.978+0000] {subprocess.py:106} INFO - :: loading settings :: url = jar:file:/home/spark/spark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings.xml
+[2026-04-14T04:00:18.092+0000] {subprocess.py:106} INFO - Ivy Default Cache set to: /home/spark/.ivy2.5.2/cache
+[2026-04-14T04:00:18.093+0000] {subprocess.py:106} INFO - The jars for the packages stored in: /home/spark/.ivy2.5.2/jars
+[2026-04-14T04:00:18.106+0000] {subprocess.py:106} INFO - org.apache.iceberg#iceberg-spark-runtime-4.0_2.13 added as a dependency
+[2026-04-14T04:00:18.107+0000] {subprocess.py:106} INFO - :: resolving dependencies :: org.apache.spark#spark-submit-parent-2806220e-75d1-462d-b5d4-abcc1df63dad;1.0
+[2026-04-14T04:00:18.107+0000] {subprocess.py:106} INFO - 	confs: [default]
+[2026-04-14T04:00:18.278+0000] {subprocess.py:106} INFO - 	found org.apache.iceberg#iceberg-spark-runtime-4.0_2.13;1.10.1 in spark-list
+[2026-04-14T04:00:18.306+0000] {subprocess.py:106} INFO - :: resolution report :: resolve 194ms :: artifacts dl 5ms
+[2026-04-14T04:00:18.307+0000] {subprocess.py:106} INFO - 	:: modules in use:
+[2026-04-14T04:00:18.309+0000] {subprocess.py:106} INFO - 	org.apache.iceberg#iceberg-spark-runtime-4.0_2.13;1.10.1 from spark-list in [default]
+[2026-04-14T04:00:18.309+0000] {subprocess.py:106} INFO - 	---------------------------------------------------------------------
+[2026-04-14T04:00:18.310+0000] {subprocess.py:106} INFO - 	|                  |            modules            ||   artifacts   |
+[2026-04-14T04:00:18.311+0000] {subprocess.py:106} INFO - 	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+[2026-04-14T04:00:18.314+0000] {subprocess.py:106} INFO - 	---------------------------------------------------------------------
+[2026-04-14T04:00:18.315+0000] {subprocess.py:106} INFO - 	|      default     |   1   |   0   |   0   |   0   ||   1   |   0   |
+[2026-04-14T04:00:18.316+0000] {subprocess.py:106} INFO - 	---------------------------------------------------------------------
+[2026-04-14T04:00:18.317+0000] {subprocess.py:106} INFO - :: retrieving :: org.apache.spark#spark-submit-parent-2806220e-75d1-462d-b5d4-abcc1df63dad
+[2026-04-14T04:00:18.317+0000] {subprocess.py:106} INFO - 	confs: [default]
+[2026-04-14T04:00:18.325+0000] {subprocess.py:106} INFO - 	0 artifacts copied, 1 already retrieved (0kB/11ms)
+[2026-04-14T04:00:18.670+0000] {subprocess.py:106} INFO - 26/04/14 04:00:18 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[2026-04-14T04:00:20.791+0000] {subprocess.py:106} INFO - Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+[2026-04-14T04:00:20.803+0000] {subprocess.py:106} INFO - 26/04/14 04:00:20 INFO SparkContext: Running Spark version 4.0.2
+[2026-04-14T04:00:20.806+0000] {subprocess.py:106} INFO - 26/04/14 04:00:20 INFO SparkContext: OS info Linux, 6.6.87.2-microsoft-standard-WSL2, amd64
+[2026-04-14T04:00:20.807+0000] {subprocess.py:106} INFO - 26/04/14 04:00:20 INFO SparkContext: Java version 21.0.10
+[2026-04-14T04:00:20.839+0000] {subprocess.py:106} INFO - 26/04/14 04:00:20 INFO ResourceUtils: ==============================================================
+[2026-04-14T04:00:20.840+0000] {subprocess.py:106} INFO - 26/04/14 04:00:20 INFO ResourceUtils: No custom resources configured for spark.driver.
+[2026-04-14T04:00:20.841+0000] {subprocess.py:106} INFO - 26/04/14 04:00:20 INFO ResourceUtils: ==============================================================
+[2026-04-14T04:00:20.842+0000] {subprocess.py:106} INFO - 26/04/14 04:00:20 INFO SparkContext: Submitted application: Silver_to_Gold
+[2026-04-14T04:00:20.879+0000] {subprocess.py:106} INFO - 26/04/14 04:00:20 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 2, script: , vendor: , memory -> name: memory, amount: 2048, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+[2026-04-14T04:00:20.887+0000] {subprocess.py:106} INFO - 26/04/14 04:00:20 INFO ResourceProfile: Limiting resource is cpus at 2 tasks per executor
+[2026-04-14T04:00:20.891+0000] {subprocess.py:106} INFO - 26/04/14 04:00:20 INFO ResourceProfileManager: Added ResourceProfile id: 0
+[2026-04-14T04:00:20.963+0000] {subprocess.py:106} INFO - 26/04/14 04:00:20 INFO SecurityManager: Changing view acls to: spark
+[2026-04-14T04:00:20.965+0000] {subprocess.py:106} INFO - 26/04/14 04:00:20 INFO SecurityManager: Changing modify acls to: spark
+[2026-04-14T04:00:20.967+0000] {subprocess.py:106} INFO - 26/04/14 04:00:20 INFO SecurityManager: Changing view acls groups to: spark
+[2026-04-14T04:00:20.978+0000] {subprocess.py:106} INFO - 26/04/14 04:00:20 INFO SecurityManager: Changing modify acls groups to: spark
+[2026-04-14T04:00:20.982+0000] {subprocess.py:106} INFO - 26/04/14 04:00:20 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: spark groups with view permissions: EMPTY; users with modify permissions: spark; groups with modify permissions: EMPTY; RPC SSL disabled
+[2026-04-14T04:00:21.329+0000] {subprocess.py:106} INFO - 26/04/14 04:00:21 INFO Utils: Successfully started service 'sparkDriver' on port 33467.
+[2026-04-14T04:00:21.367+0000] {subprocess.py:106} INFO - 26/04/14 04:00:21 INFO SparkEnv: Registering MapOutputTracker
+[2026-04-14T04:00:21.380+0000] {subprocess.py:106} INFO - 26/04/14 04:00:21 INFO SparkEnv: Registering BlockManagerMaster
+[2026-04-14T04:00:21.394+0000] {subprocess.py:106} INFO - 26/04/14 04:00:21 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+[2026-04-14T04:00:21.396+0000] {subprocess.py:106} INFO - 26/04/14 04:00:21 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+[2026-04-14T04:00:21.398+0000] {subprocess.py:106} INFO - 26/04/14 04:00:21 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+[2026-04-14T04:00:21.423+0000] {subprocess.py:106} INFO - 26/04/14 04:00:21 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-84f5e3b0-2e66-4f9e-be05-98a5c87d3012
+[2026-04-14T04:00:21.449+0000] {subprocess.py:106} INFO - 26/04/14 04:00:21 INFO SparkEnv: Registering OutputCommitCoordinator
+[2026-04-14T04:00:21.615+0000] {subprocess.py:106} INFO - 26/04/14 04:00:21 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+[2026-04-14T04:00:21.736+0000] {subprocess.py:106} INFO - 26/04/14 04:00:21 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+[2026-04-14T04:00:21.806+0000] {subprocess.py:106} INFO - 26/04/14 04:00:21 INFO SparkContext: Added JAR file:///home/spark/.ivy2.5.2/jars/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar at spark://spark-master:33467/jars/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar with timestamp 1776139220775
+[2026-04-14T04:00:21.810+0000] {subprocess.py:106} INFO - 26/04/14 04:00:21 INFO SparkContext: Added file file:///home/spark/.ivy2.5.2/jars/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar at file:///home/spark/.ivy2.5.2/jars/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar with timestamp 1776139220775
+[2026-04-14T04:00:21.814+0000] {subprocess.py:106} INFO - 26/04/14 04:00:21 INFO Utils: Copying /home/spark/.ivy2.5.2/jars/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar to /tmp/spark-069dd5fe-6c90-4415-bfeb-e7b02bc086df/userFiles-1380f130-aa13-4551-bc60-e6e125534205/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar
+[2026-04-14T04:00:21.969+0000] {subprocess.py:106} INFO - 26/04/14 04:00:21 INFO SecurityManager: Changing view acls to: spark
+[2026-04-14T04:00:21.971+0000] {subprocess.py:106} INFO - 26/04/14 04:00:21 INFO SecurityManager: Changing modify acls to: spark
+[2026-04-14T04:00:21.972+0000] {subprocess.py:106} INFO - 26/04/14 04:00:21 INFO SecurityManager: Changing view acls groups to: spark
+[2026-04-14T04:00:21.973+0000] {subprocess.py:106} INFO - 26/04/14 04:00:21 INFO SecurityManager: Changing modify acls groups to: spark
+[2026-04-14T04:00:21.974+0000] {subprocess.py:106} INFO - 26/04/14 04:00:21 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: spark groups with view permissions: EMPTY; users with modify permissions: spark; groups with modify permissions: EMPTY; RPC SSL disabled
+[2026-04-14T04:00:22.244+0000] {subprocess.py:106} INFO - 26/04/14 04:00:22 INFO Executor: Starting executor ID driver on host spark-master
+[2026-04-14T04:00:22.246+0000] {subprocess.py:106} INFO - 26/04/14 04:00:22 INFO Executor: OS info Linux, 6.6.87.2-microsoft-standard-WSL2, amd64
+[2026-04-14T04:00:22.249+0000] {subprocess.py:106} INFO - 26/04/14 04:00:22 INFO Executor: Java version 21.0.10
+[2026-04-14T04:00:22.272+0000] {subprocess.py:106} INFO - 26/04/14 04:00:22 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+[2026-04-14T04:00:22.274+0000] {subprocess.py:106} INFO - 26/04/14 04:00:22 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@49ac0006 for default.
+[2026-04-14T04:00:22.298+0000] {subprocess.py:106} INFO - 26/04/14 04:00:22 INFO Executor: Fetching file:///home/spark/.ivy2.5.2/jars/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar with timestamp 1776139220775
+[2026-04-14T04:00:22.357+0000] {subprocess.py:106} INFO - 26/04/14 04:00:22 INFO Utils: /home/spark/.ivy2.5.2/jars/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar has been previously copied to /tmp/spark-069dd5fe-6c90-4415-bfeb-e7b02bc086df/userFiles-1380f130-aa13-4551-bc60-e6e125534205/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar
+[2026-04-14T04:00:22.367+0000] {subprocess.py:106} INFO - 26/04/14 04:00:22 INFO Executor: Fetching spark://spark-master:33467/jars/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar with timestamp 1776139220775
+[2026-04-14T04:00:22.440+0000] {subprocess.py:106} INFO - 26/04/14 04:00:22 INFO TransportClientFactory: Successfully created connection to spark-master/172.20.0.5:33467 after 47 ms (0 ms spent in bootstraps)
+[2026-04-14T04:00:22.451+0000] {subprocess.py:106} INFO - 26/04/14 04:00:22 INFO Utils: Fetching spark://spark-master:33467/jars/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar to /tmp/spark-069dd5fe-6c90-4415-bfeb-e7b02bc086df/userFiles-1380f130-aa13-4551-bc60-e6e125534205/fetchFileTemp4397797990775101836.tmp
+[2026-04-14T04:00:22.963+0000] {subprocess.py:106} INFO - 26/04/14 04:00:22 INFO Utils: /tmp/spark-069dd5fe-6c90-4415-bfeb-e7b02bc086df/userFiles-1380f130-aa13-4551-bc60-e6e125534205/fetchFileTemp4397797990775101836.tmp has been previously copied to /tmp/spark-069dd5fe-6c90-4415-bfeb-e7b02bc086df/userFiles-1380f130-aa13-4551-bc60-e6e125534205/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar
+[2026-04-14T04:00:22.983+0000] {subprocess.py:106} INFO - 26/04/14 04:00:22 INFO Executor: Adding file:/tmp/spark-069dd5fe-6c90-4415-bfeb-e7b02bc086df/userFiles-1380f130-aa13-4551-bc60-e6e125534205/org.apache.iceberg_iceberg-spark-runtime-4.0_2.13-1.10.1.jar to class loader default
+[2026-04-14T04:00:23.008+0000] {subprocess.py:106} INFO - 26/04/14 04:00:23 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 32903.
+[2026-04-14T04:00:23.009+0000] {subprocess.py:106} INFO - 26/04/14 04:00:23 INFO NettyBlockTransferService: Server created on spark-master:32903
+[2026-04-14T04:00:23.012+0000] {subprocess.py:106} INFO - 26/04/14 04:00:23 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+[2026-04-14T04:00:23.035+0000] {subprocess.py:106} INFO - 26/04/14 04:00:23 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, spark-master, 32903, None)
+[2026-04-14T04:00:23.045+0000] {subprocess.py:106} INFO - 26/04/14 04:00:23 INFO BlockManagerMasterEndpoint: Registering block manager spark-master:32903 with 1048.8 MiB RAM, BlockManagerId(driver, spark-master, 32903, None)
+[2026-04-14T04:00:23.051+0000] {subprocess.py:106} INFO - 26/04/14 04:00:23 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, spark-master, 32903, None)
+[2026-04-14T04:00:23.052+0000] {subprocess.py:106} INFO - 26/04/14 04:00:23 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, spark-master, 32903, None)
+[2026-04-14T04:00:26.498+0000] {subprocess.py:106} INFO - Đọc dữ liệu Silver từ iceberg.air_quality_db.air_quality_silver
+[2026-04-14T04:00:26.515+0000] {subprocess.py:106} INFO - 26/04/14 04:00:26 INFO SharedState: spark.sql.warehouse.dir is not set, but hive.metastore.warehouse.dir is set. Setting spark.sql.warehouse.dir to the value of hive.metastore.warehouse.dir.
+[2026-04-14T04:00:26.864+0000] {subprocess.py:106} INFO - 26/04/14 04:00:26 INFO SharedState: Warehouse path is 'hdfs://23133083thuyvan-master:9000/user/hive/lakehouse'.
+[2026-04-14T04:00:28.188+0000] {subprocess.py:106} INFO - 26/04/14 04:00:28 INFO CatalogUtil: Loading custom FileIO implementation: org.apache.iceberg.hadoop.HadoopFileIO
+[2026-04-14T04:00:28.276+0000] {subprocess.py:106} INFO - 26/04/14 04:00:28 INFO HiveConf: Found configuration file file:/home/spark/spark/conf/hive-site.xml
+[2026-04-14T04:00:28.456+0000] {subprocess.py:106} INFO - 26/04/14 04:00:28 INFO metastore: Trying to connect to metastore with URI thrift://23133083thuyvan-master:9083
+[2026-04-14T04:00:28.477+0000] {subprocess.py:106} INFO - 26/04/14 04:00:28 INFO metastore: Opened a connection to metastore, current connections: 1
+[2026-04-14T04:00:28.505+0000] {subprocess.py:106} INFO - 26/04/14 04:00:28 INFO metastore: Connected to metastore.
+[2026-04-14T04:00:28.639+0000] {subprocess.py:106} INFO - 26/04/14 04:00:28 INFO BaseMetastoreTableOperations: Refreshing table metadata from new version: hdfs://23133083thuyvan-master:9000/user/hive/lakehouse/silver/air_quality_silver/metadata/00003-8e71d277-3336-4b24-8390-00b46931a63f.metadata.json
+[2026-04-14T04:00:29.124+0000] {subprocess.py:106} INFO - 26/04/14 04:00:29 INFO BaseMetastoreCatalog: Table loaded by catalog: iceberg.air_quality_db.air_quality_silver
+[2026-04-14T04:00:30.522+0000] {subprocess.py:106} INFO - 26/04/14 04:00:30 INFO BaseMetastoreTableOperations: Refreshing table metadata from new version: hdfs://23133083thuyvan-master:9000/user/hive/lakehouse/gold/ml/air_quality_gold/metadata/00003-81bb62c0-be68-413c-9760-1f550fb8332e.metadata.json
+[2026-04-14T04:00:30.539+0000] {subprocess.py:106} INFO - 26/04/14 04:00:30 INFO BaseMetastoreCatalog: Table loaded by catalog: iceberg.air_quality_ml.air_quality_gold
+[2026-04-14T04:00:30.553+0000] {subprocess.py:106} INFO - Bảng đã tồn tại, append dữ liệu vào iceberg.air_quality_ml.air_quality_gold
+[2026-04-14T04:00:30.735+0000] {subprocess.py:106} INFO - 26/04/14 04:00:30 INFO V2ScanRelationPushDown:
+[2026-04-14T04:00:30.736+0000] {subprocess.py:106} INFO - Output: timestamp#0, us_aqi_index#19, pm10#21, pm2_5#22, carbon_monoxide#23, nitrogen_dioxide#24, sulphur_dioxide#25, ozone#26
+[2026-04-14T04:00:30.737+0000] {subprocess.py:106} INFO - 
+[2026-04-14T04:00:30.756+0000] {subprocess.py:106} INFO - 26/04/14 04:00:30 INFO SnapshotScan: Scanning table iceberg.air_quality_db.air_quality_silver snapshot 4518274335865062319 created at 2026-04-13T11:48:03.562+00:00 with filter true
+[2026-04-14T04:00:31.123+0000] {subprocess.py:106} INFO - 26/04/14 04:00:31 INFO BaseDistributedDataScan: Planning file tasks locally for table iceberg.air_quality_db.air_quality_silver
+[2026-04-14T04:00:31.340+0000] {subprocess.py:106} INFO - 26/04/14 04:00:31 INFO SparkPartitioningAwareScan: Reporting UnknownPartitioning with 15 partition(s) for table iceberg.air_quality_db.air_quality_silver
+[2026-04-14T04:00:31.477+0000] {subprocess.py:106} INFO - 26/04/14 04:00:31 INFO MemoryStore: MemoryStore started with capacity 1048.8 MiB
+[2026-04-14T04:00:31.528+0000] {subprocess.py:106} INFO - 26/04/14 04:00:31 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 32.0 KiB, free 1048.8 MiB)
+[2026-04-14T04:00:31.669+0000] {subprocess.py:106} INFO - 26/04/14 04:00:31 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 34.8 KiB, free 1048.7 MiB)
+[2026-04-14T04:00:31.691+0000] {subprocess.py:106} INFO - 26/04/14 04:00:31 INFO SparkContext: Created broadcast 0 from broadcast at SparkBatch.java:87
+[2026-04-14T04:00:31.820+0000] {subprocess.py:106} INFO - 26/04/14 04:00:31 INFO MemoryStore: Block broadcast_1 stored as values in memory (estimated size 32.0 KiB, free 1048.7 MiB)
+[2026-04-14T04:00:31.830+0000] {subprocess.py:106} INFO - 26/04/14 04:00:31 INFO MemoryStore: Block broadcast_1_piece0 stored as bytes in memory (estimated size 34.9 KiB, free 1048.7 MiB)
+[2026-04-14T04:00:31.833+0000] {subprocess.py:106} INFO - 26/04/14 04:00:31 INFO SparkContext: Created broadcast 1 from broadcast at SparkBatch.java:87
+[2026-04-14T04:00:32.621+0000] {subprocess.py:106} INFO - 26/04/14 04:00:32 INFO CodeGenerator: Code generated in 355.959285 ms
+[2026-04-14T04:00:32.738+0000] {subprocess.py:106} INFO - 26/04/14 04:00:32 INFO MemoryStore: Block broadcast_2 stored as values in memory (estimated size 32.0 KiB, free 1048.6 MiB)
+[2026-04-14T04:00:32.755+0000] {subprocess.py:106} INFO - 26/04/14 04:00:32 INFO MemoryStore: Block broadcast_2_piece0 stored as bytes in memory (estimated size 34.4 KiB, free 1048.6 MiB)
+[2026-04-14T04:00:32.759+0000] {subprocess.py:106} INFO - 26/04/14 04:00:32 INFO SparkContext: Created broadcast 2 from broadcast at SparkWrite.java:198
+[2026-04-14T04:00:32.766+0000] {subprocess.py:106} INFO - 26/04/14 04:00:32 INFO AppendDataExec: Start processing data source write support: IcebergBatchWrite(table=iceberg.air_quality_ml.air_quality_gold, format=PARQUET). The input RDD has 15} partitions.
+[2026-04-14T04:00:32.816+0000] {subprocess.py:106} INFO - 26/04/14 04:00:32 INFO SparkContext: Starting job: append at NativeMethodAccessorImpl.java:0
+[2026-04-14T04:00:32.838+0000] {subprocess.py:106} INFO - 26/04/14 04:00:32 INFO DAGScheduler: Got job 0 (append at NativeMethodAccessorImpl.java:0) with 15 output partitions
+[2026-04-14T04:00:32.842+0000] {subprocess.py:106} INFO - 26/04/14 04:00:32 INFO DAGScheduler: Final stage: ResultStage 0 (append at NativeMethodAccessorImpl.java:0)
+[2026-04-14T04:00:32.843+0000] {subprocess.py:106} INFO - 26/04/14 04:00:32 INFO DAGScheduler: Parents of final stage: List()
+[2026-04-14T04:00:32.847+0000] {subprocess.py:106} INFO - 26/04/14 04:00:32 INFO DAGScheduler: Missing parents: List()
+[2026-04-14T04:00:32.854+0000] {subprocess.py:106} INFO - 26/04/14 04:00:32 INFO DAGScheduler: Submitting ResultStage 0 (MapPartitionsRDD[2] at append at NativeMethodAccessorImpl.java:0), which has no missing parents
+[2026-04-14T04:00:32.934+0000] {subprocess.py:106} INFO - 26/04/14 04:00:32 INFO MemoryStore: Block broadcast_3 stored as values in memory (estimated size 22.5 KiB, free 1048.6 MiB)
+[2026-04-14T04:00:32.938+0000] {subprocess.py:106} INFO - 26/04/14 04:00:32 INFO MemoryStore: Block broadcast_3_piece0 stored as bytes in memory (estimated size 8.5 KiB, free 1048.6 MiB)
+[2026-04-14T04:00:32.940+0000] {subprocess.py:106} INFO - 26/04/14 04:00:32 INFO SparkContext: Created broadcast 3 from broadcast at DAGScheduler.scala:1676
+[2026-04-14T04:00:32.974+0000] {subprocess.py:106} INFO - 26/04/14 04:00:32 INFO DAGScheduler: Submitting 15 missing tasks from ResultStage 0 (MapPartitionsRDD[2] at append at NativeMethodAccessorImpl.java:0) (first 15 tasks are for partitions Vector(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+[2026-04-14T04:00:32.981+0000] {subprocess.py:106} INFO - 26/04/14 04:00:32 INFO TaskSchedulerImpl: Adding task set 0.0 with 15 tasks resource profile 0
+[2026-04-14T04:00:33.042+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO TaskSetManager: Starting task 0.0 in stage 0.0 (TID 0) (spark-master,executor driver, partition 0, ANY, 20909 bytes)
+[2026-04-14T04:00:33.048+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO TaskSetManager: Starting task 1.0 in stage 0.0 (TID 1) (spark-master,executor driver, partition 1, ANY, 20459 bytes)
+[2026-04-14T04:00:33.050+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO TaskSetManager: Starting task 2.0 in stage 0.0 (TID 2) (spark-master,executor driver, partition 2, ANY, 20923 bytes)
+[2026-04-14T04:00:33.053+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO TaskSetManager: Starting task 3.0 in stage 0.0 (TID 3) (spark-master,executor driver, partition 3, ANY, 20896 bytes)
+[2026-04-14T04:00:33.056+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO TaskSetManager: Starting task 4.0 in stage 0.0 (TID 4) (spark-master,executor driver, partition 4, ANY, 20464 bytes)
+[2026-04-14T04:00:33.058+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO TaskSetManager: Starting task 5.0 in stage 0.0 (TID 5) (spark-master,executor driver, partition 5, ANY, 20918 bytes)
+[2026-04-14T04:00:33.059+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO TaskSetManager: Starting task 6.0 in stage 0.0 (TID 6) (spark-master,executor driver, partition 6, ANY, 20912 bytes)
+[2026-04-14T04:00:33.062+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO TaskSetManager: Starting task 7.0 in stage 0.0 (TID 7) (spark-master,executor driver, partition 7, ANY, 20912 bytes)
+[2026-04-14T04:00:33.063+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO TaskSetManager: Starting task 8.0 in stage 0.0 (TID 8) (spark-master,executor driver, partition 8, ANY, 20446 bytes)
+[2026-04-14T04:00:33.067+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO TaskSetManager: Starting task 9.0 in stage 0.0 (TID 9) (spark-master,executor driver, partition 9, ANY, 20472 bytes)
+[2026-04-14T04:00:33.070+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO TaskSetManager: Starting task 10.0 in stage 0.0 (TID 10) (spark-master,executor driver, partition 10, ANY, 20455 bytes)
+[2026-04-14T04:00:33.073+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO TaskSetManager: Starting task 11.0 in stage 0.0 (TID 11) (spark-master,executor driver, partition 11, ANY, 20910 bytes)
+[2026-04-14T04:00:33.076+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO TaskSetManager: Starting task 12.0 in stage 0.0 (TID 12) (spark-master,executor driver, partition 12, ANY, 20910 bytes)
+[2026-04-14T04:00:33.078+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO TaskSetManager: Starting task 13.0 in stage 0.0 (TID 13) (spark-master,executor driver, partition 13, ANY, 20437 bytes)
+[2026-04-14T04:00:33.079+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO TaskSetManager: Starting task 14.0 in stage 0.0 (TID 14) (spark-master,executor driver, partition 14, ANY, 20436 bytes)
+[2026-04-14T04:00:33.101+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO Executor: Running task 0.0 in stage 0.0 (TID 0)
+[2026-04-14T04:00:33.101+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO Executor: Running task 1.0 in stage 0.0 (TID 1)
+[2026-04-14T04:00:33.103+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO Executor: Running task 3.0 in stage 0.0 (TID 3)
+[2026-04-14T04:00:33.106+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO Executor: Running task 7.0 in stage 0.0 (TID 7)
+[2026-04-14T04:00:33.107+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO Executor: Running task 10.0 in stage 0.0 (TID 10)
+[2026-04-14T04:00:33.108+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO Executor: Running task 9.0 in stage 0.0 (TID 9)
+[2026-04-14T04:00:33.109+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO Executor: Running task 4.0 in stage 0.0 (TID 4)
+[2026-04-14T04:00:33.109+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO Executor: Running task 11.0 in stage 0.0 (TID 11)
+[2026-04-14T04:00:33.110+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO Executor: Running task 6.0 in stage 0.0 (TID 6)
+[2026-04-14T04:00:33.111+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO Executor: Running task 2.0 in stage 0.0 (TID 2)
+[2026-04-14T04:00:33.111+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO Executor: Running task 8.0 in stage 0.0 (TID 8)
+[2026-04-14T04:00:33.112+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO Executor: Running task 5.0 in stage 0.0 (TID 5)
+[2026-04-14T04:00:33.113+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO Executor: Running task 12.0 in stage 0.0 (TID 12)
+[2026-04-14T04:00:33.114+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO Executor: Running task 13.0 in stage 0.0 (TID 13)
+[2026-04-14T04:00:33.114+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO Executor: Running task 14.0 in stage 0.0 (TID 14)
+[2026-04-14T04:00:33.451+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO CodeGenerator: Code generated in 87.693354 ms
+[2026-04-14T04:00:33.591+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO CodecPool: Got brand-new compressor [.zstd]
+[2026-04-14T04:00:33.592+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO CodecPool: Got brand-new compressor [.zstd]
+[2026-04-14T04:00:33.593+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO CodecPool: Got brand-new compressor [.zstd]
+[2026-04-14T04:00:33.594+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO CodecPool: Got brand-new compressor [.zstd]
+[2026-04-14T04:00:33.595+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO CodecPool: Got brand-new compressor [.zstd]
+[2026-04-14T04:00:33.595+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO CodecPool: Got brand-new compressor [.zstd]
+[2026-04-14T04:00:33.596+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO CodecPool: Got brand-new compressor [.zstd]
+[2026-04-14T04:00:33.597+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO CodecPool: Got brand-new compressor [.zstd]
+[2026-04-14T04:00:33.598+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO CodecPool: Got brand-new compressor [.zstd]
+[2026-04-14T04:00:33.599+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO CodecPool: Got brand-new compressor [.zstd]
+[2026-04-14T04:00:33.599+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO CodecPool: Got brand-new compressor [.zstd]
+[2026-04-14T04:00:33.600+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO CodecPool: Got brand-new compressor [.zstd]
+[2026-04-14T04:00:33.601+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO CodecPool: Got brand-new compressor [.zstd]
+[2026-04-14T04:00:33.602+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO CodecPool: Got brand-new compressor [.zstd]
+[2026-04-14T04:00:33.603+0000] {subprocess.py:106} INFO - 26/04/14 04:00:33 INFO CodecPool: Got brand-new compressor [.zstd]
+[2026-04-14T04:00:34.464+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO VectorizedSparkParquetReaders: Enabling arrow.enable_unsafe_memory_access
+[2026-04-14T04:00:34.464+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO VectorizedSparkParquetReaders: Disabling arrow.enable_null_check_for_get
+[2026-04-14T04:00:34.470+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO BaseAllocator: Debug mode disabled. Enable with the VM option -Darrow.memory.debug.allocator=true.
+[2026-04-14T04:00:34.474+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO DefaultAllocationManagerOption: allocation manager type not specified, using netty as the default type
+[2026-04-14T04:00:34.476+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO CheckAllocator: Using DefaultAllocationManager at memory/DefaultAllocationManagerFactory.class
+[2026-04-14T04:00:34.624+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:34.625+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:34.626+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:34.628+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:34.629+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:34.631+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:34.633+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:34.633+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:34.634+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:34.636+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:34.637+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:34.637+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:34.639+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:34.639+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:34.640+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:34.918+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:34.954+0000] {subprocess.py:106} INFO - 26/04/14 04:00:34 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.047+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.149+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.159+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.164+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.166+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.167+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.170+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.177+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.178+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.179+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.180+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.181+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.182+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.183+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.192+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.204+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.209+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.210+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.214+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.216+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.219+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.221+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.223+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.225+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.231+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.239+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.240+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.242+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.244+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.246+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.247+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.249+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Writer for partition 5 is committing.
+[2026-04-14T04:00:35.250+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.262+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Writer for partition 3 is committing.
+[2026-04-14T04:00:35.263+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Writer for partition 12 is committing.
+[2026-04-14T04:00:35.264+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Writer for partition 11 is committing.
+[2026-04-14T04:00:35.276+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.278+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.286+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.287+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.290+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Writer for partition 1 is committing.
+[2026-04-14T04:00:35.295+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Writer for partition 8 is committing.
+[2026-04-14T04:00:35.300+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.301+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.303+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.306+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Writer for partition 2 is committing.
+[2026-04-14T04:00:35.307+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.309+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Writer for partition 7 is committing.
+[2026-04-14T04:00:35.312+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.313+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.315+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Writer for partition 4 is committing.
+[2026-04-14T04:00:35.318+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Writer for partition 0 is committing.
+[2026-04-14T04:00:35.320+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Writer for partition 9 is committing.
+[2026-04-14T04:00:35.321+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Writer for partition 13 is committing.
+[2026-04-14T04:00:35.324+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Writer for partition 6 is committing.
+[2026-04-14T04:00:35.330+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:35.331+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Writer for partition 14 is committing.
+[2026-04-14T04:00:35.344+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Writer for partition 10 is committing.
+[2026-04-14T04:00:35.631+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Committed partition 13 (task 13, attempt 0, stage 0.0)
+[2026-04-14T04:00:35.632+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Committed partition 9 (task 9, attempt 0, stage 0.0)
+[2026-04-14T04:00:35.634+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Committed partition 3 (task 3, attempt 0, stage 0.0)
+[2026-04-14T04:00:35.636+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Committed partition 6 (task 6, attempt 0, stage 0.0)
+[2026-04-14T04:00:35.636+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Committed partition 2 (task 2, attempt 0, stage 0.0)
+[2026-04-14T04:00:35.638+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Committed partition 4 (task 4, attempt 0, stage 0.0)
+[2026-04-14T04:00:35.639+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Committed partition 7 (task 7, attempt 0, stage 0.0)
+[2026-04-14T04:00:35.640+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Committed partition 1 (task 1, attempt 0, stage 0.0)
+[2026-04-14T04:00:35.679+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO Executor: Finished task 13.0 in stage 0.0 (TID 13). 7863 bytes result sent to driver
+[2026-04-14T04:00:35.682+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO Executor: Finished task 7.0 in stage 0.0 (TID 7). 7880 bytes result sent to driver
+[2026-04-14T04:00:35.684+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO Executor: Finished task 3.0 in stage 0.0 (TID 3). 7862 bytes result sent to driver
+[2026-04-14T04:00:35.685+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO Executor: Finished task 1.0 in stage 0.0 (TID 1). 7862 bytes result sent to driver
+[2026-04-14T04:00:35.686+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO Executor: Finished task 9.0 in stage 0.0 (TID 9). 7871 bytes result sent to driver
+[2026-04-14T04:00:35.687+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO Executor: Finished task 2.0 in stage 0.0 (TID 2). 7862 bytes result sent to driver
+[2026-04-14T04:00:35.688+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO Executor: Finished task 6.0 in stage 0.0 (TID 6). 7871 bytes result sent to driver
+[2026-04-14T04:00:35.690+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO Executor: Finished task 4.0 in stage 0.0 (TID 4). 7862 bytes result sent to driver
+[2026-04-14T04:00:35.709+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO TaskSetManager: Finished task 3.0 in stage 0.0 (TID 3) in 2653 ms on spark-master (executor driver) (1/15)
+[2026-04-14T04:00:35.714+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO TaskSetManager: Finished task 6.0 in stage 0.0 (TID 6) in 2653 ms on spark-master (executor driver) (2/15)
+[2026-04-14T04:00:35.719+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO TaskSetManager: Finished task 7.0 in stage 0.0 (TID 7) in 2652 ms on spark-master (executor driver) (3/15)
+[2026-04-14T04:00:35.720+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO TaskSetManager: Finished task 2.0 in stage 0.0 (TID 2) in 2665 ms on spark-master (executor driver) (4/15)
+[2026-04-14T04:00:35.721+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO TaskSetManager: Finished task 13.0 in stage 0.0 (TID 13) in 2640 ms on spark-master (executor driver) (5/15)
+[2026-04-14T04:00:35.722+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO TaskSetManager: Finished task 1.0 in stage 0.0 (TID 1) in 2671 ms on spark-master (executor driver) (6/15)
+[2026-04-14T04:00:35.723+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO TaskSetManager: Finished task 4.0 in stage 0.0 (TID 4) in 2667 ms on spark-master (executor driver) (7/15)
+[2026-04-14T04:00:35.724+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO TaskSetManager: Finished task 9.0 in stage 0.0 (TID 9) in 2659 ms on spark-master (executor driver) (8/15)
+[2026-04-14T04:00:35.991+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Committed partition 12 (task 12, attempt 0, stage 0.0)
+[2026-04-14T04:00:35.995+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Committed partition 10 (task 10, attempt 0, stage 0.0)
+[2026-04-14T04:00:35.996+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO Executor: Finished task 12.0 in stage 0.0 (TID 12). 7838 bytes result sent to driver
+[2026-04-14T04:00:36.001+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO Executor: Finished task 10.0 in stage 0.0 (TID 10). 7820 bytes result sent to driver
+[2026-04-14T04:00:36.005+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Committed partition 0 (task 0, attempt 0, stage 0.0)
+[2026-04-14T04:00:36.007+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Committed partition 14 (task 14, attempt 0, stage 0.0)
+[2026-04-14T04:00:36.008+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Committed partition 11 (task 11, attempt 0, stage 0.0)
+[2026-04-14T04:00:36.009+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO TaskSetManager: Finished task 12.0 in stage 0.0 (TID 12) in 2925 ms on spark-master (executor driver) (9/15)
+[2026-04-14T04:00:36.009+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Committed partition 5 (task 5, attempt 0, stage 0.0)
+[2026-04-14T04:00:36.010+0000] {subprocess.py:106} INFO - 26/04/14 04:00:35 INFO DataWritingSparkTask: Committed partition 8 (task 8, attempt 0, stage 0.0)
+[2026-04-14T04:00:36.011+0000] {subprocess.py:106} INFO - 26/04/14 04:00:36 INFO TaskSetManager: Finished task 10.0 in stage 0.0 (TID 10) in 2934 ms on spark-master (executor driver) (10/15)
+[2026-04-14T04:00:36.012+0000] {subprocess.py:106} INFO - 26/04/14 04:00:36 INFO Executor: Finished task 14.0 in stage 0.0 (TID 14). 7811 bytes result sent to driver
+[2026-04-14T04:00:36.013+0000] {subprocess.py:106} INFO - 26/04/14 04:00:36 INFO Executor: Finished task 11.0 in stage 0.0 (TID 11). 7811 bytes result sent to driver
+[2026-04-14T04:00:36.014+0000] {subprocess.py:106} INFO - 26/04/14 04:00:36 INFO Executor: Finished task 0.0 in stage 0.0 (TID 0). 7853 bytes result sent to driver
+[2026-04-14T04:00:36.015+0000] {subprocess.py:106} INFO - 26/04/14 04:00:36 INFO TaskSetManager: Finished task 0.0 in stage 0.0 (TID 0) in 3000 ms on spark-master (executor driver) (11/15)
+[2026-04-14T04:00:36.016+0000] {subprocess.py:106} INFO - 26/04/14 04:00:36 INFO Executor: Finished task 8.0 in stage 0.0 (TID 8). 7862 bytes result sent to driver
+[2026-04-14T04:00:36.017+0000] {subprocess.py:106} INFO - 26/04/14 04:00:36 INFO Executor: Finished task 5.0 in stage 0.0 (TID 5). 7844 bytes result sent to driver
+[2026-04-14T04:00:36.018+0000] {subprocess.py:106} INFO - 26/04/14 04:00:36 INFO TaskSetManager: Finished task 11.0 in stage 0.0 (TID 11) in 2936 ms on spark-master (executor driver) (12/15)
+[2026-04-14T04:00:36.019+0000] {subprocess.py:106} INFO - 26/04/14 04:00:36 INFO TaskSetManager: Finished task 14.0 in stage 0.0 (TID 14) in 2931 ms on spark-master (executor driver) (13/15)
+[2026-04-14T04:00:36.037+0000] {subprocess.py:106} INFO - 26/04/14 04:00:36 INFO TaskSetManager: Finished task 5.0 in stage 0.0 (TID 5) in 2978 ms on spark-master (executor driver) (14/15)
+[2026-04-14T04:00:36.038+0000] {subprocess.py:106} INFO - 26/04/14 04:00:36 INFO TaskSetManager: Finished task 8.0 in stage 0.0 (TID 8) in 2974 ms on spark-master (executor driver) (15/15)
+[2026-04-14T04:00:36.042+0000] {subprocess.py:106} INFO - 26/04/14 04:00:36 INFO TaskSchedulerImpl: Removed TaskSet 0.0 whose tasks have all completed, from pool
+[2026-04-14T04:00:36.049+0000] {subprocess.py:106} INFO - 26/04/14 04:00:36 INFO DAGScheduler: ResultStage 0 (append at NativeMethodAccessorImpl.java:0) finished in 3166 ms
+[2026-04-14T04:00:36.050+0000] {subprocess.py:106} INFO - 26/04/14 04:00:36 INFO DAGScheduler: Job 0 is finished. Cancelling potential speculative or zombie tasks for this job
+[2026-04-14T04:00:36.051+0000] {subprocess.py:106} INFO - 26/04/14 04:00:36 INFO TaskSchedulerImpl: Canceling stage 0
+[2026-04-14T04:00:36.052+0000] {subprocess.py:106} INFO - 26/04/14 04:00:36 INFO TaskSchedulerImpl: Killing all running tasks in stage 0: Stage finished
+[2026-04-14T04:00:36.059+0000] {subprocess.py:106} INFO - 26/04/14 04:00:36 INFO DAGScheduler: Job 0 finished: append at NativeMethodAccessorImpl.java:0, took 3240.906117 ms
+[2026-04-14T04:00:36.061+0000] {subprocess.py:106} INFO - 26/04/14 04:00:36 INFO AppendDataExec: Data source write support IcebergBatchWrite(table=iceberg.air_quality_ml.air_quality_gold, format=PARQUET) is committing.
+[2026-04-14T04:00:36.094+0000] {subprocess.py:106} INFO - 26/04/14 04:00:36 INFO SparkWrite: Committing append with 15 new data files to table iceberg.air_quality_ml.air_quality_gold
+[2026-04-14T04:00:37.442+0000] {subprocess.py:106} INFO - 26/04/14 04:00:37 INFO HiveTableOperations: Committed to table iceberg.air_quality_ml.air_quality_gold with the new metadata location hdfs://23133083thuyvan-master:9000/user/hive/lakehouse/gold/ml/air_quality_gold/metadata/00004-57c56208-2dc8-4916-917f-7138f4c61449.metadata.json
+[2026-04-14T04:00:37.443+0000] {subprocess.py:106} INFO - 26/04/14 04:00:37 INFO BaseMetastoreTableOperations: Successfully committed to table iceberg.air_quality_ml.air_quality_gold in 728 ms
+[2026-04-14T04:00:37.444+0000] {subprocess.py:106} INFO - 26/04/14 04:00:37 INFO SnapshotProducer: Committed snapshot 2605219773809388954 (MergeAppend)
+[2026-04-14T04:00:37.482+0000] {subprocess.py:106} INFO - 26/04/14 04:00:37 INFO BaseMetastoreTableOperations: Refreshing table metadata from new version: hdfs://23133083thuyvan-master:9000/user/hive/lakehouse/gold/ml/air_quality_gold/metadata/00004-57c56208-2dc8-4916-917f-7138f4c61449.metadata.json
+[2026-04-14T04:00:37.506+0000] {subprocess.py:106} INFO - 26/04/14 04:00:37 INFO LoggingMetricsReporter: Received metrics report: CommitReport{tableName=iceberg.air_quality_ml.air_quality_gold, snapshotId=2605219773809388954, sequenceNumber=5, operation=append, commitMetrics=CommitMetricsResult{totalDuration=TimerResult{timeUnit=NANOSECONDS, totalDuration=PT1.358369044S, count=1}, attempts=CounterResult{unit=COUNT, value=1}, addedDataFiles=CounterResult{unit=COUNT, value=15}, removedDataFiles=null, totalDataFiles=CounterResult{unit=COUNT, value=75}, addedDeleteFiles=null, addedEqualityDeleteFiles=null, addedPositionalDeleteFiles=null, addedDVs=null, removedDeleteFiles=null, removedEqualityDeleteFiles=null, removedPositionalDeleteFiles=null, removedDVs=null, totalDeleteFiles=CounterResult{unit=COUNT, value=0}, addedRecords=CounterResult{unit=COUNT, value=100}, removedRecords=null, totalRecords=CounterResult{unit=COUNT, value=500}, addedFilesSizeInBytes=CounterResult{unit=BYTES, value=50989}, removedFilesSizeInBytes=null, totalFilesSizeInBytes=CounterResult{unit=BYTES, value=255565}, addedPositionalDeletes=null, removedPositionalDeletes=null, totalPositionalDeletes=CounterResult{unit=COUNT, value=0}, addedEqualityDeletes=null, removedEqualityDeletes=null, totalEqualityDeletes=CounterResult{unit=COUNT, value=0}, manifestsCreated=null, manifestsReplaced=null, manifestsKept=null, manifestEntriesProcessed=null}, metadata={engine-version=4.0.2, app-id=local-1776139222006, engine-name=spark, iceberg-version=Apache Iceberg 1.10.1 (commit ccb8bc435062171e64bc8b7e5f56e6aed9c5b934)}}
+[2026-04-14T04:00:37.506+0000] {subprocess.py:106} INFO - 26/04/14 04:00:37 INFO SparkWrite: Committed in 1411 ms
+[2026-04-14T04:00:37.507+0000] {subprocess.py:106} INFO - 26/04/14 04:00:37 INFO AppendDataExec: Data source write support IcebergBatchWrite(table=iceberg.air_quality_ml.air_quality_gold, format=PARQUET) committed.
+[2026-04-14T04:00:37.511+0000] {subprocess.py:106} INFO - Dữ liệu đã được append vào iceberg.air_quality_ml.air_quality_gold.
+[2026-04-14T04:00:37.512+0000] {subprocess.py:106} INFO - ETL from Silver to Gold completed!
+[2026-04-14T04:00:37.544+0000] {subprocess.py:106} INFO - 26/04/14 04:00:37 INFO V2ScanRelationPushDown:
+[2026-04-14T04:00:37.545+0000] {subprocess.py:106} INFO - Output: timestamp#0, us_aqi_index#19, pm10#21, pm2_5#22, carbon_monoxide#23, nitrogen_dioxide#24, sulphur_dioxide#25, ozone#26
+[2026-04-14T04:00:37.546+0000] {subprocess.py:106} INFO - 
+[2026-04-14T04:00:37.547+0000] {subprocess.py:106} INFO - 26/04/14 04:00:37 INFO SnapshotScan: Scanning table iceberg.air_quality_db.air_quality_silver snapshot 4518274335865062319 created at 2026-04-13T11:48:03.562+00:00 with filter true
+[2026-04-14T04:00:37.548+0000] {subprocess.py:106} INFO - 26/04/14 04:00:37 INFO BaseDistributedDataScan: Planning file tasks locally for table iceberg.air_quality_db.air_quality_silver
+[2026-04-14T04:00:37.585+0000] {subprocess.py:106} INFO - 26/04/14 04:00:37 INFO SparkPartitioningAwareScan: Reporting UnknownPartitioning with 15 partition(s) for table iceberg.air_quality_db.air_quality_silver
+[2026-04-14T04:00:37.597+0000] {subprocess.py:106} INFO - 26/04/14 04:00:37 INFO MemoryStore: Block broadcast_4 stored as values in memory (estimated size 32.0 KiB, free 1048.5 MiB)
+[2026-04-14T04:00:37.614+0000] {subprocess.py:106} INFO - 26/04/14 04:00:37 INFO MemoryStore: Block broadcast_4_piece0 stored as bytes in memory (estimated size 34.9 KiB, free 1048.5 MiB)
+[2026-04-14T04:00:37.618+0000] {subprocess.py:106} INFO - 26/04/14 04:00:37 INFO SparkContext: Created broadcast 4 from broadcast at SparkBatch.java:87
+[2026-04-14T04:00:37.725+0000] {subprocess.py:106} INFO - 26/04/14 04:00:37 INFO MemoryStore: Block broadcast_5 stored as values in memory (estimated size 32.0 KiB, free 1048.5 MiB)
+[2026-04-14T04:00:37.732+0000] {subprocess.py:106} INFO - 26/04/14 04:00:37 INFO MemoryStore: Block broadcast_5_piece0 stored as bytes in memory (estimated size 34.8 KiB, free 1048.4 MiB)
+[2026-04-14T04:00:37.740+0000] {subprocess.py:106} INFO - 26/04/14 04:00:37 INFO SparkContext: Created broadcast 5 from broadcast at SparkBatch.java:87
+[2026-04-14T04:00:38.276+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO DAGScheduler: Got job 1 (count at NativeMethodAccessorImpl.java:0) with 15 output partitions
+[2026-04-14T04:00:38.277+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO DAGScheduler: Final stage: ResultStage 1 (count at NativeMethodAccessorImpl.java:0)
+[2026-04-14T04:00:38.282+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO DAGScheduler: Parents of final stage: List()
+[2026-04-14T04:00:38.283+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO DAGScheduler: Missing parents: List()
+[2026-04-14T04:00:38.284+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO DAGScheduler: Submitting ResultStage 1 (*(1) Project [timestamp#0, pm2_5#22, pm10#21, carbon_monoxide#23, nitrogen_dioxide#24, sulphur_dioxide#25, ozone#26, us_aqi_index#19, hour(timestamp#0, Some(GMT)) AS hour#34, dayofweek(cast(timestamp#0 as date)) AS day_of_week#35]
+[2026-04-14T04:00:38.285+0000] {subprocess.py:106} INFO - +- *(1) ColumnarToRow
+[2026-04-14T04:00:38.286+0000] {subprocess.py:106} INFO -    +- BatchScan iceberg.air_quality_db.air_quality_silver[timestamp#0, us_aqi_index#19, pm10#21, pm2_5#22, carbon_monoxide#23, nitrogen_dioxide#24, sulphur_dioxide#25, ozone#26] iceberg.air_quality_db.air_quality_silver (branch=null) [filters=, groupedBy=] RuntimeFilters: []
+[2026-04-14T04:00:38.287+0000] {subprocess.py:106} INFO -  MapPartitionsRDD[7] at count at NativeMethodAccessorImpl.java:0), which has no missing parents
+[2026-04-14T04:00:38.316+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO MemoryStore: Block broadcast_6 stored as values in memory (estimated size 23.2 KiB, free 1048.5 MiB)
+[2026-04-14T04:00:38.319+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO MemoryStore: Block broadcast_6_piece0 stored as bytes in memory (estimated size 8.6 KiB, free 1048.5 MiB)
+[2026-04-14T04:00:38.322+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO SparkContext: Created broadcast 6 from broadcast at DAGScheduler.scala:1676
+[2026-04-14T04:00:38.323+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO DAGScheduler: Submitting 15 missing tasks from ResultStage 1 (*(1) Project [timestamp#0, pm2_5#22, pm10#21, carbon_monoxide#23, nitrogen_dioxide#24, sulphur_dioxide#25, ozone#26, us_aqi_index#19, hour(timestamp#0, Some(GMT)) AS hour#34, dayofweek(cast(timestamp#0 as date)) AS day_of_week#35]
+[2026-04-14T04:00:38.324+0000] {subprocess.py:106} INFO - +- *(1) ColumnarToRow
+[2026-04-14T04:00:38.325+0000] {subprocess.py:106} INFO -    +- BatchScan iceberg.air_quality_db.air_quality_silver[timestamp#0, us_aqi_index#19, pm10#21, pm2_5#22, carbon_monoxide#23, nitrogen_dioxide#24, sulphur_dioxide#25, ozone#26] iceberg.air_quality_db.air_quality_silver (branch=null) [filters=, groupedBy=] RuntimeFilters: []
+[2026-04-14T04:00:38.326+0000] {subprocess.py:106} INFO -  MapPartitionsRDD[7] at count at NativeMethodAccessorImpl.java:0) (first 15 tasks are for partitions Vector(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+[2026-04-14T04:00:38.327+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSchedulerImpl: Adding task set 1.0 with 15 tasks resource profile 0
+[2026-04-14T04:00:38.328+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Starting task 0.0 in stage 1.0 (TID 15) (spark-master,executor driver, partition 0, ANY, 20473 bytes)
+[2026-04-14T04:00:38.329+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Starting task 1.0 in stage 1.0 (TID 16) (spark-master,executor driver, partition 1, ANY, 20482 bytes)
+[2026-04-14T04:00:38.330+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Starting task 2.0 in stage 1.0 (TID 17) (spark-master,executor driver, partition 2, ANY, 20013 bytes)
+[2026-04-14T04:00:38.332+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Starting task 3.0 in stage 1.0 (TID 18) (spark-master,executor driver, partition 3, ANY, 20467 bytes)
+[2026-04-14T04:00:38.334+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Starting task 4.0 in stage 1.0 (TID 19) (spark-master,executor driver, partition 4, ANY, 20469 bytes)
+[2026-04-14T04:00:38.337+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Starting task 5.0 in stage 1.0 (TID 20) (spark-master,executor driver, partition 5, ANY, 20457 bytes)
+[2026-04-14T04:00:38.337+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Starting task 6.0 in stage 1.0 (TID 21) (spark-master,executor driver, partition 6, ANY, 20930 bytes)
+[2026-04-14T04:00:38.340+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Starting task 7.0 in stage 1.0 (TID 22) (spark-master,executor driver, partition 7, ANY, 20472 bytes)
+[2026-04-14T04:00:38.342+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Starting task 8.0 in stage 1.0 (TID 23) (spark-master,executor driver, partition 8, ANY, 20456 bytes)
+[2026-04-14T04:00:38.344+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Starting task 9.0 in stage 1.0 (TID 24) (spark-master,executor driver, partition 9, ANY, 20445 bytes)
+[2026-04-14T04:00:38.345+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Starting task 10.0 in stage 1.0 (TID 25) (spark-master,executor driver, partition 10, ANY, 20441 bytes)
+[2026-04-14T04:00:38.348+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Starting task 11.0 in stage 1.0 (TID 26) (spark-master,executor driver, partition 11, ANY, 20449 bytes)
+[2026-04-14T04:00:38.350+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Starting task 12.0 in stage 1.0 (TID 27) (spark-master,executor driver, partition 12, ANY, 20454 bytes)
+[2026-04-14T04:00:38.354+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Starting task 13.0 in stage 1.0 (TID 28) (spark-master,executor driver, partition 13, ANY, 20018 bytes)
+[2026-04-14T04:00:38.357+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Starting task 14.0 in stage 1.0 (TID 29) (spark-master,executor driver, partition 14, ANY, 20440 bytes)
+[2026-04-14T04:00:38.358+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Running task 0.0 in stage 1.0 (TID 15)
+[2026-04-14T04:00:38.363+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Running task 2.0 in stage 1.0 (TID 17)
+[2026-04-14T04:00:38.364+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Running task 4.0 in stage 1.0 (TID 19)
+[2026-04-14T04:00:38.365+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Running task 6.0 in stage 1.0 (TID 21)
+[2026-04-14T04:00:38.366+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Running task 10.0 in stage 1.0 (TID 25)
+[2026-04-14T04:00:38.367+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Running task 5.0 in stage 1.0 (TID 20)
+[2026-04-14T04:00:38.368+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Running task 13.0 in stage 1.0 (TID 28)
+[2026-04-14T04:00:38.369+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Running task 12.0 in stage 1.0 (TID 27)
+[2026-04-14T04:00:38.370+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Running task 11.0 in stage 1.0 (TID 26)
+[2026-04-14T04:00:38.371+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Running task 14.0 in stage 1.0 (TID 29)
+[2026-04-14T04:00:38.372+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Running task 3.0 in stage 1.0 (TID 18)
+[2026-04-14T04:00:38.375+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Running task 7.0 in stage 1.0 (TID 22)
+[2026-04-14T04:00:38.376+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Running task 8.0 in stage 1.0 (TID 23)
+[2026-04-14T04:00:38.377+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Running task 1.0 in stage 1.0 (TID 16)
+[2026-04-14T04:00:38.378+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Running task 9.0 in stage 1.0 (TID 24)
+[2026-04-14T04:00:38.500+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.504+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.509+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.517+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.527+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.530+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.533+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.539+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.543+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.544+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.545+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.547+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.548+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.549+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.551+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.616+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.618+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.621+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.626+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.629+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.631+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.635+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.636+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.638+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.644+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.648+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.651+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.652+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.653+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.669+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.687+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.702+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.704+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.712+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.713+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.715+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.736+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.737+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.742+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.746+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.747+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.752+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.759+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.779+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.782+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.791+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.792+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.799+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.818+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.819+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.820+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.831+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.842+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO MemoryStore: Block rdd_7_14 stored as values in memory (estimated size 1288.0 B, free 1048.5 MiB)
+[2026-04-14T04:00:38.843+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.845+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO MemoryStore: Block rdd_7_7 stored as values in memory (estimated size 1288.0 B, free 1048.5 MiB)
+[2026-04-14T04:00:38.847+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.848+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO MemoryStore: Block rdd_7_4 stored as values in memory (estimated size 1608.0 B, free 1048.5 MiB)
+[2026-04-14T04:00:38.850+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.858+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO MemoryStore: Block rdd_7_13 stored as values in memory (estimated size 1256.0 B, free 1048.5 MiB)
+[2026-04-14T04:00:38.859+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO MemoryStore: Block rdd_7_3 stored as values in memory (estimated size 1608.0 B, free 1048.5 MiB)
+[2026-04-14T04:00:38.861+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.864+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.866+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO MemoryStore: Block rdd_7_12 stored as values in memory (estimated size 1272.0 B, free 1048.5 MiB)
+[2026-04-14T04:00:38.867+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO MemoryStore: Block rdd_7_9 stored as values in memory (estimated size 1288.0 B, free 1048.5 MiB)
+[2026-04-14T04:00:38.868+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO MemoryStore: Block rdd_7_6 stored as values in memory (estimated size 1432.0 B, free 1048.5 MiB)
+[2026-04-14T04:00:38.874+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.882+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO MemoryStore: Block rdd_7_0 stored as values in memory (estimated size 1624.0 B, free 1048.5 MiB)
+[2026-04-14T04:00:38.887+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO MemoryStore: Block rdd_7_8 stored as values in memory (estimated size 1288.0 B, free 1048.5 MiB)
+[2026-04-14T04:00:38.894+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO MemoryStore: Block rdd_7_2 stored as values in memory (estimated size 1696.0 B, free 1048.5 MiB)
+[2026-04-14T04:00:38.895+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: 1 block locks were not released by task 13.0 in stage 1.0 (TID 28)
+[2026-04-14T04:00:38.897+0000] {subprocess.py:106} INFO -  [rdd_7_13])
+[2026-04-14T04:00:38.899+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: 1 block locks were not released by task 2.0 in stage 1.0 (TID 17)
+[2026-04-14T04:00:38.900+0000] {subprocess.py:106} INFO -  [rdd_7_2])
+[2026-04-14T04:00:38.903+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: 1 block locks were not released by task 6.0 in stage 1.0 (TID 21)
+[2026-04-14T04:00:38.904+0000] {subprocess.py:106} INFO -  [rdd_7_6])
+[2026-04-14T04:00:38.907+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: 1 block locks were not released by task 12.0 in stage 1.0 (TID 27)
+[2026-04-14T04:00:38.908+0000] {subprocess.py:106} INFO -  [rdd_7_12])
+[2026-04-14T04:00:38.910+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: 1 block locks were not released by task 4.0 in stage 1.0 (TID 19)
+[2026-04-14T04:00:38.913+0000] {subprocess.py:106} INFO -  [rdd_7_4])
+[2026-04-14T04:00:38.917+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: 1 block locks were not released by task 14.0 in stage 1.0 (TID 29)
+[2026-04-14T04:00:38.918+0000] {subprocess.py:106} INFO -  [rdd_7_14])
+[2026-04-14T04:00:38.921+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: 1 block locks were not released by task 0.0 in stage 1.0 (TID 15)
+[2026-04-14T04:00:38.923+0000] {subprocess.py:106} INFO -  [rdd_7_0])
+[2026-04-14T04:00:38.926+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: 1 block locks were not released by task 3.0 in stage 1.0 (TID 18)
+[2026-04-14T04:00:38.927+0000] {subprocess.py:106} INFO -  [rdd_7_3])
+[2026-04-14T04:00:38.938+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: 1 block locks were not released by task 8.0 in stage 1.0 (TID 23)
+[2026-04-14T04:00:38.940+0000] {subprocess.py:106} INFO -  [rdd_7_8])
+[2026-04-14T04:00:38.942+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO MemoryStore: Block rdd_7_1 stored as values in memory (estimated size 1608.0 B, free 1048.5 MiB)
+[2026-04-14T04:00:38.943+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Finished task 6.0 in stage 1.0 (TID 21). 4270 bytes result sent to driver
+[2026-04-14T04:00:38.944+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: 1 block locks were not released by task 9.0 in stage 1.0 (TID 24)
+[2026-04-14T04:00:38.945+0000] {subprocess.py:106} INFO -  [rdd_7_9])
+[2026-04-14T04:00:38.947+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Finished task 13.0 in stage 1.0 (TID 28). 4270 bytes result sent to driver
+[2026-04-14T04:00:38.949+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Finished task 9.0 in stage 1.0 (TID 24). 4270 bytes result sent to driver
+[2026-04-14T04:00:38.953+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Finished task 2.0 in stage 1.0 (TID 17). 4270 bytes result sent to driver
+[2026-04-14T04:00:38.955+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Finished task 6.0 in stage 1.0 (TID 21) in 583 ms on spark-master (executor driver) (1/15)
+[2026-04-14T04:00:38.957+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Finished task 12.0 in stage 1.0 (TID 27). 4270 bytes result sent to driver
+[2026-04-14T04:00:38.961+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Finished task 14.0 in stage 1.0 (TID 29). 4270 bytes result sent to driver
+[2026-04-14T04:00:38.963+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Finished task 4.0 in stage 1.0 (TID 19). 4227 bytes result sent to driver
+[2026-04-14T04:00:38.967+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Finished task 3.0 in stage 1.0 (TID 18). 4227 bytes result sent to driver
+[2026-04-14T04:00:38.970+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: 1 block locks were not released by task 7.0 in stage 1.0 (TID 22)
+[2026-04-14T04:00:38.971+0000] {subprocess.py:106} INFO -  [rdd_7_7])
+[2026-04-14T04:00:38.976+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Finished task 8.0 in stage 1.0 (TID 23). 4227 bytes result sent to driver
+[2026-04-14T04:00:38.978+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:38.979+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Finished task 0.0 in stage 1.0 (TID 15). 4227 bytes result sent to driver
+[2026-04-14T04:00:38.980+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: 1 block locks were not released by task 1.0 in stage 1.0 (TID 16)
+[2026-04-14T04:00:38.982+0000] {subprocess.py:106} INFO -  [rdd_7_1])
+[2026-04-14T04:00:38.985+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO MemoryStore: Block rdd_7_5 stored as values in memory (estimated size 1624.0 B, free 1048.5 MiB)
+[2026-04-14T04:00:38.988+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Finished task 7.0 in stage 1.0 (TID 22). 4270 bytes result sent to driver
+[2026-04-14T04:00:38.996+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Finished task 1.0 in stage 1.0 (TID 16). 4227 bytes result sent to driver
+[2026-04-14T04:00:38.999+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: 1 block locks were not released by task 5.0 in stage 1.0 (TID 20)
+[2026-04-14T04:00:39.002+0000] {subprocess.py:106} INFO -  [rdd_7_5])
+[2026-04-14T04:00:39.007+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Finished task 2.0 in stage 1.0 (TID 17) in 610 ms on spark-master (executor driver) (2/15)
+[2026-04-14T04:00:39.015+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Finished task 8.0 in stage 1.0 (TID 23) in 616 ms on spark-master (executor driver) (3/15)
+[2026-04-14T04:00:39.019+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO MemoryStore: Block rdd_7_10 stored as values in memory (estimated size 1272.0 B, free 1048.5 MiB)
+[2026-04-14T04:00:39.023+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Finished task 0.0 in stage 1.0 (TID 15) in 631 ms on spark-master (executor driver) (4/15)
+[2026-04-14T04:00:39.026+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Finished task 12.0 in stage 1.0 (TID 27) in 612 ms on spark-master (executor driver) (5/15)
+[2026-04-14T04:00:39.032+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO CodecPool: Got brand-new decompressor [.zstd]
+[2026-04-14T04:00:39.034+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Finished task 13.0 in stage 1.0 (TID 28) in 611 ms on spark-master (executor driver) (6/15)
+[2026-04-14T04:00:39.035+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Finished task 3.0 in stage 1.0 (TID 18) in 631 ms on spark-master (executor driver) (7/15)
+[2026-04-14T04:00:39.036+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Finished task 4.0 in stage 1.0 (TID 19) in 630 ms on spark-master (executor driver) (8/15)
+[2026-04-14T04:00:39.037+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Finished task 14.0 in stage 1.0 (TID 29) in 613 ms on spark-master (executor driver) (9/15)
+[2026-04-14T04:00:39.037+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: 1 block locks were not released by task 10.0 in stage 1.0 (TID 25)
+[2026-04-14T04:00:39.039+0000] {subprocess.py:106} INFO -  [rdd_7_10])
+[2026-04-14T04:00:39.040+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Finished task 10.0 in stage 1.0 (TID 25). 4227 bytes result sent to driver
+[2026-04-14T04:00:39.042+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO MemoryStore: Block rdd_7_11 stored as values in memory (estimated size 1272.0 B, free 1048.5 MiB)
+[2026-04-14T04:00:39.044+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Finished task 7.0 in stage 1.0 (TID 22) in 638 ms on spark-master (executor driver) (10/15)
+[2026-04-14T04:00:39.045+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Finished task 9.0 in stage 1.0 (TID 24) in 644 ms on spark-master (executor driver) (11/15)
+[2026-04-14T04:00:39.046+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Finished task 1.0 in stage 1.0 (TID 16) in 662 ms on spark-master (executor driver) (12/15)
+[2026-04-14T04:00:39.047+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Finished task 5.0 in stage 1.0 (TID 20). 4270 bytes result sent to driver
+[2026-04-14T04:00:39.048+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: 1 block locks were not released by task 11.0 in stage 1.0 (TID 26)
+[2026-04-14T04:00:39.049+0000] {subprocess.py:106} INFO -  [rdd_7_11])
+[2026-04-14T04:00:39.050+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Finished task 10.0 in stage 1.0 (TID 25) in 648 ms on spark-master (executor driver) (13/15)
+[2026-04-14T04:00:39.051+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO Executor: Finished task 11.0 in stage 1.0 (TID 26). 4270 bytes result sent to driver
+[2026-04-14T04:00:39.052+0000] {subprocess.py:106} INFO - 26/04/14 04:00:38 INFO TaskSetManager: Finished task 5.0 in stage 1.0 (TID 20) in 667 ms on spark-master (executor driver) (14/15)
+[2026-04-14T04:00:39.053+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Finished task 11.0 in stage 1.0 (TID 26) in 658 ms on spark-master (executor driver) (15/15)
+[2026-04-14T04:00:39.054+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSchedulerImpl: Removed TaskSet 1.0 whose tasks have all completed, from pool
+[2026-04-14T04:00:39.055+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: ResultStage 1 (count at NativeMethodAccessorImpl.java:0) finished in 734 ms
+[2026-04-14T04:00:39.056+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: Job 1 is finished. Cancelling potential speculative or zombie tasks for this job
+[2026-04-14T04:00:39.057+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSchedulerImpl: Canceling stage 1
+[2026-04-14T04:00:39.058+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSchedulerImpl: Killing all running tasks in stage 1: Stage finished
+[2026-04-14T04:00:39.243+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO CodeGenerator: Code generated in 47.288327 ms
+[2026-04-14T04:00:39.322+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: Registering RDD 12 ($anonfun$withThreadLocalCaptured$2 at CompletableFuture.java:1768) as input to shuffle 0
+[2026-04-14T04:00:39.334+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: Got map stage job 2 ($anonfun$withThreadLocalCaptured$2 at CompletableFuture.java:1768) with 15 output partitions
+[2026-04-14T04:00:39.341+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: Final stage: ShuffleMapStage 2 ($anonfun$withThreadLocalCaptured$2 at CompletableFuture.java:1768)
+[2026-04-14T04:00:39.342+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: Parents of final stage: List()
+[2026-04-14T04:00:39.344+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: Missing parents: List()
+[2026-04-14T04:00:39.347+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: Submitting ShuffleMapStage 2 (MapPartitionsRDD[12] at $anonfun$withThreadLocalCaptured$2 at CompletableFuture.java:1768), which has no missing parents
+[2026-04-14T04:00:39.417+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO MemoryStore: Block broadcast_7 stored as values in memory (estimated size 31.5 KiB, free 1048.5 MiB)
+[2026-04-14T04:00:39.427+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO MemoryStore: Block broadcast_7_piece0 stored as bytes in memory (estimated size 11.6 KiB, free 1048.4 MiB)
+[2026-04-14T04:00:39.428+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO SparkContext: Created broadcast 7 from broadcast at DAGScheduler.scala:1676
+[2026-04-14T04:00:39.433+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: Submitting 15 missing tasks from ShuffleMapStage 2 (MapPartitionsRDD[12] at $anonfun$withThreadLocalCaptured$2 at CompletableFuture.java:1768) (first 15 tasks are for partitions Vector(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+[2026-04-14T04:00:39.435+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSchedulerImpl: Adding task set 2.0 with 15 tasks resource profile 0
+[2026-04-14T04:00:39.446+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Starting task 0.0 in stage 2.0 (TID 30) (spark-master,executor driver, partition 0, PROCESS_LOCAL, 20462 bytes)
+[2026-04-14T04:00:39.447+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Starting task 1.0 in stage 2.0 (TID 31) (spark-master,executor driver, partition 1, PROCESS_LOCAL, 20471 bytes)
+[2026-04-14T04:00:39.449+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Starting task 2.0 in stage 2.0 (TID 32) (spark-master,executor driver, partition 2, PROCESS_LOCAL, 20002 bytes)
+[2026-04-14T04:00:39.451+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Starting task 3.0 in stage 2.0 (TID 33) (spark-master,executor driver, partition 3, PROCESS_LOCAL, 20456 bytes)
+[2026-04-14T04:00:39.452+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Starting task 4.0 in stage 2.0 (TID 34) (spark-master,executor driver, partition 4, PROCESS_LOCAL, 20458 bytes)
+[2026-04-14T04:00:39.455+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Starting task 5.0 in stage 2.0 (TID 35) (spark-master,executor driver, partition 5, PROCESS_LOCAL, 20446 bytes)
+[2026-04-14T04:00:39.458+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Starting task 6.0 in stage 2.0 (TID 36) (spark-master,executor driver, partition 6, PROCESS_LOCAL, 20919 bytes)
+[2026-04-14T04:00:39.460+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Starting task 7.0 in stage 2.0 (TID 37) (spark-master,executor driver, partition 7, PROCESS_LOCAL, 20461 bytes)
+[2026-04-14T04:00:39.462+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Starting task 8.0 in stage 2.0 (TID 38) (spark-master,executor driver, partition 8, PROCESS_LOCAL, 20445 bytes)
+[2026-04-14T04:00:39.464+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Starting task 9.0 in stage 2.0 (TID 39) (spark-master,executor driver, partition 9, PROCESS_LOCAL, 20434 bytes)
+[2026-04-14T04:00:39.467+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Starting task 10.0 in stage 2.0 (TID 40) (spark-master,executor driver, partition 10, PROCESS_LOCAL, 20430 bytes)
+[2026-04-14T04:00:39.469+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Starting task 11.0 in stage 2.0 (TID 41) (spark-master,executor driver, partition 11, PROCESS_LOCAL, 20438 bytes)
+[2026-04-14T04:00:39.470+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Starting task 12.0 in stage 2.0 (TID 42) (spark-master,executor driver, partition 12, PROCESS_LOCAL, 20443 bytes)
+[2026-04-14T04:00:39.472+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Starting task 13.0 in stage 2.0 (TID 43) (spark-master,executor driver, partition 13, PROCESS_LOCAL, 20007 bytes)
+[2026-04-14T04:00:39.473+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Starting task 14.0 in stage 2.0 (TID 44) (spark-master,executor driver, partition 14, PROCESS_LOCAL, 20429 bytes)
+[2026-04-14T04:00:39.477+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Running task 13.0 in stage 2.0 (TID 43)
+[2026-04-14T04:00:39.479+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Running task 8.0 in stage 2.0 (TID 38)
+[2026-04-14T04:00:39.480+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Running task 0.0 in stage 2.0 (TID 30)
+[2026-04-14T04:00:39.486+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Running task 9.0 in stage 2.0 (TID 39)
+[2026-04-14T04:00:39.487+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Running task 12.0 in stage 2.0 (TID 42)
+[2026-04-14T04:00:39.492+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Running task 6.0 in stage 2.0 (TID 36)
+[2026-04-14T04:00:39.493+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Running task 11.0 in stage 2.0 (TID 41)
+[2026-04-14T04:00:39.495+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Running task 7.0 in stage 2.0 (TID 37)
+[2026-04-14T04:00:39.496+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Running task 5.0 in stage 2.0 (TID 35)
+[2026-04-14T04:00:39.499+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Running task 3.0 in stage 2.0 (TID 33)
+[2026-04-14T04:00:39.504+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Running task 10.0 in stage 2.0 (TID 40)
+[2026-04-14T04:00:39.506+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Running task 4.0 in stage 2.0 (TID 34)
+[2026-04-14T04:00:39.507+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Running task 1.0 in stage 2.0 (TID 31)
+[2026-04-14T04:00:39.514+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Running task 14.0 in stage 2.0 (TID 44)
+[2026-04-14T04:00:39.516+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Running task 2.0 in stage 2.0 (TID 32)
+[2026-04-14T04:00:39.525+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO BlockManager: Found block rdd_7_8 locally
+[2026-04-14T04:00:39.526+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO BlockManager: Found block rdd_7_9 locally
+[2026-04-14T04:00:39.528+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO BlockManager: Found block rdd_7_12 locally
+[2026-04-14T04:00:39.529+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO BlockManager: Found block rdd_7_2 locally
+[2026-04-14T04:00:39.530+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO BlockManager: Found block rdd_7_3 locally
+[2026-04-14T04:00:39.530+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO BlockManager: Found block rdd_7_14 locally
+[2026-04-14T04:00:39.531+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO BlockManager: Found block rdd_7_10 locally
+[2026-04-14T04:00:39.532+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO BlockManager: Found block rdd_7_1 locally
+[2026-04-14T04:00:39.533+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO BlockManager: Found block rdd_7_6 locally
+[2026-04-14T04:00:39.535+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO BlockManager: Found block rdd_7_11 locally
+[2026-04-14T04:00:39.536+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO BlockManager: Found block rdd_7_0 locally
+[2026-04-14T04:00:39.537+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO BlockManager: Found block rdd_7_7 locally
+[2026-04-14T04:00:39.538+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO BlockManager: Found block rdd_7_4 locally
+[2026-04-14T04:00:39.540+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO BlockManager: Found block rdd_7_13 locally
+[2026-04-14T04:00:39.542+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO BlockManager: Found block rdd_7_5 locally
+[2026-04-14T04:00:39.564+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO CodeGenerator: Code generated in 9.210806 ms
+[2026-04-14T04:00:39.651+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO CodeGenerator: Code generated in 63.834924 ms
+[2026-04-14T04:00:39.675+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO CodeGenerator: Code generated in 20.730899 ms
+[2026-04-14T04:00:39.696+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO SecurityManager: Changing view acls to: spark
+[2026-04-14T04:00:39.699+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO SecurityManager: Changing modify acls to: spark
+[2026-04-14T04:00:39.700+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO SecurityManager: Changing view acls groups to: spark
+[2026-04-14T04:00:39.702+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO SecurityManager: Changing modify acls groups to: spark
+[2026-04-14T04:00:39.704+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: spark groups with view permissions: EMPTY; users with modify permissions: spark; groups with modify permissions: EMPTY; RPC SSL disabled
+[2026-04-14T04:00:39.802+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Finished task 1.0 in stage 2.0 (TID 31). 5016 bytes result sent to driver
+[2026-04-14T04:00:39.804+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Finished task 12.0 in stage 2.0 (TID 42). 5016 bytes result sent to driver
+[2026-04-14T04:00:39.805+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Finished task 6.0 in stage 2.0 (TID 36). 5016 bytes result sent to driver
+[2026-04-14T04:00:39.806+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Finished task 5.0 in stage 2.0 (TID 35). 5016 bytes result sent to driver
+[2026-04-14T04:00:39.807+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Finished task 3.0 in stage 2.0 (TID 33). 4973 bytes result sent to driver
+[2026-04-14T04:00:39.810+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Finished task 13.0 in stage 2.0 (TID 43). 4973 bytes result sent to driver
+[2026-04-14T04:00:39.814+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Finished task 7.0 in stage 2.0 (TID 37). 5016 bytes result sent to driver
+[2026-04-14T04:00:39.816+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Finished task 14.0 in stage 2.0 (TID 44). 4973 bytes result sent to driver
+[2026-04-14T04:00:39.817+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Finished task 11.0 in stage 2.0 (TID 41). 5016 bytes result sent to driver
+[2026-04-14T04:00:39.819+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Finished task 2.0 in stage 2.0 (TID 32). 4973 bytes result sent to driver
+[2026-04-14T04:00:39.821+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Finished task 1.0 in stage 2.0 (TID 31) in 363 ms on spark-master (executor driver) (1/15)
+[2026-04-14T04:00:39.824+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Finished task 6.0 in stage 2.0 (TID 36) in 356 ms on spark-master (executor driver) (2/15)
+[2026-04-14T04:00:39.825+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Finished task 5.0 in stage 2.0 (TID 35) in 360 ms on spark-master (executor driver) (3/15)
+[2026-04-14T04:00:39.830+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Finished task 0.0 in stage 2.0 (TID 30). 4973 bytes result sent to driver
+[2026-04-14T04:00:39.831+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Finished task 12.0 in stage 2.0 (TID 42) in 346 ms on spark-master (executor driver) (4/15)
+[2026-04-14T04:00:39.838+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Finished task 10.0 in stage 2.0 (TID 40). 4973 bytes result sent to driver
+[2026-04-14T04:00:39.839+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Finished task 13.0 in stage 2.0 (TID 43) in 345 ms on spark-master (executor driver) (5/15)
+[2026-04-14T04:00:39.840+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Finished task 3.0 in stage 2.0 (TID 33) in 369 ms on spark-master (executor driver) (6/15)
+[2026-04-14T04:00:39.841+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Finished task 4.0 in stage 2.0 (TID 34). 5016 bytes result sent to driver
+[2026-04-14T04:00:39.841+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Finished task 2.0 in stage 2.0 (TID 32) in 373 ms on spark-master (executor driver) (7/15)
+[2026-04-14T04:00:39.842+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Finished task 14.0 in stage 2.0 (TID 44) in 348 ms on spark-master (executor driver) (8/15)
+[2026-04-14T04:00:39.843+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Finished task 8.0 in stage 2.0 (TID 38). 4973 bytes result sent to driver
+[2026-04-14T04:00:39.844+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Finished task 11.0 in stage 2.0 (TID 41) in 357 ms on spark-master (executor driver) (9/15)
+[2026-04-14T04:00:39.845+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Finished task 9.0 in stage 2.0 (TID 39). 4973 bytes result sent to driver
+[2026-04-14T04:00:39.846+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Finished task 7.0 in stage 2.0 (TID 37) in 369 ms on spark-master (executor driver) (10/15)
+[2026-04-14T04:00:39.847+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Finished task 8.0 in stage 2.0 (TID 38) in 369 ms on spark-master (executor driver) (11/15)
+[2026-04-14T04:00:39.848+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Finished task 0.0 in stage 2.0 (TID 30) in 390 ms on spark-master (executor driver) (12/15)
+[2026-04-14T04:00:39.849+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Finished task 4.0 in stage 2.0 (TID 34) in 380 ms on spark-master (executor driver) (13/15)
+[2026-04-14T04:00:39.850+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Finished task 10.0 in stage 2.0 (TID 40) in 367 ms on spark-master (executor driver) (14/15)
+[2026-04-14T04:00:39.851+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Finished task 9.0 in stage 2.0 (TID 39) in 372 ms on spark-master (executor driver) (15/15)
+[2026-04-14T04:00:39.852+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSchedulerImpl: Removed TaskSet 2.0 whose tasks have all completed, from pool
+[2026-04-14T04:00:39.853+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: ShuffleMapStage 2 ($anonfun$withThreadLocalCaptured$2 at CompletableFuture.java:1768) finished in 466 ms
+[2026-04-14T04:00:39.854+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: looking for newly runnable stages
+[2026-04-14T04:00:39.855+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: running: HashSet()
+[2026-04-14T04:00:39.856+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: waiting: HashSet()
+[2026-04-14T04:00:39.857+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: failed: HashSet()
+[2026-04-14T04:00:39.904+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO CodeGenerator: Code generated in 24.840709 ms
+[2026-04-14T04:00:39.953+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO SparkContext: Starting job: $anonfun$withThreadLocalCaptured$2 at CompletableFuture.java:1768
+[2026-04-14T04:00:39.957+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: Got job 3 ($anonfun$withThreadLocalCaptured$2 at CompletableFuture.java:1768) with 1 output partitions
+[2026-04-14T04:00:39.958+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: Final stage: ResultStage 4 ($anonfun$withThreadLocalCaptured$2 at CompletableFuture.java:1768)
+[2026-04-14T04:00:39.959+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: Parents of final stage: List(ShuffleMapStage 3)
+[2026-04-14T04:00:39.960+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: Missing parents: List()
+[2026-04-14T04:00:39.961+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: Submitting ResultStage 4 (MapPartitionsRDD[15] at $anonfun$withThreadLocalCaptured$2 at CompletableFuture.java:1768), which has no missing parents
+[2026-04-14T04:00:39.970+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO MemoryStore: Block broadcast_8 stored as values in memory (estimated size 13.6 KiB, free 1048.5 MiB)
+[2026-04-14T04:00:39.973+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO MemoryStore: Block broadcast_8_piece0 stored as bytes in memory (estimated size 6.5 KiB, free 1048.5 MiB)
+[2026-04-14T04:00:39.976+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO SparkContext: Created broadcast 8 from broadcast at DAGScheduler.scala:1676
+[2026-04-14T04:00:39.977+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 4 (MapPartitionsRDD[15] at $anonfun$withThreadLocalCaptured$2 at CompletableFuture.java:1768) (first 15 tasks are for partitions Vector(0))
+[2026-04-14T04:00:39.978+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSchedulerImpl: Adding task set 4.0 with 1 tasks resource profile 0
+[2026-04-14T04:00:39.982+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO TaskSetManager: Starting task 0.0 in stage 4.0 (TID 45) (spark-master,executor driver, partition 0, NODE_LOCAL, 9962 bytes)
+[2026-04-14T04:00:39.983+0000] {subprocess.py:106} INFO - 26/04/14 04:00:39 INFO Executor: Running task 0.0 in stage 4.0 (TID 45)
+[2026-04-14T04:00:40.041+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO ShuffleBlockFetcherIterator: Getting 15 (900.0 B) non-empty blocks including 15 (900.0 B) local and 0 (0.0 B) host-local and 0 (0.0 B) push-merged-local and 0 (0.0 B) remote blocks
+[2026-04-14T04:00:40.044+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO ShuffleBlockFetcherIterator: Started 0 remote fetches in 23 ms
+[2026-04-14T04:00:40.088+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO CodeGenerator: Code generated in 29.747981 ms
+[2026-04-14T04:00:40.127+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO Executor: Finished task 0.0 in stage 4.0 (TID 45). 3938 bytes result sent to driver
+[2026-04-14T04:00:40.133+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO TaskSetManager: Finished task 0.0 in stage 4.0 (TID 45) in 153 ms on spark-master (executor driver) (1/1)
+[2026-04-14T04:00:40.134+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO TaskSchedulerImpl: Removed TaskSet 4.0 whose tasks have all completed, from pool
+[2026-04-14T04:00:40.145+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO DAGScheduler: ResultStage 4 ($anonfun$withThreadLocalCaptured$2 at CompletableFuture.java:1768) finished in 168 ms
+[2026-04-14T04:00:40.146+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO DAGScheduler: Job 3 is finished. Cancelling potential speculative or zombie tasks for this job
+[2026-04-14T04:00:40.147+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO TaskSchedulerImpl: Canceling stage 4
+[2026-04-14T04:00:40.150+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO TaskSchedulerImpl: Killing all running tasks in stage 4: Stage finished
+[2026-04-14T04:00:40.151+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO DAGScheduler: Job 3 finished: $anonfun$withThreadLocalCaptured$2 at CompletableFuture.java:1768, took 186.401162 ms
+[2026-04-14T04:00:40.187+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO SparkContext: SparkContext is stopping with exitCode 0 from stop at NativeMethodAccessorImpl.java:0.
+[2026-04-14T04:00:40.215+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO SparkUI: Stopped Spark web UI at http://spark-master:4040
+[2026-04-14T04:00:40.234+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!
+[2026-04-14T04:00:40.263+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO MemoryStore: MemoryStore cleared
+[2026-04-14T04:00:40.264+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO BlockManager: BlockManager stopped
+[2026-04-14T04:00:40.268+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO BlockManagerMaster: BlockManagerMaster stopped
+[2026-04-14T04:00:40.272+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: OutputCommitCoordinator stopped!
+[2026-04-14T04:00:40.292+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO SparkContext: Successfully stopped SparkContext
+[2026-04-14T04:00:40.503+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO ShutdownHookManager: Shutdown hook called
+[2026-04-14T04:00:40.504+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO ShutdownHookManager: Deleting directory /tmp/spark-069dd5fe-6c90-4415-bfeb-e7b02bc086df
+[2026-04-14T04:00:40.511+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO ShutdownHookManager: Deleting directory /tmp/spark-069dd5fe-6c90-4415-bfeb-e7b02bc086df/pyspark-626d606e-7e83-4399-b60e-8757004016eb
+[2026-04-14T04:00:40.519+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO ShutdownHookManager: Deleting directory /tmp/artifacts-746905e1-bdc3-452b-a598-d722a55a1f3f
+[2026-04-14T04:00:40.525+0000] {subprocess.py:106} INFO - 26/04/14 04:00:40 INFO ShutdownHookManager: Deleting directory /tmp/spark-19478f6e-b9aa-4dfb-95d8-07773bfde2ba
+[2026-04-14T04:00:40.656+0000] {subprocess.py:110} INFO - Command exited with return code 0
+[2026-04-14T04:00:40.709+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2026-04-14T04:00:40.710+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=predict_aqi, task_id=silver_to_gold, run_id=scheduled__2026-04-14T03:00:00+00:00, execution_date=20260414T030000, start_date=20260414T040015, end_date=20260414T040040
+[2026-04-14T04:00:40.735+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-04-14T04:00:40.765+0000] {taskinstance.py:3895} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-04-14T04:00:40.771+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
