@@ -11190,3 +11190,305 @@ File Path                                             PID  Runtime      # DAGs  
 ================================================================================
 [2026-04-14T05:03:43.335+0000] {manager.py:1366} ERROR - Processor for /home/airflow/airflow/dags/dag_silver_to_gold.py with PID 67919 started at 2026-04-14T05:01:22.415135+00:00 has timed out, killing it.
 [2026-04-14T05:06:28.446+0000] {manager.py:1366} ERROR - Processor for /home/airflow/airflow/dags/dag1.py with PID 67924 started at 2026-04-14T05:01:22.857935+00:00 has timed out, killing it.
+[2026-04-14T05:18:39.660+0000] {manager.py:483} INFO - Processing files using up to 4 processes at a time 
+[2026-04-14T05:18:39.661+0000] {manager.py:484} INFO - Process each file at most once every 0 seconds
+[2026-04-14T05:18:39.662+0000] {manager.py:485} INFO - Checking for new files in /home/airflow/airflow/dags every 300 seconds
+[2026-04-14T05:18:39.663+0000] {manager.py:821} INFO - Searching for files in /home/airflow/airflow/dags
+[2026-04-14T05:18:39.755+0000] {manager.py:824} INFO - There are 3 files in /home/airflow/airflow/dags
+[2026-04-14T05:18:39.900+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run      Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  ----------  ----------------------
+/home/airflow/airflow/dags/dag1.py                    184  0.05s             0           0                                                   0
+/home/airflow/airflow/dags/dag_silver_to_gold.py      187  0.04s             0           0                                                   0
+/home/airflow/airflow/dags/weather_pipeline_dag.py    181  0.07s             0           0                                                   0
+================================================================================
+[2026-04-14T05:19:08.302+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py   1944  0.14s             1           0  0.26s           2026-04-14T05:19:08                      12
+/home/airflow/airflow/dags/dag1.py                   1949  0.09s             1           0  0.19s           2026-04-14T05:19:08                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py     1954  0.00s             1           0  0.18s           2026-04-14T05:19:08                      12
+================================================================================
+[2026-04-14T05:19:36.824+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/dag1.py                   4066  0.08s             1           0  0.28s           2026-04-14T05:19:36                      12
+/home/airflow/airflow/dags/weather_pipeline_dag.py   4074  0.00s             1           0  0.25s           2026-04-14T05:19:36                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py     4069  0.07s             1           0  0.17s           2026-04-14T05:19:36                      12
+================================================================================
+[2026-04-14T05:20:05.266+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py   5876  0.21s             1           0  0.33s           2026-04-14T05:20:05                      12
+/home/airflow/airflow/dags/dag1.py                   5881  0.02s             1           0  0.24s           2026-04-14T05:20:05                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py     5884  0.01s             1           0  0.24s           2026-04-14T05:20:05                      12
+================================================================================
+[2026-04-14T05:20:33.818+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py   7921  0.12s             1           0  0.25s           2026-04-14T05:20:33                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py     7929  0.00s             1           0  0.17s           2026-04-14T05:20:33                      12
+/home/airflow/airflow/dags/dag1.py                   7926  0.01s             1           0  0.15s           2026-04-14T05:20:33                      12
+================================================================================
+[2026-04-14T05:21:02.262+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  10039  0.21s             1           0  0.24s           2026-04-14T05:21:02                      12
+/home/airflow/airflow/dags/dag1.py                  10056  0.00s             1           0  0.16s           2026-04-14T05:21:02                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    10049  0.10s             1           0  0.15s           2026-04-14T05:21:02                      12
+================================================================================
+[2026-04-14T05:21:30.732+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  12279  0.00s             1           0  0.21s           2026-04-14T05:21:30                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    12274  0.06s             1           0  0.14s           2026-04-14T05:21:30                      12
+/home/airflow/airflow/dags/dag1.py                  12269  0.13s             1           0  0.14s           2026-04-14T05:21:30                      12
+================================================================================
+[2026-04-14T05:21:59.226+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  14596  0.01s             1           0  0.24s           2026-04-14T05:21:59                      12
+/home/airflow/airflow/dags/dag1.py                                           1           0  0.18s           2026-04-14T05:21:59                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    14589  0.13s             1           0  0.14s           2026-04-14T05:21:59                      12
+================================================================================
+[2026-04-14T05:22:27.735+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  16741  0.01s             1           0  0.22s           2026-04-14T05:22:27                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    16744  0.00s             1           0  0.15s           2026-04-14T05:22:27                      12
+/home/airflow/airflow/dags/dag1.py                  16736  0.13s             1           0  0.14s           2026-04-14T05:22:27                      12
+================================================================================
+[2026-04-14T05:22:56.170+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  18641  0.01s             1           0  0.31s           2026-04-14T05:22:56                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    18644  0.00s             1           0  0.16s           2026-04-14T05:22:56                      12
+/home/airflow/airflow/dags/dag1.py                  18636  0.07s             1           0  0.16s           2026-04-14T05:22:56                      12
+================================================================================
+[2026-04-14T05:23:24.762+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  20184  0.33s             1           0  0.43s           2026-04-14T05:23:24                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    20189  0.25s             1           0  0.30s           2026-04-14T05:23:24                      12
+/home/airflow/airflow/dags/dag1.py                  20194  0.01s             1           0  0.28s           2026-04-14T05:23:24                      12
+================================================================================
+[2026-04-14T05:23:39.883+0000] {manager.py:821} INFO - Searching for files in /home/airflow/airflow/dags
+[2026-04-14T05:23:40.001+0000] {manager.py:824} INFO - There are 3 files in /home/airflow/airflow/dags
+[2026-04-14T05:23:53.301+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  21916  0.19s             1           0  0.22s           2026-04-14T05:23:53                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    21929  0.01s             1           0  0.15s           2026-04-14T05:23:53                      12
+/home/airflow/airflow/dags/dag1.py                  21924  0.14s             1           0  0.14s           2026-04-14T05:23:53                      12
+================================================================================
+[2026-04-14T05:24:21.740+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  23749  0.05s             1           0  0.34s           2026-04-14T05:24:21                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py                             1           0  0.22s           2026-04-14T05:24:21                      12
+/home/airflow/airflow/dags/dag1.py                  23756  0.01s             1           0  0.22s           2026-04-14T05:24:21                      12
+================================================================================
+[2026-04-14T05:24:50.182+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  25629  0.05s             1           0  0.22s           2026-04-14T05:24:50                      12
+/home/airflow/airflow/dags/dag1.py                  25624  0.08s             1           0  0.16s           2026-04-14T05:24:50                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    25634  0.00s             1           0  0.15s           2026-04-14T05:24:50                      12
+================================================================================
+[2026-04-14T05:25:18.707+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  27736  0.00s             1           0  0.21s           2026-04-14T05:25:18                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    27729  0.14s             1           0  0.15s           2026-04-14T05:25:18                      12
+/home/airflow/airflow/dags/dag1.py                  27726  0.15s             1           0  0.14s           2026-04-14T05:25:18                      12
+================================================================================
+[2026-04-14T05:25:47.141+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  29494  0.15s             1           0  0.35s           2026-04-14T05:25:46                      12
+/home/airflow/airflow/dags/dag1.py                  29499  0.07s             1           0  0.20s           2026-04-14T05:25:47                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    29504  0.00s             1           0  0.16s           2026-04-14T05:25:47                      12
+================================================================================
+[2026-04-14T05:26:15.555+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  31674  0.00s             1           0  0.22s           2026-04-14T05:26:15                      12
+/home/airflow/airflow/dags/dag1.py                  31669  0.09s             1           0  0.16s           2026-04-14T05:26:15                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    31664  0.13s             1           0  0.16s           2026-04-14T05:26:15                      12
+================================================================================
+[2026-04-14T05:26:43.998+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py                           1           0  0.21s           2026-04-14T05:26:43                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    33824  0.05s             1           0  0.14s           2026-04-14T05:26:43                      12
+/home/airflow/airflow/dags/dag1.py                  33831  0.00s             1           0  0.14s           2026-04-14T05:26:43                      12
+================================================================================
+[2026-04-14T05:27:12.509+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  35794  0.00s             1           0  0.31s           2026-04-14T05:27:12                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    35789  0.11s             1           0  0.18s           2026-04-14T05:27:12                      12
+/home/airflow/airflow/dags/dag1.py                  35786  0.12s             1           0  0.13s           2026-04-14T05:27:12                      12
+================================================================================
+[2026-04-14T05:27:40.982+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  37371  0.00s             1           0  0.36s           2026-04-14T05:27:40                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    37364  0.11s             1           0  0.17s           2026-04-14T05:27:40                      12
+/home/airflow/airflow/dags/dag1.py                                           1           0  0.16s           2026-04-14T05:27:40                      12
+================================================================================
+[2026-04-14T05:28:09.478+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  39063  0.02s             1           0  0.19s           2026-04-14T05:28:09                      12
+/home/airflow/airflow/dags/dag1.py                  39066  0.01s             1           0  0.17s           2026-04-14T05:28:09                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    39069  0.00s             1           0  0.16s           2026-04-14T05:28:09                      12
+================================================================================
+[2026-04-14T05:28:37.834+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py                           1           0  0.24s           2026-04-14T05:28:37                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    41191  0.00s             1           0  0.19s           2026-04-14T05:28:37                      12
+/home/airflow/airflow/dags/dag1.py                  41184  0.09s             1           0  0.16s           2026-04-14T05:28:37                      12
+================================================================================
+[2026-04-14T05:28:39.939+0000] {manager.py:821} INFO - Searching for files in /home/airflow/airflow/dags
+[2026-04-14T05:28:40.003+0000] {manager.py:824} INFO - There are 3 files in /home/airflow/airflow/dags
+[2026-04-14T05:29:06.597+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/dag_silver_to_gold.py                             1           0  0.41s           2026-04-14T05:29:06                      12
+/home/airflow/airflow/dags/weather_pipeline_dag.py                           1           0  0.37s           2026-04-14T05:29:06                      12
+/home/airflow/airflow/dags/dag1.py                  43448  0.00s             1           0  0.31s           2026-04-14T05:29:06                      12
+================================================================================
+[2026-04-14T05:29:34.992+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  45539  0.06s             1           0  0.24s           2026-04-14T05:29:34                      12
+/home/airflow/airflow/dags/dag1.py                  45544  0.00s             1           0  0.19s           2026-04-14T05:29:34                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    45534  0.13s             1           0  0.17s           2026-04-14T05:29:34                      12
+================================================================================
+[2026-04-14T05:30:03.413+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py                           1           0  0.21s           2026-04-14T05:30:03                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    47619  0.10s             1           0  0.14s           2026-04-14T05:30:03                      12
+/home/airflow/airflow/dags/dag1.py                  47626  0.00s             1           0  0.14s           2026-04-14T05:30:03                      12
+================================================================================
+[2026-04-14T05:30:31.876+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  49849  0.00s             1           0  0.25s           2026-04-14T05:30:31                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    49839  0.14s             1           0  0.18s           2026-04-14T05:30:31                      12
+/home/airflow/airflow/dags/dag1.py                  49844  0.11s             1           0  0.17s           2026-04-14T05:30:31                      12
+================================================================================
+[2026-04-14T05:31:00.329+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  51843  0.27s             1           0  0.23s           2026-04-14T05:30:59                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py    51854  0.00s             1           0  0.23s           2026-04-14T05:31:00                      12
+/home/airflow/airflow/dags/dag1.py                  51851  0.01s             1           0  0.20s           2026-04-14T05:31:00                      12
+================================================================================
+[2026-04-14T05:31:28.849+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  53973  0.01s             1           0  0.32s           2026-04-14T05:31:28                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py                             1           0  0.16s           2026-04-14T05:31:28                      12
+/home/airflow/airflow/dags/dag1.py                  53976  0.00s             1           0  0.14s           2026-04-14T05:31:28                      12
+================================================================================
+[2026-04-14T05:31:57.361+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/home/airflow/airflow/dags/weather_pipeline_dag.py  55878  0.01s             1           0  0.31s           2026-04-14T05:31:57                      12
+/home/airflow/airflow/dags/dag_silver_to_gold.py                             1           0  0.17s           2026-04-14T05:31:57                      12
+/home/airflow/airflow/dags/dag1.py                  55881  0.00s             1           0  0.16s           2026-04-14T05:31:57                      12
+================================================================================
+[2026-04-14T05:32:23.526+0000] {manager.py:465} INFO - Exiting gracefully upon receiving signal 15
+[2026-04-14T05:32:23.526+0000] {manager.py:465} INFO - Exiting gracefully upon receiving signal 15
+[2026-04-14T05:32:23.526+0000] {manager.py:465} INFO - Exiting gracefully upon receiving signal 15

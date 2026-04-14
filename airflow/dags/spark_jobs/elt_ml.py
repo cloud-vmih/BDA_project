@@ -42,6 +42,11 @@ df_api_new = df.filter((col("data_source") == "open-meteo") & (col("timestamp") 
 # Union lại để có tập dữ liệu mới hoàn toàn
 df_final = df_kaggle_new.unionAll(df_api_new)
 
+if df_final.count() == 0:
+    print("Không có dữ liệu mới để xử lý. Kết thúc ETL.")
+    spark.stop()
+    exit(0)
+
 df_gold = df_final.select(
     col("timestamp"),
     col("pm2_5").alias("pm2_5"),

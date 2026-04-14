@@ -45,6 +45,7 @@ df_silver = spark.read.format("iceberg") \
         col("temperature_2m").alias("temperature"),
         col("relative_humidity_2m").alias("humidity"),
         col("apparent_temperature").alias("feels_like"),
+        col("precipitation"),
         col("cloud_cover"),
         col("wind_speed_10m").alias("wind_speed"),
         col("wind_direction_10m").alias("wind_degree"),
@@ -152,7 +153,7 @@ merge_dim(
 
 # DIM WIND
 dim_wind_new = df_silver.select(
-    col("wind_speed_10m"),
+    col("wind_speed"),
     col("wind_degree"),
     col("gust")
 ).dropDuplicates()
@@ -192,7 +193,13 @@ fact_aqi = fact.select(
     col("processing_time").alias("created_at")
 )
 
-fact_aqi.writeTo("iceberg.dwh.fact_aqi").append()
+if not spark.catalog.tableExists("iceberg.dwh.fact_aqi"):
+        print(f"Creating table iceberg.dwh.fact_aqi for the first time...")
+        fact_aqi.writeTo("iceberg.dwh.fact_aqi") \
+            .tableProperty("format-version", "2") \
+            .create()
+else:
+    fact_aqi.writeTo("iceberg.dwh.fact_aqi").append()
 
 print("GOLD WAREHOUSE UPDATED SUCCESSFULLY WITH MERGE!")
 

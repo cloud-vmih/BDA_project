@@ -86,7 +86,7 @@ thresholds = {
     "wind_gusts_10m": 350.0,
     "temperature_2m": 60.0,   # Nhiệt độ không quá 60 độ C
     "relative_humidity_2m": 100.0,
-    "carbon_monoxide": 100.0,
+    "carbon_monoxide": 4000.0,
     "nitrogen_dioxide": 500.0,
     "sulphur_dioxide": 500.0,
     "ozone": 500.0,
@@ -103,7 +103,7 @@ df_clean = df_clean.filter(
     (col("us_aqi_index").between(0, 6)) & # AQI Index chỉ có 6 mức
     (col("wind_speed_10m").between(0, thresholds["wind_speed_10m"])) &
     (col("temperature_2m").between(-50, thresholds["temperature_2m"])) &
-    (col("relative_humidity_2m").between(0, 100)) &
+    (col("relative_humidity_2m").between(0, thresholds["relative_humidity_2m"])) &
     (col("carbon_monoxide").between(0, thresholds["carbon_monoxide"])) &
     (col("nitrogen_dioxide").between(0, thresholds["nitrogen_dioxide"])) &
     (col("sulphur_dioxide").between(0, thresholds["sulphur_dioxide"])) &
