@@ -3,6 +3,15 @@ FROM ubuntu:22.04
 RUN apt-get update && apt-get install -y openjdk-21-jdk wget sudo && apt-get clean
 RUN apt-get update && apt-get install -y python3
 
+RUN apt-get update && apt-get install -y python3-pip && \
+        pip3 install onnx \
+            onnxruntime \
+            onnxconverter-common \
+            onnxmltools \
+            pandas \
+            numpy \
+            pyarrow
+
 RUN useradd -m -s /bin/bash spark && echo "spark:spark" | chpasswd && usermod -aG sudo spark && echo 'spark ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/spark && chmod 0440 /etc/sudoers.d/spark
 
 USER spark

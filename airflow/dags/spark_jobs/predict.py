@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.ml import PipelineModel
+from pyspark.sql.functions import col, lit, current_timestamp
 
 spark = SparkSession.builder \
     .appName("predict") \
@@ -14,7 +15,8 @@ spark = SparkSession.builder \
 print(f"Đọc dữ liệu Gold từ iceberg.air_quality_ml.air_quality_gold")
 df = spark.read \
     .format("iceberg") \
-    .load("iceberg.air_quality_ml.air_quality_gold")
+    .load("iceberg.air_quality_ml.air_quality_features") \
+    .filter(col("ingestion_time") > current_timestamp() - lit(1 * 24 * 60 * 60)) # chỉ predict dữ liệu mới trong 1 ngày gần nhất
 
 # sử dụng model mới nhất
 model = PipelineModel.load("file:///home/spark/spark/ML")

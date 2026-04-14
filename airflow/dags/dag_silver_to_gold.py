@@ -44,14 +44,14 @@ with DAG(
         """,
     )
 
-    # predict_ml = BashOperator(
-    #     task_id='pyspark_predict_ml_gold',  
-    #     bash_command="""
-    #         docker exec spark-master spark-submit \
-    #             --master spark://spark-master:7077 \
-    #             --packages org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.1 \
-    #             /home/spark/spark/spark_jobs/dag1_predict.py {{ ds }}
-    #     """,
-    # )
+    predict_ml = BashOperator(
+        task_id='pyspark_predict_ml_gold',  
+        bash_command="""
+            docker exec spark-master spark-submit \
+                --master spark://spark-master:7077 \
+                --packages org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.1 \
+                /home/spark/spark/spark_jobs/dag1_predict.py {{ ds }}
+        """,
+    )
     
     etl_warehouse >> elt_ml 

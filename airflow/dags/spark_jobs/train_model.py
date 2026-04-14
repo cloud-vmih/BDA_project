@@ -3,7 +3,7 @@ from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.regression import GBTRegressor
 from pyspark.ml import Pipeline
 from pyspark.ml.evaluation import RegressionEvaluator
-from pyspark.sql.functions import col
+from pyspark.sql.functions import col, lit
 import time
 
 spark = SparkSession.builder \
@@ -19,17 +19,17 @@ spark = SparkSession.builder \
 print(f"Đọc dữ liệu Gold từ iceberg.air_quality_ml.air_quality_gold")
 df = spark.read \
     .format("iceberg") \
-    .load("iceberg.air_quality_ml.air_quality_gold")
+    .load("iceberg.air_quality_ml.air_quality_features")
 
 features = [
-    "pm2_5", "pm10", "carbon_monoxide", "nitrogen_dioxide", "sulphur_dioxide", "ozone"
+    "pm2_5", "pm10", "co", "no2", "so2", "o3"
     ]
 
 assembler = VectorAssembler(inputCols=features, outputCol="features")
 
 model = GBTRegressor(
     featuresCol="features",
-    labelCol="us_aqi_index",
+    labelCol="AQI",
     maxIter=30,
     maxDepth=5,
     maxBins=32
@@ -50,7 +50,7 @@ predictions = pipeline_model.transform(test)
 
 # Evaluator
 evaluator = RegressionEvaluator(
-    labelCol="us_aqi_index",
+    labelCol="AQI",
     predictionCol="prediction",
     metricName="rmse"
 )
@@ -63,8 +63,10 @@ model_path = "file:///home/spark/spark/ML"
 pipeline_model.write().overwrite().save(model_path)
 print(f"Model saved at {model_path}")
 
+predictions.withColumn("rmse", lit(rmse))
 # lưu vào database
 table_pred = "iceberg.air_quality_ml.air_quality_predictions"
+
 
 if not spark.catalog.tableExists(table_pred):
     print(f"Tạo Iceberg table mới: {table_pred}")

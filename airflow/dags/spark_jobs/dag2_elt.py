@@ -171,7 +171,7 @@ merge_dim(
 
 
 fact = df_silver \
-    .withColumn("date_id", (year("full_date")*1000000 + month("full_date")*10000 + dayofmonth("full_date")*100 + hour("full_date")*60 + minute("full_date"))) \
+    .withColumn("date_id", (year("timestamp")*1000000 + month("timestamp")*10000 + dayofmonth("timestamp")*100 + hour("timestamp")*60 + minute("timestamp"))) \
     .withColumn("location_id", abs(hash("location", "country", "latitude", "longitude"))) \
     .withColumn("weather_id", abs(hash("condition_text", "temperature", "humidity", "uv_index", "cloud_cover", "precipitation"))) \
     .withColumn("wind_id", abs(hash("wind_speed", "wind_degree", "gust")))

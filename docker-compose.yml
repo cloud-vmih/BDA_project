@@ -202,6 +202,22 @@ services:
     volumes:
       - ./spark/spark-defaults.conf:/home/spark/spark/conf/spark-defaults.conf
 
+  prediction-api:
+    build:
+      context: ./fastAPI
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_PATH=/home/spark/spark/ML/air_quality_model.onnx
+    networks:
+      hadoop_net:
+        ipv4_address: 172.20.0.21
+    volumes:
+      - ./spark/ML/:/home/spark/spark/ML
+      - ./fastAPI/app.py:/app/app.py
+      - ./fastAPI/requirement.txt:/app/requirement.txt
+
 networks:
   hadoop_net:
     driver: bridge

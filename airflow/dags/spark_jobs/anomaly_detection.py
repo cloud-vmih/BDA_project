@@ -22,7 +22,7 @@ predictions_with_error = df.withColumn(
 )
 
 # detect anomaly
-anomalies = predictions_with_error.filter("residual > 20")
+anomalies = predictions_with_error.filter("residual >= 2")
 
 # lưu file dự đoán cuối cùng
 table_name = "iceberg.air_quality_ml.air_quality_predictions_final"

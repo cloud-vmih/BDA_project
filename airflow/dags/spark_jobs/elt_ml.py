@@ -1,5 +1,3 @@
-from curses.ascii import TAB
-
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, current_timestamp, day, days, hour, dayofweek, max
 
