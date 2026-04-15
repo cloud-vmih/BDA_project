@@ -36,6 +36,9 @@ feature_columns = ["pm2_5", "pm10", "co", "no2", "so2", "o3"]
 if not os.path.exists(model_path):
     raise FileNotFoundError(f"ONNX model not found at {model_path}")
 
+sample_session = rt.InferenceSession(model_path)
+input_names = [inp.name for inp in sample_session.get_inputs()]
+print("Model input names:", input_names)
 
 # 4. TẠO PANDAS UDF ĐỂ PREDICT BATCH
 @pandas_udf(returnType=DoubleType())
@@ -45,26 +48,18 @@ def predict_onnx_udf(*feature_cols):
     feature_cols: các cột features (pm2_5, pm10, co, no2, so2, o3)
     """
     onnx_session = rt.InferenceSession(model_path)
-    input_name = onnx_session.get_inputs()[0].name
-    output_name = onnx_session.get_outputs()[0].name
 
-    print(f"ONNX model loaded successfully")
-    print(f"Input name: {input_name}, Output name: {output_name}")
+    input_names = [inp.name for inp in onnx_session.get_inputs()]
 
     # Kết hợp các cột thành numpy array
-    feature_arrays = []
-    for i in range(len(feature_cols[0])):
-        row_features = [col[i] for col in feature_cols]
-        feature_arrays.append(row_features)
-    
-    # Chuyển thành numpy array
-    input_data = np.array(feature_arrays, dtype=np.float32)
-    
-    # Predict batch
-    predictions = onnx_session.run([output_name], {input_name: input_data})[0]
-    
-    # Trả về pandas series
-    return pd.Series(predictions.flatten())
+    feed = {}
+    for i, name in enumerate(input_names):
+        # Lấy Series tương ứng theo thứ tự: pm2_5, pm10, co, no2, so2, o3
+        series = [col for col in feature_cols][i]
+        # Reshape thành cột (N,1)
+        feed[name] = series.values.reshape(-1, 1).astype(np.float32)
+    preds = onnx_session.run(None, feed)[0].flatten()
+    return pd.Series(preds)
 
 # 5. PREDICT BẰNG ONNX MODEL
 print("Đang predict bằng ONNX model...")

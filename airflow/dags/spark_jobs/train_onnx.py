@@ -1,9 +1,9 @@
 from pyspark.sql import SparkSession
 from pyspark.ml.feature import VectorAssembler
-from pyspark.ml.regression import GBTRegressor
+from pyspark.ml.regression import GBTRegressor, RandomForestRegressor
 from pyspark.ml import Pipeline
 from pyspark.ml.evaluation import RegressionEvaluator
-from pyspark.sql.functions import col, lit, current_timestamp, round as spark_round
+from pyspark.sql.functions import col, lit, current_timestamp, round as spark_round, pandas_udf
 from pyspark.sql.types import DoubleType
 import time
 import numpy as np
@@ -37,15 +37,15 @@ if df.count() <= 20:
 # 3. HUẤN LUYỆN MODEL
 assembler = VectorAssembler(inputCols=features, outputCol="features")
 
-model = GBTRegressor(
+rf = RandomForestRegressor(
     featuresCol="features",
     labelCol="AQI",
-    maxIter=30,
-    maxDepth=5,
-    maxBins=32
+    numTrees=50,          # Số cây trong rừng, tương tự maxIter=30 của GBT
+    maxDepth=5,           # Độ sâu tối đa của mỗi cây
+    seed=42
 )
 
-pipeline = Pipeline(stages=[assembler, model])
+pipeline = Pipeline(stages=[assembler, rf])
 
 # Split
 train, test = df.randomSplit([0.8, 0.2], seed=42)
@@ -64,11 +64,16 @@ import onnxruntime as rt
 gbt_model = pipeline_model.stages[1]
 
 # Tạo initial types cho ONNX với tên feature columns
-initial_types = [("features", FloatTensorType([None, len(features)]))]
+initial_types = [('pm2_5', FloatTensorType([None, 1])),
+                 ('pm10', FloatTensorType([None, 1])),
+                 ('co', FloatTensorType([None, 1])),
+                 ('no2', FloatTensorType([None, 1])),
+                 ('so2', FloatTensorType([None, 1])),
+                 ('o3', FloatTensorType([None, 1]))]
 
 # Chuyển đổi GBT model (không phải pipeline) sang ONNX
 onnx_model = onnxmltools.convert_sparkml(
-    model=gbt_model,
+    model=pipeline_model,
     name="Air_Quality_GBT_Model",
     initial_types=initial_types,
     spark_session=spark
@@ -76,7 +81,7 @@ onnx_model = onnxmltools.convert_sparkml(
 print("ONNX conversion successful!")
 
 # Lưu ONNX model
-model_path = "/home/spark/spark/ML/air_quality_model.onnx"
+model_path = "/home/spark/spark/ML/air_quality_model_v2.onnx"
 onnxmltools.utils.save_model(onnx_model, model_path)
 print(f"ONNX Model saved at {model_path}")
 onnx_available = True
@@ -89,20 +94,30 @@ onnx_available = True
 #     pipeline_model.write().overwrite().save(spark_model_path)
 #     print(f"Spark ML model saved at {spark_model_path}")
 
-# 5. PREDICT BẰNG ONNX
-print("Predict bằng ONNX runtime...")
+sample_session = rt.InferenceSession(model_path)
+input_names = [inp.name for inp in sample_session.get_inputs()]
+print("Model input names:", input_names)
+
+# 4. TẠO PANDAS UDF ĐỂ PREDICT BATCH
 @pandas_udf(returnType=DoubleType())
-def predict_onnx_udf(pm2_5: pd.Series, pm10: pd.Series, co: pd.Series,
-                     no2: pd.Series, so2: pd.Series, o3: pd.Series) -> pd.Series:
-    # Mỗi executor sẽ tạo session riêng khi hàm được gọi
-    sess = rt.InferenceSession(model_path)
-    input_name = sess.get_inputs()[0].name
-    output_name = sess.get_outputs()[0].name
-    
-    # Gom các cột thành feature matrix
-    features = np.column_stack([pm2_5, pm10, co, no2, so2, o3]).astype(np.float32)
-    preds = sess.run([output_name], {input_name: features})[0]
-    return pd.Series(preds.flatten())
+def predict_onnx_udf(*feature_cols):
+    """
+    Pandas UDF để predict batch bằng ONNX model
+    feature_cols: các cột features (pm2_5, pm10, co, no2, so2, o3)
+    """
+    onnx_session = rt.InferenceSession(model_path)
+
+    input_names = [inp.name for inp in onnx_session.get_inputs()]
+
+    # Kết hợp các cột thành numpy array
+    feed = {}
+    for i, name in enumerate(input_names):
+        # Lấy Series tương ứng theo thứ tự: pm2_5, pm10, co, no2, so2, o3
+        series = [col for col in feature_cols][i]
+        # Reshape thành cột (N,1)
+        feed[name] = series.values.reshape(-1, 1).astype(np.float32)
+    preds = onnx_session.run(None, feed)[0].flatten()
+    return pd.Series(preds)
 
 # Áp dụng UDF
 test_with_pred = test.withColumn(
