@@ -1,8 +1,9 @@
 from pyspark.sql import SparkSession
 from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.regression import GBTRegressor, RandomForestRegressor
+from pyspark.ml.classification import RandomForestClassifier
 from pyspark.ml import Pipeline
-from pyspark.ml.evaluation import RegressionEvaluator
+from pyspark.ml.evaluation import MulticlassClassificationEvaluator, RegressionEvaluator
 from pyspark.sql.functions import col, lit, current_timestamp, round as spark_round, pandas_udf
 from pyspark.sql.types import DoubleType
 import time
@@ -37,11 +38,11 @@ if df.count() <= 20:
 # 3. HUẤN LUYỆN MODEL
 assembler = VectorAssembler(inputCols=features, outputCol="features")
 
-rf = RandomForestRegressor(
-    featuresCol="features",
-    labelCol="AQI",
-    numTrees=50,          # Số cây trong rừng, tương tự maxIter=30 của GBT
-    maxDepth=5,           # Độ sâu tối đa của mỗi cây
+rf = RandomForestClassifier(
+    featuresCol="features",   # Tên cột đặc trưng từ VectorAssembler
+    labelCol="AQI",  # Cột nhãn mới
+    numTrees=50,              # Số cây trong rừng
+    maxDepth=5,               # Độ sâu tối đa của mỗi cây
     seed=42
 )
 
@@ -126,14 +127,18 @@ test_with_pred = test.withColumn(
 )
 
 # 6. TÍNH TOÁN METRICS
-evaluator = RegressionEvaluator(
-    labelCol="AQI",
-    predictionCol="prediction",
-    metricName="rmse"
+evaluator = MulticlassClassificationEvaluator(
+    labelCol="AQI",   # cột nhãn thực tế (0,1,2,...)
+    predictionCol="prediction", # cột dự đoán từ mô hình
+    metricName="accuracy"       # có thể đổi thành "f1", "weightedPrecision", ...
 )
 
-rmse = evaluator.evaluate(test_with_pred)
-print(f"RMSE: {rmse}")
+accuracy = evaluator.evaluate(test_with_pred)
+print(f"Accuracy: {accuracy}")
+
+evaluator.setMetricName("f1")
+f1 = evaluator.evaluate(test_with_pred)
+print(f"Weighted F1 = {f1:.4f}")
 
 # 7. LƯU VÀO GOLD TABLE (features + y_true + y_pred)
 print("Lưu kết quả vào gold table...")
@@ -149,7 +154,8 @@ gold_table_data = test_with_pred.select(
     col("o3"),
     col("AQI").alias("y_true"),
     col("prediction").alias("y_pred"),
-    lit(rmse).alias("rmse"),
+    lit(accuracy).alias("accuracy"),
+    lit(f1).alias("f1"),
     current_timestamp().alias("prediction_timestamp"),
     lit("ONNX_GBT").alias("model_type")
 )
@@ -174,7 +180,7 @@ else:
 print("\n=== Sample predictions ===")
 test_with_pred.select("AQI", "prediction", "pm2_5", "pm10").show(10)
 
-print(f"\nFinal RMSE: {rmse:.4f} ")
+print(f"\nFinal Accuracy: {accuracy:.4f} ")
 
 # 10. CLEANUP
 spark.stop()

@@ -8,7 +8,7 @@ default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
     'email_on_failure': False,
-    'retries': 1,
+    'retries': 3,
     'retry_delay': timedelta(minutes=2),
 }
 
@@ -16,8 +16,8 @@ default_args = {
 with DAG(
     dag_id='kaggle_daily_batch_pipeline',
     default_args=default_args,
-    description='Test full pipeline: Ingestion → Spark ELT → Iceberg → Trino',
-    schedule_interval='0 3 * * *',         
+    description='Full pipeline: Ingestion → Spark ELT → Iceberg → Trino',
+    schedule_interval='@daily',         
     start_date=datetime(2026, 3, 30),
     catchup=False,
 ) as dag:
@@ -98,19 +98,18 @@ with DAG(
         python_callable=download_kaggle_data,
     )
 
-    # TASK 3: SPARK BATCH ELT (Bronze → Silver)
+    # TASK 3: SPARK BATCH ELT (Bronze -> Silver)
     spark_etl_task = BashOperator(
         task_id='spark_etl_bronze_to_silver',
         bash_command="""
             docker exec spark-master spark-submit \
                 --master spark://spark-master:7077 \
                 --packages org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.1 \
-                /home/spark/spark/spark_jobs/dag1_elt.py {{ ds }}
+                /home/spark/spark/spark_jobs/batch_elt_to_silver.py 
         """,
     )
 
     # TASK 4: KIỂM TRA BẰNG TRINO 
-    # Lưu ý: docker exec trino ... để chạy lệnh từ container trino
     check_trino_task = BashOperator(
         task_id='check_data_in_trino',
         bash_command="""

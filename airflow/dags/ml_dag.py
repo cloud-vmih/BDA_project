@@ -22,12 +22,13 @@ with DAG(
     schedule_interval="@hourly",
     catchup=False
 ) as dag:
-    # Task 1. Check data (Silver ready chưa)
+    
+    # Task 1. Check data ở gold
     wait_for_data = BashSensor(
-        task_id="wait_for_silver_data",
+        task_id="wait_for_gold_data",
         bash_command="""
         count=$(docker exec trino trino --execute "
-            SELECT COUNT(*) FROM iceberg.air_quality_db.air_quality_silver;
+            SELECT COUNT(*) FROM iceberg.air_quality_ml.air_quality_features;
         " | tail -n 1 | tr -d '"[:space:]')
 
         echo "Record count: $count"
@@ -49,7 +50,7 @@ with DAG(
             docker exec spark-master spark-submit \
                 --master spark://spark-master:7077 \
                 --packages org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.1 \
-                /home/spark/spark/spark_jobs/train_onnx.py {{ ds }}
+                /home/spark/spark/spark_jobs/train_onnx.py 
         """,
     )
 
@@ -60,7 +61,7 @@ with DAG(
             docker exec spark-master spark-submit \
                 --master spark://spark-master:7077 \
                 --packages org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.1 \
-                /home/spark/spark/spark_jobs/predict_onnx.py {{ ds }}
+                /home/spark/spark/spark_jobs/predict_onnx.py
         """,
     )
 
@@ -71,7 +72,7 @@ with DAG(
             docker exec spark-master spark-submit \
                 --master spark://spark-master:7077 \
                 --packages org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.1 \
-                /home/spark/spark/spark_jobs/anomaly_detection.py {{ ds }}
+                /home/spark/spark/spark_jobs/anomaly_detection.py
         """,
     )
 

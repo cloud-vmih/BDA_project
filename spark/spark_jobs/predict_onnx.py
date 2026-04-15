@@ -1,6 +1,7 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, expr, lit, current_timestamp, pandas_udf
 from pyspark.sql.types import DoubleType
+from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 import numpy as np
 import pandas as pd
 import onnxruntime as rt
@@ -23,13 +24,16 @@ print(f"Đọc dữ liệu từ iceberg.air_quality_ml.air_quality_features")
 df = spark.read \
     .format("iceberg") \
     .load("iceberg.air_quality_ml.air_quality_features") \
-    .filter(col("ingestion_time") > current_timestamp() - expr("INTERVAL 1 DAY")) \
-    .limit(1000)  # Giới hạn số lượng records để predict (có thể điều chỉnh hoặc bỏ limit)
+    .filter(col("ingestion_time") > current_timestamp() - expr("INTERVAL 1 DAY")) 
 
 print(f"Số lượng records cần predict: {df.count()}")
+if df.count() == 0:
+    print("Không có dữ liệu mới để predict. Kết thúc.")
+    spark.stop()
+    exit(0)
 
 # 3. LOAD ONNX MODEL
-model_path = "/home/spark/spark/ML/air_quality_model.onnx"
+model_path = "/home/spark/spark/ML/air_quality_model_v2.onnx"
 feature_columns = ["pm2_5", "pm10", "co", "no2", "so2", "o3"]
 
 # Kiểm tra model tồn tại
@@ -70,24 +74,29 @@ df_with_pred = df.withColumn(
     predict_onnx_udf(*feature_columns)
 )
 
+evaluator = MulticlassClassificationEvaluator(
+    labelCol="AQI",   # cột nhãn thực tế (0,1,2,...)
+    predictionCol="y_pred", # cột dự đoán từ mô hình
+    metricName="accuracy"      
+)
+
+accuracy = evaluator.evaluate(df_with_pred)
+print(f"Accuracy: {accuracy}")
+
+evaluator.setMetricName("f1")
+f1 = evaluator.evaluate(df_with_pred)
+print(f"Weighted F1 = {f1:.4f}")
+
+
 # Thêm các cột metadata
 df_with_pred = df_with_pred.withColumn("y_true", col("AQI"))
 df_with_pred = df_with_pred.withColumn("prediction_timestamp", current_timestamp())
 df_with_pred = df_with_pred.withColumn("model_type", lit("ONNX_GBT"))
+df_with_pred = df_with_pred.withColumn("accuracy", lit(accuracy))
+df_with_pred = df_with_pred.withColumn("f1", lit(f1))
 
 
 print("Predict completed!")
-
-# 6. TÍNH TOÁN METRICS
-from pyspark.sql.functions import sqrt, avg, pow, col as spark_col
-
-# Tính RMSE
-rmse = df_with_pred.select(
-    sqrt(avg(pow(spark_col("y_true") - spark_col("y_pred"), 2))).alias("rmse")
-).collect()[0]["rmse"]
-
-print(f"RMSE: {rmse:.4f}")
-
 # 7. LƯU VÀO GOLD TABLE
 # Chuẩn bị gold table (chỉ lấy các cột cần thiết)
 gold_table_data = df_with_pred.select(
@@ -100,9 +109,10 @@ gold_table_data = df_with_pred.select(
     col("o3"),
     col("y_true"),
     col("y_pred"),
+    lit(accuracy).alias("accuracy"),
+    lit(f1).alias("f1"),
     col("prediction_timestamp"),
-    col("model_type"),
-    lit(rmse).alias("rmse")  # Thêm RMSE vào mỗi row
+    col("model_type")
 )
 
 # Tên bảng gold
@@ -130,17 +140,8 @@ df_with_pred.select("pm2_5", "pm10", "y_true", "y_pred").show(10)
 
 print(f"\n=== Prediction Summary ===")
 print(f"Total predictions: {df_with_pred.count()}")
-print(f"RMSE: {rmse:.4f}")
 print(f"Model: ONNX_GBT")
 print(f"Features used: {', '.join(feature_columns)}")
-
-# 9. THỐNG KÊ NHANH
-print("\n=== Prediction Statistics ===")
-df_with_pred.select(
-    avg("y_true").alias("avg_true"),
-    avg("y_pred").alias("avg_pred"),
-    (avg("y_true") - avg("y_pred")).alias("avg_bias")
-).show()
 
 # 11. CLEANUP
 spark.stop()

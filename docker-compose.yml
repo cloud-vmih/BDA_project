@@ -182,7 +182,7 @@ services:
       - master
     volumes:
       - ./spark/spark-defaults.conf:/home/spark/spark/conf/spark-defaults.conf
-      - ./airflow/dags/spark_jobs:/home/spark/spark/spark_jobs
+      - ./spark/spark_jobs:/home/spark/spark/spark_jobs
       - ./spark/ML:/home/spark/spark/ML
 
   spark-worker:
@@ -201,6 +201,7 @@ services:
       - SPARK_MASTER_URL=spark://spark-master:7077
     volumes:
       - ./spark/spark-defaults.conf:/home/spark/spark/conf/spark-defaults.conf
+      - ./spark/ML:/home/spark/spark/ML
 
   prediction-api:
     build:
@@ -209,7 +210,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - MODEL_PATH=/home/spark/spark/ML/air_quality_model.onnx
+      - MODEL_PATH=/home/spark/spark/ML/air_quality_model_v2.onnx
     networks:
       hadoop_net:
         ipv4_address: 172.20.0.21
@@ -224,6 +225,7 @@ networks:
     ipam:
       config:
         - subnet: 172.20.0.0/16
+
 volumes:
   hadoop_master_data:
   hadoop_slave1_data:

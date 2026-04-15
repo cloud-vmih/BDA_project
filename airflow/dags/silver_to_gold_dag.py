@@ -6,8 +6,8 @@ default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
     'email_navigation': False,
-    'retries': 1,
-    'retry_delay': timedelta(minutes=5),
+    'retries': 3,
+    'retry_delay': timedelta(minutes=3),
 }
 
 with DAG(
@@ -17,41 +17,52 @@ with DAG(
     schedule_interval='@daily',
     start_date=datetime(2026, 4, 10),
     catchup=False,
-    max_active_runs=1, # Chạy 1 lần một để tránh xung đột dữ liệu
+    max_active_runs=1, 
     tags=['air_quality', 'elt', 'ml', 'dwh']
 ) as dag:
 
     # Task 1: Xử lý Warehouse (Tạo các bảng Dim/Fact ở Gold)
-    etl_warehouse = BashOperator(
+    elt_warehouse = BashOperator(
         task_id='pyspark_elt_warehouse_gold',
         bash_command="""
             docker exec spark-master spark-submit \
                 --master spark://spark-master:7077 \
                 --packages org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.1 \
-                /home/spark/spark/spark_jobs/dag2_elt.py {{ ds }}
+                /home/spark/spark/spark_jobs/elt_warehouse.py 
         """,
     )
 
-    # Task 2: Chuẩn bị dữ liệu cho ML và thực hiện Predict
-    # Bước này sẽ kiểm tra Model, nếu có thì Predict và lưu vào Gold
+    # Task 2: Chuẩn bị dữ liệu cho ML 
     elt_ml = BashOperator(
         task_id='pyspark_elt_ml_gold',
         bash_command="""
             docker exec spark-master spark-submit \
                 --master spark://spark-master:7077 \
                 --packages org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.1 \
-                /home/spark/spark/spark_jobs/elt_ml.py {{ ds }}
+                /home/spark/spark/spark_jobs/elt_ml.py 
         """,
     )
 
+    # Task 3: Chạy Job Predict ML trên Gold
     predict_ml = BashOperator(
         task_id='pyspark_predict_ml_gold',  
         bash_command="""
             docker exec spark-master spark-submit \
                 --master spark://spark-master:7077 \
                 --packages org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.1 \
-                /home/spark/spark/spark_jobs/dag1_predict.py {{ ds }}
+                /home/spark/spark/spark_jobs/predict_onnx.py {{ ds }}
+        """,
+    )
+
+    # Task 4: Anomaly Detection
+    anomaly = BashOperator(
+        task_id="detect_anomaly",
+        bash_command="""
+            docker exec spark-master spark-submit \
+                --master spark://spark-master:7077 \
+                --packages org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.1 \
+                /home/spark/spark/spark_jobs/anomaly_detection.py {{ ds }}
         """,
     )
     
-    etl_warehouse >> elt_ml 
+    elt_warehouse >> elt_ml >> predict_ml >> anomaly

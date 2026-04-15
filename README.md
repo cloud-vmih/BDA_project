@@ -45,6 +45,8 @@ Một dự án Docker Compose để khởi tạo môi trường Big Data tích h
 - `spark-master`
   - 8081: Spark Master UI
   - 7077: Spark Master port
+- `fast API`
+  - 8000: API cho prediction
 
 ## Cài đặt và chạy
 

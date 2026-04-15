@@ -1,3 +1,5 @@
+from itertools import chain
+
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
 from pyspark.sql.types import StructType, StructField, DoubleType, IntegerType, StringType, TimestampType
@@ -102,6 +104,26 @@ parsed_df = df_stream \
     .withColumn("timestamp", to_timestamp(col("timestamp"))) \
     .withColumn("data_source", lit("open-meteo"))
 
+
+# Mapping cho condition_text 
+mapping = {
+    0: "Clear sky",
+    1: "Mainly clear", 2: "Partly cloudy", 3: "Overcast",
+    45: "Fog", 48: "Fog",
+    51: "Drizzle", 53: "Drizzle", 55: "Drizzle",
+    56: "Freezing Drizzle", 57: "Freezing Drizzle",
+    61: "Rain", 63: "Rain", 65: "Rain",
+    66: "Freezing Rain", 67: "Freezing Rain",
+    71: "Snow fall", 73: "Snow fall", 75: "Snow fall",
+    77: "Snow grains",
+    80: "Rain showers", 81: "Rain showers", 82: "Rain showers",
+    85: "Snow showers", 86: "Snow showers",
+    95: "Thunderstorm",
+    96: "Thunderstorm with hail", 99: "Thunderstorm with hail"
+}
+
+mapping_expr = create_map([lit(x) for x in chain(*mapping.items())])
+
 def write_to_bronze_and_silver(batch_df, batch_id):
     if batch_df.count() > 0:
         batch_df.cache()
@@ -145,7 +167,7 @@ def write_to_bronze_and_silver(batch_df, batch_id):
             window(col("timestamp"), "15 minutes").start
         ) \
             .withColumn("country", lit("Vietnam")) \
-            .withColumn("condition_text", lit("unknown"))
+            .withColumn("condition_text", mapping_expr.getItem(col("weather_code")))
 
         # Tạo view tạm cho Batch hiện tại
         silver_df.createOrReplaceTempView("current_batch")

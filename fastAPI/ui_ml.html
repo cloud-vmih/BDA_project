@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality Prediction</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="max-w-lg mx-auto pt-12 px-4">
+        
+        <!-- Header -->
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-bold tracking-tight">Air Quality Prediction</h1>
+            <p class="text-slate-400 mt-2">Dự đoán chỉ số chất lượng không khí (AQI)</p>
+        </div>
+
+        <!-- Main Card -->
+        <div class="card bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl">
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">PM2.5 (µg/m³)</label>
+                    <input id="pm2_5" type="number" step="0.01" min="0"
+                           class="input-field" placeholder="Ví dụ: 35.4">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">PM10 (µg/m³)</label>
+                    <input id="pm10" type="number" step="0.01" min="0"
+                           class="input-field" placeholder="Ví dụ: 50.2">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">CO (µg/m³)</label>
+                    <input id="co" type="number" step="0.01" min="0"
+                           class="input-field" placeholder="Ví dụ: 0.8">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">NO₂ (µg/m³)</label>
+                    <input id="no2" type="number" step="0.01" min="0"
+                           class="input-field" placeholder="Ví dụ: 25.2">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">SO₂ (µg/m³)</label>
+                    <input id="so2" type="number" step="0.01" min="0"
+                           class="input-field" placeholder="Ví dụ: 10.2">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">O₃ (µg/m³)</label>
+                    <input id="o3" type="number" step="0.01" min="0"
+                           class="input-field" placeholder="Ví dụ: 45.2">
+                </div>
+            </div>
+
+            <button onclick="predict()" 
+                    id="predictBtn"
+                    class="predict-btn">
+                Dự đoán chỉ số AQI
+            </button>
+
+            <!-- Kết quả -->
+            <div id="result" class="mt-8 min-h-[100px] text-center"></div>
+        </div>
+
+        <p class="text-center text-slate-500 text-sm mt-8">
+            Dữ liệu được dự đoán bởi mô hình Machine Learning của Nhóm 10
+        </p>
+    </div>
+
+    <!-- Container cho hiệu ứng bong bóng -->
+    <div id="bubble-container" class="fixed inset-0 pointer-events-none z-50"></div>
+
+    <script>
+    // ========== Hiệu ứng Bong Bóng ==========
+    function createBubbles(count = 30) {
+        const container = document.getElementById('bubble-container');
+        container.innerHTML = '';
+
+        for (let i = 0; i < count; i++) {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            
+            const size = Math.random() * 14 + 8;
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            bubble.style.left = `${Math.random() * 100}vw`;
+            bubble.style.animationDuration = `${Math.random() * 3.5 + 2.8}s`;
+            bubble.style.animationDelay = `${Math.random() * 0.6}s`;
+            bubble.style.opacity = Math.random() * 0.7 + 0.35;
+
+            container.appendChild(bubble);
+
+            setTimeout(() => bubble.remove(), 7000);
+        }
+    }
+
+    // ========== Hàm Dự Đoán ==========
+    async function predict() {
+        const resultDiv = document.getElementById("result");
+        const btn = document.getElementById("predictBtn");
+
+        btn.disabled = true;
+        btn.textContent = "Đang dự đoán...";
+
+        resultDiv.innerHTML = `<span class="text-slate-400">Đang xử lý...</span>`;
+
+        // Lấy tất cả input
+        const inputs = {
+            pm2_5: document.getElementById("pm2_5"),
+            pm10: document.getElementById("pm10"),
+            co: document.getElementById("co"),
+            no2: document.getElementById("no2"),
+            so2: document.getElementById("so2"),
+            o3: document.getElementById("o3")
+        };
+
+        // Kiểm tra lỗi nhập liệu
+        let hasError = false;
+        let errorMsg = "";
+
+        for (let key in inputs) {
+            const value = inputs[key].value.trim();
+
+            if (value === "") {
+                errorMsg = "Vui lòng nhập đầy đủ tất cả các trường dữ liệu!";
+                hasError = true;
+                break;
+            }
+
+            const num = parseFloat(value);
+            if (isNaN(num) || num < 0) {
+                errorMsg = "Giá trị không được âm và phải là số hợp lệ!";
+                hasError = true;
+                break;
+            }
+        }
+
+        if (hasError) {
+            resultDiv.innerHTML = `<span class="text-red-400"> ${errorMsg}</span>`;
+            btn.disabled = false;
+            btn.textContent = "Dự đoán chỉ số AQI";
+            return;
+        }
+
+        // Chuẩn bị dữ liệu gửi lên server
+        const data = {
+            pm2_5: parseFloat(inputs.pm2_5.value),
+            pm10: parseFloat(inputs.pm10.value),
+            co: parseFloat(inputs.co.value),
+            no2: parseFloat(inputs.no2.value),
+            so2: parseFloat(inputs.so2.value),
+            o3: parseFloat(inputs.o3.value)
+        };
+
+        console.log("Input features:", data);
+
+        try {
+            const res = await fetch("http://localhost:8000/predict", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+
+            if (!res.ok) throw new Error("Lỗi kết nối đến server");
+
+            const result = await res.json();
+            const aqi = parseFloat(result.prediction);
+
+            console.log("Full response:", result);
+            console.log("AQI value:", aqi);
+
+            if (isNaN(aqi)) throw new Error("Dữ liệu trả về không hợp lệ");
+
+            // Phân loại AQI
+            let colorClass = "text-white";
+            let quality = "";
+
+            if (aqi == 1) {
+                colorClass = "result-good";
+                quality = "TỐT";
+            } else if (aqi == 2) {
+                colorClass = "result-moderate";
+                quality = "TRUNG BÌNH";
+            } else if (aqi == 3) {
+                colorClass = "result-unhealthyforSG";
+                quality = "KÉM";
+            } else if (aqi == 4) {
+                colorClass = "result-unhealthy";
+                quality = "XẤU";
+            } else if (aqi == 5) {
+                colorClass = "result-very-unhealthy";
+                quality = "RẤT XẤU";
+            } else {
+                colorClass = "result-hazardous";
+                quality = "NGỤY HẠI";
+            }
+
+            // Hiển thị kết quả đẹp
+            resultDiv.innerHTML = `
+                <div class="text-5xl font-bold ${colorClass}">${aqi}</div>
+                <div class="text-xl mt-1 ${colorClass}">${quality}</div>
+            `;
+
+            // Kích hoạt hiệu ứng bong bóng
+            createBubbles(32);
+
+        } catch (err) {
+            resultDiv.innerHTML = `
+                <span class="text-red-400"> Lỗi: ${err.message}</span>
+            `;
+        } finally {
+            // Khôi phục nút
+            btn.disabled = false;
+            btn.textContent = "Dự đoán chỉ số AQI";
+        }
+    }
+
+    // Nhấn Enter để dự đoán
+    document.addEventListener("keypress", function(e) {
+        if (e.key === "Enter") predict();
+    });
+    </script>
+
+</body>
+</html>

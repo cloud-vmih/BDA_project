@@ -4,7 +4,7 @@ from airflow.operators.bash import BashOperator
 from datetime import datetime, timedelta
 import subprocess
 
-from weather_kafka_producer import call_openmeteo
+from airquality_kafka_producer import call_openmeteo
 
 default_args = {
     'owner': 'airflow',
@@ -14,11 +14,11 @@ default_args = {
 
 def check_if_spark_running():
     """
-    Hàm này trả về True nếu KHÔNG tìm thấy job -> Cho phép chạy tiếp Task Bash
+    Hàm này trả về True nếu không tìm thấy job -> Cho phép chạy tiếp Task Bash
     Trả về False nếu job đang chạy -> Ngắt các task phía sau
     """
     check_cmd = "docker exec spark-master ps -ef"
-    keyword = "weather_streaming.py"
+    keyword = "spark_streaming_elt.py"
     try:
         output = subprocess.check_output(check_cmd, shell=True).decode('utf-8')
         # Kiểm tra xem có tiến trình nào chứa keyword không
@@ -32,17 +32,17 @@ def check_if_spark_running():
         return True
 
 with DAG(
-    dag_id='weather_real_time_pipeline_v2',
+    dag_id='air_quality_streaming_pipeline',
     default_args=default_args,
     schedule_interval='*/2 * * * *',
     start_date=datetime(2026, 4, 10),
     catchup=False,
-    tags=['weather', 'kafka', 'bash_operator']
+    tags=['airquality', 'kafka', 'bash_operator']
 ) as dag:
 
     # Task 1: Producer
     task_call_api = PythonOperator(
-        task_id='call_weather_api_and_send_kafka',
+        task_id='call_api_and_send_kafka',
         python_callable=call_openmeteo,
     )
 
@@ -53,14 +53,13 @@ with DAG(
     )
 
     # Task 3: Start Spark bằng BashOperator
-    # Mình dùng -d để Docker chạy ngầm, nhưng Airflow vẫn log được kết quả lệnh start
     task_start_spark = BashOperator(
         task_id='start_spark_streaming_job',
         bash_command="""
             docker exec spark-master spark-submit \
                 --master spark://spark-master:7077 \
                 --packages org.apache.spark:spark-sql-kafka-0-10_2.13:4.0.0,org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.1 \
-                /home/spark/spark/spark_jobs/weather_streaming.py
+                /home/spark/spark/spark_jobs/spark_streaming_elt.py
         """.strip(),
     )
     

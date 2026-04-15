@@ -1,6 +1,8 @@
 #!/bin/bash
-echo "=== Script Khởi động Cluster An Toàn ==="
+echo "Restart service zookeeper và Kafka..."
+docker compose restart zookeeper kafka
 
+echo "Khởi động Cluster"
 # 1. Khởi động HDFS và YARN
 echo "1. Khởi động HDFS (NameNode trên Master, DataNode trên Slave)..."
 # 1. Khởi động HDFS và YARN
@@ -16,11 +18,16 @@ echo "Đang chờ HDFS sẵn sàng..."
 sleep 15
 docker exec 23133083thuyvan-master hdfs dfsadmin -report | head -n 10
 
+echo "Tạo thư mục DFS cho convert từ SparkML sang ONNX..."
+docker exec 23133083thuyvan-master /home/hadoop23133083thuyvan/hadoop/bin/hadoop fs -mkdir -p /tmp/onnx
+docker exec 23133083thuyvan-master /home/hadoop23133083thuyvan/hadoop/bin/hadoop fs -chmod -R 777 /tmp
 
+echo "Tạo thư mục lakehouse..."
 # Tạo thư mục lakehouse trong HDFS
 docker exec 23133083thuyvan-master /home/hadoop23133083thuyvan/hadoop/bin/hadoop fs -mkdir -p /user/hive/lakehouse
 docker exec 23133083thuyvan-master /home/hadoop23133083thuyvan/hadoop/bin/hadoop fs -chmod -R 777 /user
 
+echo "Cấp quyền rwx cho mọi user hiện tại và tương lai trên thư mục lakehouse..."
 # Cấp quyền rwx cho mọi user hiện tại và tương lai trên thư mục lakehouse
 docker exec 23133083thuyvan-master hdfs dfs -setfacl -m default:user::rwx,default:group::rwx,default:other::rwx /user/hive/lakehouse
 # Kiểm tra lại xem đã có các dòng "default" chưa

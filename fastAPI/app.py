@@ -4,14 +4,16 @@ import onnxruntime as rt
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 from typing import List
+from fastapi.middleware.cors import CORSMiddleware
+
 
 # ------------------------------
 # 1. Load ONNX model (chỉ một lần khi khởi động)
 # ------------------------------
-MODEL_PATH = os.getenv("MODEL_PATH", "/home/spark/spark/ML/air_quality_model.onnx")
+MODEL_PATH = os.getenv("MODEL_PATH", "/home/spark/spark/ML/air_quality_model_v2.onnx")
 
 if not os.path.exists(MODEL_PATH):
-    raise FileNotFoundError(f"ONNX model not found at {MODEL_PATH}")
+    raise FileNotFoundError(f"ONNX model not found at {MODEL_PATH}")    
 
 session = rt.InferenceSession(MODEL_PATH)
 input_name = session.get_inputs()[0].name
@@ -48,6 +50,15 @@ app = FastAPI(
     version="1.0"
 )
 
+# CORS Middleware: Cho phép frontend gọi API
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],    # cho phép tất cả các nguồn
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.get("/health")
 def health():
     return {"status": "ok", "model_loaded": True}
@@ -55,43 +66,19 @@ def health():
 @app.post("/predict", response_model=PredictionResponse)
 def predict(features: Features):
     try:
-        # Chuyển đổi input thành numpy array (shape: 1 x 6)
-        input_data = np.array([[
-            features.pm2_5,
-            features.pm10,
-            features.co,
-            features.no2,
-            features.so2,
-            features.o3
-        ]], dtype=np.float32)
-        
-        # Run inference
-        pred = session.run([output_name], {input_name: input_data})[0][0][0]
-        return PredictionResponse(prediction=float(pred), status="success")
+        feed = {
+            "pm2_5": np.array([[features.pm2_5]], dtype=np.float32),
+            "pm10": np.array([[features.pm10]], dtype=np.float32),
+            "co": np.array([[features.co]], dtype=np.float32),
+            "no2": np.array([[features.no2]], dtype=np.float32),
+            "so2": np.array([[features.so2]], dtype=np.float32),
+            "o3": np.array([[features.o3]], dtype=np.float32),
+        }
+
+        outputs = session.run(None, feed)
+
+        prediction = int(outputs[0][0])
+
+        return PredictionResponse(prediction=prediction,status="success")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-@app.post("/predict_batch", response_model=BatchPredictionResponse)
-def predict_batch(features_list: List[Features]):
-    try:
-        # Chuyển đổi batch input thành numpy array (n x 6)
-        input_data = np.array([
-            [f.pm2_5, f.pm10, f.co, f.no2, f.so2, f.o3] for f in features_list
-        ], dtype=np.float32)
-        
-        # Run inference
-        predictions = session.run([output_name], {input_name: input_data})[0].flatten()
-        return BatchPredictionResponse(predictions=predictions.tolist(), status="success")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# Optional: endpoint để dự đoán từ JSON raw (tương tự /predict)
-@app.post("/predict_raw")
-def predict_raw(data: dict):
-    try:
-        required = ["pm2_5", "pm10", "co", "no2", "so2", "o3"]
-        input_data = np.array([[data[k] for k in required]], dtype=np.float32)
-        pred = session.run([output_name], {input_name: input_data})[0][0][0]
-        return {"prediction": float(pred)}
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
