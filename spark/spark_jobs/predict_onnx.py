@@ -91,7 +91,7 @@ print(f"Weighted F1 = {f1:.4f}")
 # Thêm các cột metadata
 df_with_pred = df_with_pred.withColumn("y_true", col("AQI"))
 df_with_pred = df_with_pred.withColumn("prediction_timestamp", current_timestamp())
-df_with_pred = df_with_pred.withColumn("model_type", lit("ONNX_GBT"))
+df_with_pred = df_with_pred.withColumn("model_type", lit("ONNX_RF"))
 df_with_pred = df_with_pred.withColumn("accuracy", lit(accuracy))
 df_with_pred = df_with_pred.withColumn("f1", lit(f1))
 

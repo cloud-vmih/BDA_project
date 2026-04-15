@@ -157,7 +157,7 @@ gold_table_data = test_with_pred.select(
     lit(accuracy).alias("accuracy"),
     lit(f1).alias("f1"),
     current_timestamp().alias("prediction_timestamp"),
-    lit("ONNX_GBT").alias("model_type")
+    lit("ONNX_RF").alias("model_type")
 )
 
 # Lưu vào gold table
