@@ -17,9 +17,9 @@ default_args = {
 with DAG(
     dag_id="predict_aqi",
     default_args=default_args,
-    description='full pipeline: Check → Silver → Gold → ML → Prediction → Anomaly → Save DB',
+    description='full pipeline: Check Gold → ML → Prediction → Anomaly',
     start_date=datetime(2026, 4, 1),
-    schedule_interval="@hourly",
+    schedule_interval="@daily",
     catchup=False
 ) as dag:
     

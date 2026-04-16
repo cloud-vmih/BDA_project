@@ -15,7 +15,6 @@ echo "Đang chờ Database (Postgres) sẵn sàng..."
 until pg_isready -h postgres -p 5432; do
   sleep 2
 done
-
 # Khởi tạo database (Sử dụng db migrate thay cho db init nếu bản mới)
 echo "Khởi tạo/Cập nhật Airflow DB..."
 ${AIRFLOW_HOME}/venv/bin/airflow db migrate

@@ -82,7 +82,7 @@ onnx_model = onnxmltools.convert_sparkml(
 print("ONNX conversion successful!")
 
 # Lưu ONNX model
-model_path = "/home/spark/spark/ML/air_quality_model_v2.onnx"
+model_path = "/home/spark/spark/ML/air_quality_model.onnx"
 onnxmltools.utils.save_model(onnx_model, model_path)
 print(f"ONNX Model saved at {model_path}")
 onnx_available = True

@@ -19,8 +19,13 @@ Một dự án Docker Compose để khởi tạo môi trường Big Data tích h
 - `spark/spark-defaults.conf` - cấu hình Spark và Iceberg
 - `airflow/Dockerfile` - cài Airflow và cài Python packages từ `airflow/requirements.txt`
 - `airflow/dags/` - chứa DAG Airflow và Spark job
-- `trino/Dockerfile` - image Trino và cấu hình Iceberg catalog
+- `trino/` - image Trino và cấu hình Iceberg catalog
 - `master_config/`, `slave1_config/` - cấu hình Hadoop/Hive/YARN
+- `kafka/` - image Kafka và cấu hình Kafka
+- `superset/` - image Superset và cấu hình entrypoint của Superset
+- `fastAPI/` - API cho predictions và UI 
+- `init_all_services.sh` - Khởi tạo các dịch vụ như hadoop, hive metastore, ...
+- `start_all_services.sh` - Chạy dfs và yarn, tạo và cấp quyền thư mục nếu chưa có,...
 
 ## Dịch vụ và port
 
@@ -45,7 +50,7 @@ Một dự án Docker Compose để khởi tạo môi trường Big Data tích h
 - `spark-master`
   - 8081: Spark Master UI
   - 7077: Spark Master port
-- `fast API`
+- `fastAPI`
   - 8000: API cho prediction
 
 ## Cài đặt và chạy

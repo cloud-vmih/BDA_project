@@ -33,7 +33,7 @@ if df.count() == 0:
     exit(0)
 
 # 3. LOAD ONNX MODEL
-model_path = "/home/spark/spark/ML/air_quality_model_v2.onnx"
+model_path = "/home/spark/spark/ML/air_quality_model.onnx"
 feature_columns = ["pm2_5", "pm10", "co", "no2", "so2", "o3"]
 
 # Kiểm tra model tồn tại
